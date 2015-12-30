@@ -1,0 +1,30 @@
+{
+  "name": "bulbo",
+  "version": "0.1.0",
+  "description": "Stream oriented static site generator, based on gulp ecosystem",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "_mocha spec",
+    "lint": "souffle"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kt3k/bulbo.git"
+  },
+  "keywords": [
+    "static-site-generator"
+  ],
+  "author": "Yoshiya Hinosawa <stibium121@gmail.com> (https://twitter.com/kt3k)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kt3k/bulbo/issues"
+  },
+  "homepage": "https://github.com/kt3k/bulbo#readme",
+  "dependencies": {
+    "subclassjs": "^1.3.0",
+    "vinyl-fs": "^2.2.1"
+  },
+  "devDependencies": {
+    "souffle-cli": "^2.0.2"
+  }
+}
