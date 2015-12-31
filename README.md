@@ -8,23 +8,39 @@
 npm install bulbo
 ```
 
-# `bulbofile.js`
+# Usage
 
-```
+First you need to set up `bulbofile.js`. The example settings are like the following.
+
+```js
 import * from 'bulbo'
 
-asset('m/**/*.js', {read: false})(src => src
+asset('source/**/*.js', {read: false})(src => src
   .pipe($.tap(function (file) {
     file.contents = browserify(file.path).bundle()
   })))
 
-asset('m/**/*.css')
+asset('source/**/*.css')
 
-asset('m/**/*.ejs')(src => src.pipe(frontmatter()))
+asset('source/**/*.ejs')(src => src.pipe(frontmatter()))
 
-asset(['m/**/*', '!m/**/*.{js,css,ejs}'])
+asset(['source/**/*', '!source/**/*.{js,css,ejs}'])
 
-dest('/p')
+dest('/build')
 ```
 
+And then the following command starts the server.
 
+```
+bulbo serve
+```
+
+And the following build all assets under `build/` directory.
+
+```
+bulbo build
+```
+
+# License
+
+MIT
