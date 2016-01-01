@@ -85,11 +85,8 @@ var cli = new Liftoff({
         console.log('bulbo build')
 
         bulbo.build()
-        process.exit(0)
 
-    }
-
-    if (/^s/.test(command)) { // serve
+    } else if (/^s/.test(command)) { // serve
 
         console.log('bulbo serve')
 
