@@ -5,6 +5,8 @@ var browserify = require('browserify')
 var asset = bulbo.asset
 var dest = bulbo.dest
 
+asset('test/fixture/**/*.css')
+
 asset('test/fixture/**/*.js')(function (src) {
 
     return src.pipe(through(function (file) {
