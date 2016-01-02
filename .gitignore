@@ -4,3 +4,7 @@ npm-debug.log
 
 # bulbo build
 build
+
+# nyc, coverage
+/.nyc_output
+/coverage

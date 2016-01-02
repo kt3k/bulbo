@@ -7,6 +7,8 @@
     "test": "_mocha spec",
     "test-s": "cd spec && ../bin/bulbo.js serve",
     "test-b": "cd spec && ../bin/bulbo.js build",
+    "cov": "nyc --reporter=lcov _mocha spec",
+    "cov-open": "npm run cov && open coverage/lcov-report/index.html",
     "lint": "souffle"
   },
   "bin": {
@@ -40,5 +42,10 @@
     "nyc": "^5.1.1",
     "souffle-cli": "^2.0.2",
     "through": "^2.3.8"
+  },
+  "config": {
+    "nyc": {
+      "exclude": ["spec"]
+    }
   }
 }
