@@ -1,4 +1,4 @@
-# bulbo v0.1.1 (WIP)
+# bulbo v0.1.2 (WIP)
 
 > Stream oriented static site generator, based on gulp ecosystem
 

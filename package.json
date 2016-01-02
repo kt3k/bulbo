@@ -1,6 +1,6 @@
 {
   "name": "bulbo",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Stream oriented static site generator, based on gulp ecosystem",
   "main": "lib/index.js",
   "scripts": {
