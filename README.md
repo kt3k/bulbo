@@ -13,10 +13,11 @@ npm install bulbo
 First you need to set up `bulbofile.js`. The example settings are like the following.
 
 ```js
-import * from 'bulbo'
+import {asset} from 'bulbo'
 
 import through from 'through'
 import browserify from 'browserify'
+import frontmatter from 'gulp-frontmatter'
 
 asset('source/**/*.js', {read: false})(src =>
   src.pipe(through(function (file) {
@@ -29,8 +30,6 @@ asset('source/**/*.css')
 asset('source/**/*.ejs')(src => src.pipe(frontmatter()))
 
 asset(['source/**/*', '!source/**/*.{js,css,ejs}'])
-
-dest('/build')
 ```
 
 And then the following command starts the server.
