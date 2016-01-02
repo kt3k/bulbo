@@ -6,6 +6,8 @@ var Liftoff = require('liftoff')
 var argv = require('minimist')(process.argv.slice(2))
 var pkg = require('../package')
 
+var command
+
 var version = function () {
 
     console.log(pkg.name + '@' + pkg.version)
@@ -18,36 +20,58 @@ var usage = function () {
 
 }
 
-if (argv.version) {
+/**
+ * Returns if the command is valid
+ *
+ * @return {Boolean}
+ */
+var isCommandValid = function (command) {
 
-    version()
-    process.exit(0)
-
-}
-
-var command = argv._[0] || 'serve'
-
-if (!/^(s|b)/.test(command)) {
-
-    usage()
-    process.exit(1)
+    return /^s|b/.test(command)
 
 }
 
-var cli = new Liftoff({
+var main = function () {
 
-    name: 'bulbo',
-    extensions: interpret.jsVariants
+    if (argv.version) {
 
-}).on('require', function(name) {
+        version()
+        process.exit(0)
 
-    console.log('Requiring external module', name);
+    }
 
-}).on('requireFail', function(name) {
+    command = argv._[0] || 'serve'
 
-    console.error('Failed to load external module', name);
+    if (!isCommandValid(command)) {
 
-}).launch({}, function (env) {
+        usage()
+        process.exit(1)
+
+    }
+
+    new Liftoff({
+
+        name: 'bulbo',
+        extensions: interpret.jsVariants
+
+    }).on('require', function (name) {
+
+        console.log('Requiring external module', name)
+
+    }).on('requireFail', function (name) {
+
+        console.error('Failed to load external module', name)
+
+    }).launch({}, onLaunch)
+
+}
+
+/**
+ * Liftoff launch handler
+ *
+ * @param {Object} env Litfoff env object
+ */
+var onLaunch = function (env) {
 
     if (!env.modulePath) {
 
@@ -86,12 +110,12 @@ var cli = new Liftoff({
 
         bulbo.build()
 
-    } else if (/^s/.test(command)) { // serve
-
-        console.log('bulbo serve')
-
-        bulbo.serve()
-
     }
 
-})
+    console.log('bulbo serve')
+
+    bulbo.serve()
+
+}
+
+main()
