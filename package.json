@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "_mocha spec",
-    "test-s": "cd spec && ../bin/bulbo.js serve",
-    "test-b": "cd spec && ../bin/bulbo.js build",
+    "demo-serve": "cd demo && ../bin/bulbo.js serve",
+    "demo-build": "cd demo && ../bin/bulbo.js build",
     "cov": "nyc --reporter=lcov _mocha spec",
     "cov-open": "npm run cov && open coverage/lcov-report/index.html",
     "lint": "souffle"
