@@ -110,11 +110,13 @@ var onLaunch = function (env) {
 
         bulbo.build()
 
+    } else {
+
+        console.log('bulbo serve')
+
+        bulbo.serve()
+
     }
-
-    console.log('bulbo serve')
-
-    bulbo.serve()
 
 }
 
