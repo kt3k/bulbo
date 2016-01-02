@@ -15,9 +15,13 @@ First you need to set up `bulbofile.js`. The example settings are like the follo
 ```js
 import * from 'bulbo'
 
-asset('source/**/*.js', {read: false})(src => src
-  .pipe($.tap(function (file) {
+import through from 'through'
+import browserify from 'browserify'
+
+asset('source/**/*.js', {read: false})(src =>
+  src.pipe(through(function (file) {
     file.contents = browserify(file.path).bundle()
+    this.queue(file)
   })))
 
 asset('source/**/*.css')
