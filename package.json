@@ -5,6 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "_mocha spec",
+    "test-s": "cd spec && ../bin/bulbo.js serve",
+    "test-b": "cd spec && ../bin/bulbo.js build",
     "lint": "souffle"
   },
   "bin": {
