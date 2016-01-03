@@ -1,16 +1,18 @@
-# bulbo v0.1.2 (WIP)
+# bulbo v0.1.2 [![Build Status](https://travis-ci.org/kt3k/bulbo.svg?branch=master)](https://travis-ci.org/kt3k/bulbo) [![codecov.io](https://codecov.io/github/kt3k/bulbo/coverage.svg?branch=master)](https://codecov.io/github/kt3k/bulbo?branch=master)
+
+[![npm bulbo](https://nodei.co/npm/bulbo.png?compact=true)](https://www.npmjs.com/package/bulbo)
 
 > Stream oriented static site generator, based on gulp ecosystem
 
 # Install
 
 ```
-npm install bulbo
+npm install --save-dev bulbo
 ```
 
 # Usage
 
-First you need to set up `bulbofile.js`. The example settings are like the following.
+First you need to set up `bulbofile.js` like the following.
 
 ```js
 import {asset} from 'bulbo'
