@@ -9,6 +9,7 @@
     "demo-build": "cd demo && ../bin/bulbo.js build",
     "cov": "nyc --reporter=lcov _mocha spec",
     "cov-open": "npm run cov && open coverage/lcov-report/index.html",
+    "codecov": "codecov < coverage/lcov.info",
     "lint": "souffle"
   },
   "bin": {
@@ -39,6 +40,7 @@
   "devDependencies": {
     "browserify": "^12.0.1",
     "chai": "^3.4.1",
+    "codecov.io": "^0.1.6",
     "mocha": "^2.3.4",
     "nyc": "^5.1.1",
     "rimraf": "^2.5.0",
@@ -56,7 +58,8 @@
   "config": {
     "nyc": {
       "exclude": [
-        "spec", "lib/mergeStream.js"
+        "spec",
+        "lib/mergeStream.js"
       ]
     }
   }

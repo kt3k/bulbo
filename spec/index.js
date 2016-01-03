@@ -10,6 +10,7 @@ var through = require('through')
 var browserify = require('browserify')
 
 describe('moduleIF', function () {
+    /* eslint handle-callback-err: 0 */
 
     beforeEach(function () {
 
