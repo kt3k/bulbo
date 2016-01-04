@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="162px" height="205px" viewBox="0 0 162 205" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.2 (15855) - http://www.bohemiancoding.com/sketch -->
+    <title>bulbo</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#2C7317" offset="0.982541454%"></stop>
+            <stop stop-color="#E7B850" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="bulbo-logo" sketch:type="MSArtboardGroup" transform="translate(-135.000000, -83.000000)" stroke="#765A14" stroke-width="5" fill="url(#linearGradient-1)">
+            <path d="M216,285 C259.07821,285 294,256.346224 294,221 C294,213.811246 294,191.201169 269.255859,173.318356 C244.511719,155.435544 240.477234,164.324762 233.416016,151.125001 C227.577357,140.21061 240.528873,93.6282326 235.777344,88.1796875 C229.8125,81.3398439 226.42041,96.0258778 224.921875,103.951171 C223.42334,111.876465 222.560547,126.027346 222.560547,126.027346 C222.560547,126.027346 219.928711,89.491211 216,88.1796875 C205.407687,84.6436507 209.152344,126.027344 209.152344,126.027344 C209.152344,126.027344 198.171875,97.2167967 185.630859,96.6875 C181.246485,96.5024564 203.560547,133.255859 194.505859,153.486328 C187.046405,170.152641 167.99039,162.503306 154.005859,178.486327 C140.021329,194.469348 138,202.219846 138,221 C138,256.346224 172.92179,285 216,285 Z" id="bulbo" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>
