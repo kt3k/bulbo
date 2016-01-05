@@ -20,7 +20,8 @@ import {asset} from 'bulbo'
 
 import through from 'through'
 import browserify from 'browserify'
-import frontmatter from 'gulp-frontmatter'
+import frontmatter from 'gulp-front-matter'
+import wrap from 'gulp-wrap'
 
 asset('source/**/*.js', {read: false})(src =>
   src.pipe(through(function (file) {
@@ -30,9 +31,12 @@ asset('source/**/*.js', {read: false})(src =>
 
 asset('source/**/*.css')
 
-asset('source/**/*.ejs')(src => src.pipe(frontmatter()))
+asset('source/**/*.lodash')(src =>
+  src
+  .pipe(frontmatter())
+  .pipe(wrap({src: './layout.lodash'})))
 
-asset(['source/**/*', '!source/**/*.{js,css,ejs}'])
+asset(['source/**/*', '!source/**/*.{js,css,lodash}'])
 ```
 
 And then the following command starts the server.
