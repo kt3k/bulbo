@@ -20,23 +20,24 @@ import {asset} from 'bulbo'
 
 import through from 'through'
 import browserify from 'browserify'
-import frontmatter from 'gulp-front-matter'
+import frontMatter from 'gulp-front-matter'
 import wrap from 'gulp-wrap'
 
-asset('source/**/*.js', {read: false})(src =>
-  src.pipe(through(function (file) {
+asset('source/**/*.js', {read: false})(src => src
+  .pipe(through(function (file) {
     file.contents = browserify(file.path).bundle()
     this.queue(file)
   })))
 
 asset('source/**/*.css')
 
-asset('source/**/*.lodash')(src =>
-  src
-  .pipe(frontmatter())
-  .pipe(wrap({src: './layout.lodash'})))
+asset('source/*.html')(src => src
+  .pipe(frontMatter())
+  .pipe(wrap(function (data) {
+    return fs.readFileSync('source/layouts/' + data.file.frontMatter.layout).toString()
+  })))
 
-asset(['source/**/*', '!source/**/*.{js,css,lodash}'])
+asset(['source/**/*', '!source/**/*.{js,css,html,lodash}'])
 ```
 
 And then the following command starts the server.
@@ -130,6 +131,40 @@ This starts the local server which serves all the registered assets on it. The d
 The bulbo server has builtin debug url at `0.0.0.0:7100/__vinyl__`. You can find there all the available paths (assets) on the server. It's useful for debugging the asset stream.
 
 ![](https://kt3k.github.io/bulbo/media/ss.png)
+
+# Recipes
+
+## Uglify scripts only when it's production build
+
+Use `gulp-if`:
+
+```js
+import gulpif from 'gulp-if'
+import uglify from 'gulp-uglify'
+
+asset('source/**/*.js')(src => src
+  .pipe(gulpif(process.NODE_ENV === 'production', uglify()))
+```
+
+This uglifies the scripts only when the variable NODE_ENV is `'production'`.
+
+## Use *X* Template engine
+
+Use engine option in `gulp-wrap`:
+
+```js
+import wrap from 'gulp-wrap'
+import frontMatter from 'gulp-front-matter'
+
+asset('source/**/*.html')(src => src
+  .pipe(frontMatter())
+  .pipe(wrap({src: 'source/layout.nunjucks'}, null, {engine: 'nunjucks'})))
+```
+***Note*** You need to `npm install nunjucks` in this case.
+
+This example wraps your html in the nunjucks template. The contents of each html file is refereced by `contents` and the front matter by `file.frontMatter`.
+
+## Watch different paths from source path.
 
 # License
 
