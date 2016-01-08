@@ -172,5 +172,5 @@ MIT
 
 # Release history
 
-- 2016-01-08   v1.0.1   Fix build number limit bug.
+- 2016-01-08   v1.0.1   Fix build number limit bug ( https://github.com/kt3k/bulbo/commit/225358fa4c429b3d50dc9efefd93a6d644fd12f6 ).
 - 2016-01-03   v1.0.0   Initial release.
