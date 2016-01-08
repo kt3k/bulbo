@@ -169,3 +169,8 @@ This example wraps your html in the nunjucks template. The contents of each html
 # License
 
 MIT
+
+# Release history
+
+- 2016-01-08   v1.0.1   Fix build number limit bug.
+- 2016-01-03   v1.0.0   Initial release.
