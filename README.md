@@ -58,9 +58,13 @@ bulbo build
 var bulbo = require('bulbo')
 ```
 
-## bulbo.asset(glob)
+## bulbo.asset(glob, opts)
 
 - @param {String|String[]} glob The glob pattern(s)
+- @param {Object} [opts] The options
+- @param {String} [opts.base] The base path.
+- @param {String|String[]} [opts.watch] The glob(s) to watch (optional)
+- @param {Object} [opts.watchOpts] The options to pass to watcher (optional)
 
 This registers the glob pattern as the asset source.
 
@@ -69,7 +73,30 @@ Example:
 bulbo.asset('src/js/**/*.js')
 ```
 
-## bulbo.asset(glob)(modifier)
+`opts.watch` is used for specifying the watching path. If nothing's give, bulbo automatically watches the same path as the asset glob. So this is useful when the asset entry points and the actual source files are different.
+
+`opts.watchOpts` is passed directly to the watcher (actually `chokidar`) as its options.
+
+Example:
+```js
+bulbo.asset('src/js/pages/*.js', {
+  watch: 'src/js/**/*.js' // Watches under all js files under `src/js`, though build entry poits are only js files under `src/js/pages`.
+})(src => src
+  .pipe(through(file => {
+    file.contents = browserify(file.path).bundle()
+  }))
+```
+
+`opts.base` used for changing the base path of the glob pattern(s).
+
+Example:
+```js
+bulbo.asset('src/img/**/*.*') // `src/img/foo.png` is copied to `build/foo.png`
+
+bulbo.asset('src/img/**/*.*', {base: 'src'}) // but in this case, copied to `build/img/foo.png`
+```
+
+## bulbo.asset(glob, opts)(modifier)
 
 - @param {Function} modifier The asset modifier
 
