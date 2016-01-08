@@ -9,6 +9,9 @@ var vinylServe = require('vinyl-serve')
 var through = require('through')
 var browserify = require('browserify')
 
+var SERVER_LAUNCH_WAIT = 200
+var BUILD_WAIT = 200
+
 describe('moduleIF', function () {
     /* eslint handle-callback-err: 0 */
 
@@ -80,7 +83,7 @@ describe('moduleIF', function () {
 
     describe('build', function () {
 
-        it('builds the assets and put then in build/ dir', function (done) {
+        it('builds the assets and put them in build/ dir', function (done) {
 
             bulbo.asset('spec/fixture/**/*.js')
 
@@ -94,11 +97,41 @@ describe('moduleIF', function () {
 
         })
 
+        it('does not stop at highWaterMark(=16) files', function (done) {
+
+            bulbo.asset('spec/fixture/**/*.js')
+
+            bulbo.build(function (err) {
+
+                expect(fs.readFileSync('build/js/0.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/1.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/2.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/3.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/4.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/5.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/6.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/7.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/8.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/9.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/10.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/11.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/12.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/13.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/14.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/15.js').toString()).to.have.length.above(1)
+                expect(fs.readFileSync('build/js/16.js').toString()).to.have.length.above(1)
+
+                rimraf('build', done)
+
+            })
+
+        })
+
         it('does not throw when param is undefined', function (done) {
 
             bulbo.build()
 
-            setTimeout(done, 100)
+            setTimeout(done, BUILD_WAIT)
 
         })
 
@@ -124,7 +157,7 @@ describe('moduleIF', function () {
 
                     })
 
-                }, 100)
+                }, SERVER_LAUNCH_WAIT)
 
             })
 
@@ -140,7 +173,7 @@ describe('moduleIF', function () {
 
                 done()
 
-            }, 100)
+            }, SERVER_LAUNCH_WAIT)
 
         })
 
