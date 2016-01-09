@@ -9,8 +9,8 @@ var vinylServe = require('vinyl-serve')
 var through = require('through')
 var browserify = require('browserify')
 
-var SERVER_LAUNCH_WAIT = 200
-var BUILD_WAIT = 200
+var SERVER_LAUNCH_WAIT = 400
+var BUILD_WAIT = 400
 
 describe('moduleIF', function () {
     /* eslint handle-callback-err: 0 */
@@ -40,7 +40,9 @@ describe('moduleIF', function () {
 
             it('sets the asset modifier', function (done) {
 
-                bulbo.asset('spec/fixture/**/*.js')(function (src) {
+                bulbo.asset('spec/fixture/js/{foo,bar}.js', {
+                    base: 'spec/fixture'
+                })(function (src) {
 
                     return src.pipe(through(function (file) {
 
