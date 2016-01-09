@@ -1,4 +1,4 @@
-# bulbo v1.0.1 [![Build Status](https://travis-ci.org/kt3k/bulbo.svg?branch=master)](https://travis-ci.org/kt3k/bulbo) [![codecov.io](https://codecov.io/github/kt3k/bulbo/coverage.svg?branch=master)](https://codecov.io/github/kt3k/bulbo?branch=master) <img width="70" align="right" src="https://kt3k.github.io/bulbo/media/logo.svg" />
+# bulbo v1.0.2 [![Build Status](https://travis-ci.org/kt3k/bulbo.svg?branch=master)](https://travis-ci.org/kt3k/bulbo) [![codecov.io](https://codecov.io/github/kt3k/bulbo/coverage.svg?branch=master)](https://codecov.io/github/kt3k/bulbo?branch=master) <img width="70" align="right" src="https://kt3k.github.io/bulbo/media/logo.svg" />
 
 
 [![npm bulbo](https://nodei.co/npm/bulbo.png?compact=true)](https://www.npmjs.com/package/bulbo)
@@ -199,5 +199,6 @@ MIT
 
 # Release history
 
-- 2016-01-08   v1.0.1   Fix build number limit bug ( https://github.com/kt3k/bulbo/commit/225358fa4c429b3d50dc9efefd93a6d644fd12f6 ).
+- 2016-01-09   v1.0.2   Improved server start time.
+- 2016-01-08   v1.0.1   Fixed build file number limit bug.
 - 2016-01-03   v1.0.0   Initial release.
