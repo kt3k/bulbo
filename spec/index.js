@@ -9,7 +9,7 @@ var vinylServe = require('vinyl-serve')
 var through = require('through')
 var browserify = require('browserify')
 
-var SERVER_LAUNCH_WAIT = 400
+var SERVER_LAUNCH_WAIT = 800
 var BUILD_WAIT = 400
 
 describe('moduleIF', function () {
