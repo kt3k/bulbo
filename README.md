@@ -169,15 +169,29 @@ Use `gulp-if`:
 import gulpif from 'gulp-if'
 import uglify from 'gulp-uglify'
 
+const PRODUCTION_BUILD = process.NODE_ENV === 'production'
+
 asset('source/**/*.js')(src => src
-  .pipe(gulpif(process.NODE_ENV === 'production', uglify()))
+  .pipe(gulpif(PRODUCTION_BUILD, uglify()))
 ```
 
 This uglifies the scripts only when the variable NODE_ENV is `'production'`.
 
-## Use *X* Template engine
+Or alternatively use `through` or `through2`:
 
-Use engine option in `gulp-wrap`:
+```js
+import through from 'through'
+import uglify from 'gulp-uglify'
+
+const PRODUCTION_BUILD = process.NODE_ENV === 'production'
+
+asset('source/**/*.js')(src => src
+  .pipe(PRODUCTION_BUILD ? uglify() : through()))
+```
+
+## Want to render my contents with template engine *XXXX*
+
+Use `gulp-wrap` and the `engine` option:
 
 ```js
 import wrap from 'gulp-wrap'
@@ -192,6 +206,14 @@ asset('source/**/*.html')(src => src
 This example wraps your html in the nunjucks template. The contents of each html file is refereced by `contents` and the front matter by `file.frontMatter`.
 
 ## Watch different paths from source path.
+
+Use `watch` option in the asset options.
+
+```js
+asset('source/page/*.js', {watch: 'source/**/*.js'})
+```
+
+This is useful when the entrypoints of the asset and the actual source files are different. For example, if you use browserify to bunble your scripts, your entrypoints are bundle's entrypoit files but you need to watch all of your source files which form the bundles.
 
 # License
 
