@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 'use strict'
 
+var chalk = require('chalk')
 var interpret = require('interpret')
 var Liftoff = require('liftoff')
 var argv = require('minimist')(process.argv.slice(2))
@@ -56,7 +57,7 @@ var main = function () {
 
     }).on('require', function (name) {
 
-        console.log('Requiring external module', name)
+        console.log('Requiring external module', chalk.magenta(name))
 
     }).on('requireFail', function (name) {
 
@@ -75,8 +76,8 @@ var onLaunch = function (env) {
 
     if (!env.modulePath) {
 
-        console.log('Error: Local bulbo module not found')
-        console.log('Try running: npm install bulbo')
+        console.log(chalk.red('Error: Local bulbo module not found'))
+        console.log('Try running:', chalk.green('npm install bulbo'))
 
         process.exit(1)
 
@@ -84,13 +85,13 @@ var onLaunch = function (env) {
 
     if (!env.configPath) {
 
-        console.log('Error: No bulbofile found')
+        console.log(chalk.red('Error: No bulbofile found'))
 
         process.exit(1)
 
     }
 
-    console.log('Using bulbofile', env.configPath)
+    console.log('Using bulbofile:', chalk.magenta(env.configPath))
 
     var bulbo = require(env.modulePath)
 
@@ -98,7 +99,7 @@ var onLaunch = function (env) {
 
     if (bulbo.isEmpty()) {
 
-        console.log('Error: No asset defined in bulbofile')
+        console.log(chalk.red('Error: No asset defined in bulbofile'))
 
         process.exit()
 
@@ -106,13 +107,13 @@ var onLaunch = function (env) {
 
     if (/^b/.test(command)) { // build
 
-        console.log('bulbo build')
+        console.log('bulbo build 🔨')
 
         bulbo.build()
 
     } else {
 
-        console.log('bulbo serve')
+        console.log('bulbo serve 🚿')
 
         bulbo.serve()
 

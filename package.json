@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/kt3k/bulbo#readme",
   "dependencies": {
+    "chalk": "^1.1.1",
     "chokidar": "^1.4.2",
     "interpret": "^1.0.0",
     "liftoff": "^2.2.0",
