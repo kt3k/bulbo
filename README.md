@@ -16,26 +16,35 @@ npm install --save-dev bulbo
 First you need to set up `bulbofile.js` like the following.
 
 ```js
-import {asset} from 'bulbo'
+var asset = require('bulbo').asset
 
-import through from 'through'
-import browserify from 'browserify'
-import frontMatter from 'gulp-front-matter'
-import wrap from 'gulp-wrap'
+var through = require('through')
+var browserify = require('browserify')
+var frontMatter = require('gulp-front-matter')
+var wrap = require('gulp-wrap')
 
-asset('source/**/*.js', {read: false})(src => src
-  .pipe(through(function (file) {
+asset('source/**/*.js', {read: false})(function (src) {
+
+  return src.pipe(through(function (file) {
+
     file.contents = browserify(file.path).bundle()
     this.queue(file)
-  })))
+
+  }));
+
+})
 
 asset('source/**/*.css')
 
-asset('source/*.html')(src => src
-  .pipe(frontMatter())
-  .pipe(wrap(function (data) {
-    return fs.readFileSync('source/layouts/' + data.file.frontMatter.layout).toString()
-  })))
+asset('source/*.html')(function (src) {
+
+  return src
+    .pipe(frontMatter())
+    .pipe(wrap(function (data) {
+      return fs.readFileSync('source/layouts/' + data.file.frontMatter.layout).toString()
+    }));
+
+})
 
 asset(['source/**/*', '!source/**/*.{js,css,html,lodash}'])
 ```
@@ -46,7 +55,7 @@ And then the following command starts the server.
 bulbo serve
 ```
 
-And the following builds all the given assets and the result are saved under `build/` directory.
+And the following builds all the given assets and saves them to `build/` directory.
 
 ```
 bulbo build
@@ -80,9 +89,9 @@ bulbo.asset('src/js/**/*.js')
 Example:
 ```js
 bulbo.asset('src/js/pages/*.js', {
-  watch: 'src/js/**/*.js' // Watches under all js files under `src/js`, though build entry poits are only js files under `src/js/pages`.
-})(src => src
-  .pipe(through(file => {
+  watch: 'src/js/**/*.js' // Watches all js files under `src/js`, though build entry poits are only js files under `src/js/pages`.
+})(function (src) {
+  return src.pipe(through(file => {
     file.contents = browserify(file.path).bundle()
   }))
 ```
@@ -108,13 +117,13 @@ Example:
 ```js
 bulbo.asset('src/js/**/*.js')(function (src) {
 
-    return src.pipe(through(function (file) {
+  return src.pipe(through(function (file) {
 
-        file.contents = browserify(file.path).bundle()
+    file.contents = browserify(file.path).bundle()
 
-        this.queue(file)
+    this.queue(file)
 
-    }))
+  }))
 
 })
 ```
@@ -160,6 +169,16 @@ The bulbo server has builtin debug url at `0.0.0.0:7100/__vinyl__`. You can find
 ![](https://kt3k.github.io/bulbo/media/ss.png)
 
 # Recipes
+
+## Use es6 in bulbo file
+
+Bulbo uses `js-liftoff` under the hood, which means you can enable es6 syntax by renaming `bulbofile.js` to `bulbofile.babel.js` and adding `babel-register` dependency.
+
+```
+npm install --save-dev babel-register
+```
+
+You also need to set up `.babelrc` or babel config in `package.json` to use es6 in bulbo.babel.js.
 
 ## Uglify scripts only when it's production build
 
