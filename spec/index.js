@@ -189,7 +189,7 @@ describe('moduleIF', function () {
 
             bulbo.serve(function () {
 
-                request.get('0.0.0.0:8500/__vinyl__').end(function (err, res) {
+                request.get('0.0.0.0:8500/__bulbo__').end(function (err, res) {
 
                     vinylServe.stop(8500)
 

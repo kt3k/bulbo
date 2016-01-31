@@ -164,7 +164,7 @@ This starts the local server which serves all the registered assets on it. The d
 
 `bulbo` command without arguments also does the same as `bulbo serve`. You can just simply call `bulbo` to start bulbo server.
 
-The bulbo server has builtin debug url at `0.0.0.0:7100/__vinyl__`. You can find there all the available paths (assets) on the server. It's useful for debugging the asset stream.
+The bulbo server has builtin debug url at `0.0.0.0:7100/__bulbo__`. You can find there all the available paths (assets) on the server. It's useful for debugging the asset stream.
 
 ![](https://kt3k.github.io/bulbo/media/ss.png)
 
