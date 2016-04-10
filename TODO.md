@@ -1,6 +1,5 @@
 # TODO
 
-- rename bulbofile to bulbo
 - switch to es2015
 - DSL verb .watch
 - DSL verb .base
