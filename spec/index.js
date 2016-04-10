@@ -12,7 +12,7 @@ var browserify = require('browserify')
 var SERVER_LAUNCH_WAIT = 800
 var BUILD_WAIT = 400
 
-describe('moduleIF', function () {
+describe('bulbo', function () {
     /* eslint handle-callback-err: 0 */
 
     beforeEach(function () {
