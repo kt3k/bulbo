@@ -2,7 +2,7 @@
   "name": "bulbo",
   "version": "2.2.0",
   "description": "Streaming static site generator, based on gulp",
-  "main": "lib/index.js",
+  "main": "lib/bulbo.js",
   "scripts": {
     "test": "_mocha spec",
     "demo-serve": "cd demo && ../bin/bulbo.js serve",
