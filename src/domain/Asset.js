@@ -20,16 +20,22 @@ export default class Asset {
      * @param {String|String[]} [opts.watch] The watch path (if omitted then equals to glob)
      * @param {String|String[]} [opts.watchOpts] The watch opation to chokidar#watch
      */
-    constructor(glob, opts) {
-
-        opts = opts || {}
+    constructor(glob, opts = {}) {
 
         this.glob = glob
         this.opts = opts
-        this.watchPath = opts.watch || this.glob
-        this.watchOpts = opts.watchOpts
+        this.watchPaths = []
+        this.watchOpts = {}
         this.modifier = id
 
+    }
+
+    /**
+     * Adds the watch paths.
+     * @param {string|string[]} paths The paths
+     */
+    addWatchPaths(paths) {
+        this.watchPaths = this.watchPaths.concat(paths)
     }
 
     /**
@@ -41,13 +47,34 @@ export default class Asset {
 
         const asset = this
 
-        /**
-         * Static setter of modifier
-         * @param {Function} modifier The modifier
-         */
-        return function (modifier) {
+        return {
+            /**
+             * Sets the build function.
+             * @param {Function} build The build method
+             */
+            build(build) {
+                asset.modifier = build
+            },
 
-            asset.modifier = modifier
+            /**
+             * Sets the watch paths and opts.
+             * @param {string|string[]}
+             */
+            watch(watchPaths) {
+                asset.watchPaths = asset.watchPaths.concat(watchPaths)
+            },
+
+            watchOptions(watchOptions) {
+                asset.watchOptions = watchOptsions
+            },
+
+            /**
+             * Sets the base path.
+             * @param {string} base The base path
+             */
+            base(base) {
+                assets.opts.base = base
+            }
 
         }
 
@@ -89,9 +116,9 @@ export default class Asset {
      *
      * @return {String|String[]}
      */
-    getWatchPath() {
+    getWatchPaths() {
 
-        return this.watchPath
+        return this.watchPaths || this.glob
 
     }
 

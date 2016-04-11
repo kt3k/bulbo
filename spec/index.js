@@ -29,29 +29,29 @@ describe('bulbo', () => {
 
         })
 
-        it('returns the setter of the asset\'s modifier', () => {
+        it('returns the asset\'s modifier', () => {
 
-            expect(bulbo.asset('spec/fixture/**/*.js')).to.be.a('function')
+            expect(bulbo.asset('spec/fixture/**/*.js')).to.be.an('object')
+            expect(bulbo.asset('spec/fixture/**/*.js').build).to.be.a('function')
+            expect(bulbo.asset('spec/fixture/**/*.js').watch).to.be.a('function')
+            expect(bulbo.asset('spec/fixture/**/*.js').watchOptions).to.be.a('function')
+            expect(bulbo.asset('spec/fixture/**/*.js').base).to.be.a('function')
 
         })
 
-        describe('modifier setter', () => {
+        describe('.build', () => {
 
-            it('sets the asset modifier', done => {
+            it('sets the asset builder', done => {
 
                 bulbo.asset('spec/fixture/js/{foo,bar}.js', {
                     base: 'spec/fixture'
-                })(src => {
+                }).build(src => src.pipe(through(function (file) {
 
-                    return src.pipe(through(function (file) {
+                    file.contents = browserify(file.path).bundle()
 
-                        file.contents = browserify(file.path).bundle()
+                    this.queue(file)
 
-                        this.queue(file)
-
-                    }))
-
-                })
+                })))
 
                 bulbo.build(() => {
 
@@ -66,9 +66,9 @@ describe('bulbo', () => {
 
             })
 
-            it('cause error when building if the modifier does not return stream', () => {
+            it('cause error when building if the builder does not return stream', () => {
 
-                bulbo.asset('spec/fixture/**/*.js')(src => null)
+                bulbo.asset('spec/fixture/**/*.js').build(src => null)
 
                 expect(() => {
 
@@ -148,7 +148,7 @@ describe('bulbo', () => {
 
                 setTimeout(() => {
 
-                    request.get('0.0.0.0:7100/js/foo.js').buffer().end(function (err, res) {
+                    request.get('0.0.0.0:7100/js/foo.js').buffer().end((err, res) => {
 
                         expect(res.text).to.contain('This is foo.js')
 

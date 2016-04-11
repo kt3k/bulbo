@@ -42,7 +42,7 @@ export default class AssetServer {
 
         this.assets.forEach(asset => {
 
-            watch(asset.getWatchPath(), asset.getWatchOpts(), () => {
+            watch(asset.getWatchPaths(), asset.getWatchOpts(), () => {
 
                 logger.log('❗️ File changed:', chalk.magenta(asset.glob))
 
