@@ -43,7 +43,6 @@ export default class Asset {
 
         /**
          * Static setter of modifier
-         *
          * @param {Function} modifier The modifier
          */
         return function (modifier) {

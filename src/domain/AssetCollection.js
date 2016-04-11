@@ -1,4 +1,4 @@
-import mergeStream from './mergeStream'
+import mergeStream from '../util/mergeStream'
 
 /**
  * The collection class of assets.

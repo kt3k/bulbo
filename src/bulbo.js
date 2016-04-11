@@ -1,4 +1,4 @@
-import AssetService from './AssetService'
+import AssetService from './app/AssetService'
 
 const DEFAULT_DEST = 'build' // The default destination
 const DEFAULT_PORT = 7100 // The default port number

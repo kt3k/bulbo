@@ -1,5 +1,5 @@
-import watch from './watch'
-import logger from './logger'
+import watch from '../util/watch'
+import logger from '../util/logger'
 import chalk from 'chalk'
 import vinylServe from 'vinyl-serve'
 
