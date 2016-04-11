@@ -1,48 +1,47 @@
-'use strict'
+import fs from 'fs'
+import bulbo from '../src/bulbo'
 
-var fs = require('fs')
-var bulbo = require('../src/bulbo')
-var expect = require('chai').expect
-var rimraf = require('rimraf')
-var request = require('superagent')
-var vinylServe = require('vinyl-serve')
-var through = require('through')
-var browserify = require('browserify')
+import {expect} from 'chai'
+import rimraf from 'rimraf'
+import request from 'superagent'
+import vinylServe from 'vinyl-serve'
+import through from 'through'
+import browserify from 'browserify'
 
-var SERVER_LAUNCH_WAIT = 800
-var BUILD_WAIT = 400
+const SERVER_LAUNCH_WAIT = 800
+const BUILD_WAIT = 400
 
-describe('bulbo', function () {
+describe('bulbo', () => {
     /* eslint handle-callback-err: 0 */
 
-    beforeEach(function () {
+    beforeEach(() => {
 
         bulbo.clear()
 
     })
 
-    describe('asset', function () {
+    describe('asset', () => {
 
-        it('registers the asset', function () {
+        it('registers the asset', () => {
 
             bulbo.asset('spec/fixture/**/*.js')
             expect(bulbo.isEmpty()).to.be.false
 
         })
 
-        it('returns the setter of the asset\'s modifier', function () {
+        it('returns the setter of the asset\'s modifier', () => {
 
             expect(bulbo.asset('spec/fixture/**/*.js')).to.be.a('function')
 
         })
 
-        describe('modifier setter', function () {
+        describe('modifier setter', () => {
 
-            it('sets the asset modifier', function (done) {
+            it('sets the asset modifier', done => {
 
                 bulbo.asset('spec/fixture/js/{foo,bar}.js', {
                     base: 'spec/fixture'
-                })(function (src) {
+                })(src => {
 
                     return src.pipe(through(function (file) {
 
@@ -54,9 +53,9 @@ describe('bulbo', function () {
 
                 })
 
-                bulbo.build(function () {
+                bulbo.build(() => {
 
-                    var contents = fs.readFileSync('build/js/foo.js').toString()
+                    const contents = fs.readFileSync('build/js/foo.js').toString()
 
                     expect(contents).to.contain('This is foo.js')
                     expect(contents).to.contain('This is bar.js')
@@ -67,11 +66,11 @@ describe('bulbo', function () {
 
             })
 
-            it('cause error when building if the modifier does not return stream', function () {
+            it('cause error when building if the modifier does not return stream', () => {
 
-                bulbo.asset('spec/fixture/**/*.js')(function (src) { return null })
+                bulbo.asset('spec/fixture/**/*.js')(src => null)
 
-                expect(function () {
+                expect(() => {
 
                     bulbo.build()
 
@@ -83,13 +82,13 @@ describe('bulbo', function () {
 
     })
 
-    describe('build', function () {
+    describe('build', () => {
 
-        it('builds the assets and put them in build/ dir', function (done) {
+        it('builds the assets and put them in build/ dir', done => {
 
             bulbo.asset('spec/fixture/**/*.js')
 
-            bulbo.build(function (err) {
+            bulbo.build(err => {
 
                 expect(fs.readFileSync('build/js/foo.js').toString()).to.have.length.above(1)
 
@@ -99,11 +98,11 @@ describe('bulbo', function () {
 
         })
 
-        it('does not stop at highWaterMark(=16) files', function (done) {
+        it('does not stop at highWaterMark(=16) files', done => {
 
             bulbo.asset('spec/fixture/**/*.js')
 
-            bulbo.build(function (err) {
+            bulbo.build(err => {
 
                 expect(fs.readFileSync('build/js/0.js').toString()).to.have.length.above(1)
                 expect(fs.readFileSync('build/js/1.js').toString()).to.have.length.above(1)
@@ -129,7 +128,7 @@ describe('bulbo', function () {
 
         })
 
-        it('does not throw when param is undefined', function (done) {
+        it('does not throw when param is undefined', done => {
 
             bulbo.build()
 
@@ -139,15 +138,15 @@ describe('bulbo', function () {
 
     })
 
-    describe('serve', function () {
+    describe('serve', () => {
 
-        it('serves the assets at port 7100', function (done) {
+        it('serves the assets at port 7100', done => {
 
             bulbo.asset('spec/fixture/**/*.js')
 
-            bulbo.serve(function () {
+            bulbo.serve(() => {
 
-                setTimeout(function () {
+                setTimeout(() => {
 
                     request.get('0.0.0.0:7100/js/foo.js').buffer().end(function (err, res) {
 
@@ -165,11 +164,11 @@ describe('bulbo', function () {
 
         })
 
-        it('does not throw when the param is undefined', function (done) {
+        it('does not throw when the param is undefined', done => {
 
             bulbo.serve()
 
-            setTimeout(function () {
+            setTimeout(() => {
 
                 vinylServe.stop(7100)
 
@@ -181,15 +180,15 @@ describe('bulbo', function () {
 
     })
 
-    describe('port', function () {
+    describe('port', () => {
 
-        it('sets the port number', function (done) {
+        it('sets the port number', done => {
 
             bulbo.port(8500)
 
-            bulbo.serve(function () {
+            bulbo.serve(() => {
 
-                request.get('0.0.0.0:8500/__bulbo__').end(function (err, res) {
+                request.get('0.0.0.0:8500/__bulbo__').end((err, res) => {
 
                     vinylServe.stop(8500)
 
@@ -203,15 +202,15 @@ describe('bulbo', function () {
 
     })
 
-    describe('dest', function () {
+    describe('dest', () => {
 
-        it('sets the build destination', function (done) {
+        it('sets the build destination', done => {
 
             bulbo.dest('build/dist')
 
             bulbo.asset('spec/fixture/**/*.js')
 
-            bulbo.build(function () {
+            bulbo.build(() => {
 
                 expect(fs.readFileSync('build/dist/js/foo.js').toString()).to.have.length.above(1)
 

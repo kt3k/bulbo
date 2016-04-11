@@ -1,126 +1,118 @@
-'use strict'
+import AssetService from './AssetService'
 
-var AssetService = require('./AssetService')
+const DEFAULT_DEST = 'build' // The default destination
+const DEFAULT_PORT = 7100 // The default port number
 
-var DEFAULT_DEST = 'build' // The default destination
-var DEFAULT_PORT = 7100 // The default port number
+const service = new AssetService(DEFAULT_DEST, DEFAULT_PORT)
 
-var service = new AssetService(DEFAULT_DEST, DEFAULT_PORT)
+/**
+ * Sets the asset and returns the static modifier setter for the asset.
+ *
+ * DSL vocabulary.
+ *
+ * @param {String|String[]} glob The glob pattern
+ * @param {Object} opts The options
+ * @return {Function}
+ */
+export function asset(glob, opts) {
 
-var getService = function () { return service }
+    var asset = service.registerAsset(glob, opts)
+
+    return asset.getModifierSetter()
+
+}
+
+/**
+ * Gets the asset service.
+ *
+ * For internal use only.
+ *
+ * @private
+ * @return {AssetService}
+ */
+export function getService() {
+
+    return service
+
+}
+
+/**
+ * Serves the assets at localhost.
+ *
+ * For internal use.
+ *
+ * @param {Function} cb The callback
+ */
+export function serve(cb) {
+
+    service.serve(cb)
+
+}
+
+/**
+ * Builds the assets to the destination.
+ *
+ * For internal use.
+ *
+ * @param {Function} cb The callback
+ */
+export function build(cb) {
+
+    service.build(cb)
+
+}
+
+/**
+ * Sets the dest.
+ *
+ * DSL vocabulary.
+ *
+ * @param {String} dest The destination
+ */
+export function dest(dest) {
+
+    service.setDest(dest)
+
+}
+
+/**
+ * Sets the port number.
+ *
+ * DSL vocabulary.
+ *
+ * @param {Number} port The port number
+ */
+export function port(port) {
+
+    service.setPort(port)
+
+}
+
+/**
+ * Returns if the assets are empty.
+ *
+ * For internal use only.
+ *
+ * @return {Boolean}
+ */
+export function isEmpty() {
+
+    return service.isEmpty()
+
+}
+
+/**
+ * Clears all the assets.
+ *
+ * For internal use only.
+ */
+export function clear() {
+
+    service.clear()
+
+}
 
 /**
  * The module interface.
  */
-var bulbo = {
-
-    /**
-     * Sets the asset and returns the static modifier setter for the asset.
-     *
-     * DSL vocabulary.
-     *
-     * @param {String|String[]} glob The glob pattern
-     * @param {Object} opts The options
-     * @return {Function}
-     */
-    asset: function (glob, opts) {
-
-        var asset = getService().registerAsset(glob, opts)
-
-        return asset.getModifierSetter()
-
-    },
-
-    /**
-     * Gets the asset service.
-     *
-     * For internal use.
-     *
-     * @private
-     * @return {AssetService}
-     */
-    getService: function () {
-
-        return getService()
-
-    },
-
-    /**
-     * Serves the assets at localhost.
-     *
-     * For internal use.
-     *
-     * @param {Function} cb The callback
-     */
-    serve: function (cb) {
-
-        getService().serve(cb)
-
-    },
-
-    /**
-     * Builds the assets to the destination.
-     *
-     * For internal use.
-     *
-     * @param {Function} cb The callback
-     */
-    build: function (cb) {
-
-        getService().build(cb)
-
-    },
-
-    /**
-     * Sets the dest.
-     *
-     * DSL vocabulary.
-     *
-     * @param {String} dest The destination
-     */
-    dest: function (dest) {
-
-        getService().setDest(dest)
-
-    },
-
-    /**
-     * Sets the port number.
-     *
-     * DSL vocabulary.
-     *
-     * @param {Number} port The port number
-     */
-    port: function (port) {
-
-        getService().setPort(port)
-
-    },
-
-    /**
-     * Returns if the assets are empty.
-     *
-     * For internal use only.
-     *
-     * @return {Boolean}
-     */
-    isEmpty: function () {
-
-        return getService().isEmpty()
-
-    },
-
-    /**
-     * Clears all the assets.
-     *
-     * For internal use only.
-     */
-    clear: function () {
-
-        getService().clear()
-
-    }
-
-}
-
-module.exports = bulbo
+export default {asset, getService, serve, build, dest, port, isEmpty, clear}
