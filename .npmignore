@@ -1,0 +1,19 @@
+# npm
+/node_modules
+npm-debug.log
+
+# src
+/src
+/spec
+/demo
+
+# build
+build
+
+# nyc, coverage
+/.nyc_output
+/coverage
+
+# other
+/TODO.md
+/media
