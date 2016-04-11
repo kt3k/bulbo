@@ -1,22 +1,18 @@
-'use strict'
-
-var subclass = require('subclassjs')
-
-var Asset = require('./Asset').default
-var AssetCollection = require('./AssetCollection')
-var AssetServer = require('./AssetServer')
-var AssetBuilder = require('./AssetBuilder')
+import Asset from './Asset'
+import AssetCollection from './AssetCollection'
+import AssetServer from './AssetServer'
+import AssetBuilder from './AssetBuilder'
 
 /**
  * AssetService builds and serves the given assets.
  */
-var AssetService = subclass(function (pt) {
+export default class AssetService {
 
     /**
      * @param {String} dest The destination
      * @param {Number} port The port number
      */
-    pt.constructor = function (dest, port) {
+    constructor(dest, port) {
 
         this.assets = new AssetCollection()
         this.dest = dest
@@ -30,7 +26,7 @@ var AssetService = subclass(function (pt) {
      * @private
      * @param {Asset} asset The asset
      */
-    pt.addAsset = function (asset) {
+    addAsset(asset) {
 
         this.assets.add(asset)
 
@@ -43,9 +39,9 @@ var AssetService = subclass(function (pt) {
      * @param {Object} opts The options
      * @return {Asset}
      */
-    pt.registerAsset = function (glob, opts) {
+    registerAsset(glob, opts) {
 
-        var asset = new Asset(glob, opts)
+        const asset = new Asset(glob, opts)
 
         this.addAsset(asset)
 
@@ -58,7 +54,7 @@ var AssetService = subclass(function (pt) {
      *
      * @param {Function} cb The callback
      */
-    pt.serve = function (cb) {
+    serve(cb) {
 
         new AssetServer(this.assets, this.port).serve(cb)
 
@@ -66,10 +62,9 @@ var AssetService = subclass(function (pt) {
 
     /**
      * Builds the assets.
-     *
      * @param {Function} cb The callback
      */
-    pt.build = function (cb) {
+    build(cb) {
 
         new AssetBuilder(this.assets, this.dest).build(cb)
 
@@ -77,10 +72,9 @@ var AssetService = subclass(function (pt) {
 
     /**
      * Sets the port number.
-     *
      * @param {Number} port The port number
      */
-    pt.setPort = function (port) {
+    setPort(port) {
 
         this.port = port
 
@@ -88,10 +82,9 @@ var AssetService = subclass(function (pt) {
 
     /**
      * Sets the destination.
-     *
      * @param {String} dest The destination of the build
      */
-    pt.setDest = function (dest) {
+    setDest(dest) {
 
         this.dest = dest
 
@@ -99,10 +92,9 @@ var AssetService = subclass(function (pt) {
 
     /**
      * Returns if the assets are empty.
-     *
      * @return {Boolean}
      */
-    pt.isEmpty = function () {
+    isEmpty() {
 
         return this.assets.isEmpty()
 
@@ -111,12 +103,10 @@ var AssetService = subclass(function (pt) {
     /**
      * Clears all the assets.
      */
-    pt.clear = function () {
+    clear() {
 
         this.assets.empty()
 
     }
 
-})
-
-module.exports = AssetService
+}

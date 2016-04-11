@@ -16,7 +16,7 @@ const service = new AssetService(DEFAULT_DEST, DEFAULT_PORT)
  */
 export function asset(glob, opts) {
 
-    var asset = service.registerAsset(glob, opts)
+    const asset = service.registerAsset(glob, opts)
 
     return asset.getModifierSetter()
 

@@ -13,7 +13,7 @@ function zeropad(n) {
  */
 function timestamp() {
 
-    var date = new Date()
+    const date = new Date()
 
     return [
         zeropad(date.getHours()),

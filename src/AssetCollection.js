@@ -1,19 +1,14 @@
-'use strict'
-
-var subclass = require('subclassjs')
-var mergeStream = require('./mergeStream')
+import mergeStream from './mergeStream'
 
 /**
  * The collection class of assets.
- *
- * @class
  */
-var AssetCollection = subclass(function (pt) {
+export default class AssetCollection {
 
     /**
      * @constructor
      */
-    pt.constructor = function () {
+    constructor() {
 
         this.assets = []
 
@@ -21,10 +16,9 @@ var AssetCollection = subclass(function (pt) {
 
     /**
      * Adds the asset.
-     *
      * @param {Asset} asset The asset
      */
-    pt.add = function (asset) {
+    add(asset) {
 
         this.assets.push(asset)
 
@@ -32,26 +26,20 @@ var AssetCollection = subclass(function (pt) {
 
     /**
      * Gets the merged stream of assets.
-     *
      * @return {Stream}
      */
-    pt.getMergedStream = function () {
+    getMergedStream() {
 
-        return mergeStream(this.assets.map(function (asset) {
-
-            return asset.getStream()
-
-        }))
+        return mergeStream(this.assets.map(asset => asset.getStream()))
 
     }
 
     /**
-     * forEach
-     *
+     * Invokes the callback for each item with the given context.
      * @param {Function} cb The callback
      * @param {Object} ctx The this context
      */
-    pt.forEach = function (cb, ctx) {
+    forEach(cb, ctx) {
 
         this.assets.forEach(cb, ctx)
 
@@ -59,24 +47,21 @@ var AssetCollection = subclass(function (pt) {
 
     /**
      * Returns if the assets are empty.
-     *
-     * @param {Boolean}
+     * @return {Boolean}
      */
-    pt.isEmpty = function () {
+    isEmpty() {
 
         return this.assets.length === 0
 
     }
 
     /**
-     * Makes the assets list empty.
+     * Empties the assets list.
      */
-    pt.empty = function () {
+    empty() {
 
         this.assets.splice(0)
 
     }
 
-})
-
-module.exports = AssetCollection
+}

@@ -1,35 +1,32 @@
-'use strict'
-
 import watch from './watch'
 import logger from './logger'
 import chalk from 'chalk'
-var subclass = require('subclassjs')
-var vinylServe = require('vinyl-serve')
+import vinylServe from 'vinyl-serve'
 
 vinylServe.setDebugPageTitle('Welcome to <i>Bulbo</i> asset path debug page!')
 vinylServe.setDebugPagePath('/__bulbo__')
-vinylServe.setHandlerOfStarting(function (url, debugUrl) {
+vinylServe.setHandlerOfStarting((url, debugUrl) => {
 
     console.log('Server started at:', chalk.cyan(url))
     console.log('See debug page is:', chalk.cyan(debugUrl))
 
 })
 
-vinylServe.setHandlerOfPortError(function (port) {
+vinylServe.setHandlerOfPortError(port => {
 
-    console.log(chalk.red('Error: The port number ' + port + ' is already in use'))
+    console.log(chalk.red(`Error: The port number ${port} is already in use`))
 
     process.exit(1)
 
 })
 
-var AssetServer = subclass(function (pt) {
+export default class AssetServer {
 
     /**
      * @param {AssetCollection} assets The assets
      * @param {Number} port The port number
      */
-    pt.constructor = function (assets, port) {
+    constructor(assets, port) {
 
         this.assets = assets
         this.port = port
@@ -41,17 +38,15 @@ var AssetServer = subclass(function (pt) {
      *
      * @param {Function} cb The callback
      */
-    pt.serve = function (cb) {
+    serve(cb) {
 
-        var self = this
+        this.assets.forEach(asset => {
 
-        this.assets.forEach(function (asset) {
-
-            watch(asset.getWatchPath(), asset.getWatchOpts(), function () {
+            watch(asset.getWatchPath(), asset.getWatchOpts(), () => {
 
                 logger.log('❗️ File changed:', chalk.magenta(asset.glob))
 
-                asset.pipe(vinylServe(self.port)).on('end', function () {
+                asset.pipe(vinylServe(this.port)).on('end', () => {
 
                     logger.log('✅ Files ready:', chalk.magenta(asset.glob))
 
@@ -61,7 +56,7 @@ var AssetServer = subclass(function (pt) {
 
         })
 
-        this.assets.getMergedStream().pipe(vinylServe(this.port)).on('end', function () {
+        this.assets.getMergedStream().pipe(vinylServe(this.port)).on('end', () => {
 
             logger.log('✅ All files ready')
 
@@ -71,13 +66,11 @@ var AssetServer = subclass(function (pt) {
 
             vinylServe.getInstance(this.port)
                 .startPromise
-                .then(function () { cb(null) })
-                .catch(function (err) { cb(err) })
+                .then(() => { cb(null) })
+                .catch(err => { cb(err) })
 
         }
 
     }
 
-})
-
-module.exports = AssetServer
+}

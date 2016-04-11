@@ -1,17 +1,14 @@
-'use strict'
+import vfs from 'vinyl-fs'
+import through from 'through'
 
-var subclass = require('subclassjs')
-var vfs = require('vinyl-fs')
-var through = require('through')
-
-var AssetBuilder = subclass(function (pt) {
+export default class AssetBuilder {
 
     /**
      * @constructor
      * @param {AssetCollection} assets The assets
      * @param {String} dest The destination
      */
-    pt.constructor = function (assets, dest) {
+    constructor(assets, dest) {
 
         this.assets = assets
         this.dest = dest
@@ -24,15 +21,15 @@ var AssetBuilder = subclass(function (pt) {
      * @param {Function} cb The callback
      * @return {Stream}
      */
-    pt.build = function (cb) {
+    build(cb) {
 
-        var stream = this.assets.getMergedStream().pipe(vfs.dest(this.dest)).pipe(through())
+        const stream = this.assets.getMergedStream().pipe(vfs.dest(this.dest)).pipe(through())
 
         if (typeof cb === 'function') {
 
             stream
-                .on('end', function () { cb(null) })
-                .on('error', function (e) { cb(e) })
+                .on('end', () => { cb(null) })
+                .on('error', e => { cb(e) })
 
         }
 
@@ -40,6 +37,4 @@ var AssetBuilder = subclass(function (pt) {
 
     }
 
-})
-
-module.exports = AssetBuilder
+}

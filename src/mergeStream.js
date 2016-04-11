@@ -1,6 +1,4 @@
-'use strict'
-
-var Stream = require('stream').Stream
+import {Stream} from 'stream'
 
 /**
  * This is taken from event-stream npm module.
@@ -9,23 +7,23 @@ var Stream = require('stream').Stream
  *
  * @param {Stream[]) toMerge streams to be merged
  */
-var mergeStream = function (toMerge) {
+export default function mergeStream(toMerge) {
 
-    var stream = new Stream()
+    const stream = new Stream()
 
     stream.setMaxListeners(0) // allow adding more than 11 streams
 
-    var endCount = 0
+    let endCount = 0
 
     stream.writable = stream.readable = true
 
-    toMerge.forEach(function (e) {
+    toMerge.forEach(e => {
 
         e.pipe(stream, {end: false})
 
-        var ended = false
+        let ended = false
 
-        e.on('end', function () {
+        e.on('end', () => {
 
             if (ended) { return }
 
@@ -48,16 +46,10 @@ var mergeStream = function (toMerge) {
 
     stream.destroy = function () {
 
-        toMerge.forEach(function (e) {
-
-            if (e.destroy) { e.destroy() }
-
-        })
+        toMerge.filter(e => e.destroy).forEach(e => e.destroy())
 
     }
 
     return stream
 
 }
-
-module.exports = mergeStream
