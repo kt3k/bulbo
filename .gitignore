@@ -2,6 +2,9 @@
 /node_modules
 npm-debug.log
 
+# dist
+/lib
+
 # bulbo build
 build
 

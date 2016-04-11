@@ -5,6 +5,7 @@
   "main": "lib/bulbo.js",
   "scripts": {
     "test": "_mocha spec",
+    "dist": "babel src -d lib",
     "demo-serve": "cd demo && ../bin/bulbo.js serve",
     "demo-build": "cd demo && ../bin/bulbo.js build",
     "cov": "nyc --reporter=lcov _mocha spec",
