@@ -1,8 +1,8 @@
 'use strict'
 
-var watch = require('./watch')
-var logger = require('./logger')
-var chalk = require('chalk')
+import watch from './watch'
+import logger from './logger'
+import chalk from 'chalk'
 var subclass = require('subclassjs')
 var vinylServe = require('vinyl-serve')
 

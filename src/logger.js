@@ -1,10 +1,17 @@
-var zeropad = function (n) {
+/**
+ * @param {number} n The non negative number less than 100.
+ */
+function zeropad(n) {
 
     return ('0' + n).match(/..$/)[0]
 
 }
 
-var timestamp = function () {
+/**
+ * Returns the current timestamp with the format HH:MM:ss
+ * @return {string}
+ */
+function timestamp() {
 
     var date = new Date()
 
@@ -15,17 +22,14 @@ var timestamp = function () {
     ].join(':')
 }
 
-/**
- * Logs the given messages with timestamp
- *
- * @param {Array} arguments The messages
- */
-module.exports.log = function () {
+export default {
 
-    var args = Array.prototype.slice.call(arguments)
-
-    args.unshift('[' + timestamp() + ']')
-
-    console.log.apply(console, args)
+    /**
+     * Logs the given messages with timestamp
+     * @param {Array} args The messages
+     */
+    log(...args) {
+        console.log('[' + timestamp() + ']', ...args)
+    }
 
 }

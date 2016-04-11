@@ -1,7 +1,7 @@
 'use strict'
 
 var fs = require('fs')
-var bulbo = require('../')
+var bulbo = require('../src/bulbo')
 var expect = require('chai').expect
 var rimraf = require('rimraf')
 var request = require('superagent')

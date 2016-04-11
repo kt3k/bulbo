@@ -1,21 +1,17 @@
-'use strict'
-
-var subclass = require('subclassjs')
-var vfs = require('vinyl-fs')
-var Stream = require('stream').Stream
+import vfs from 'vinyl-fs'
+import {Stream} from 'stream'
 
 /**
- * identity function - default for stream modifier
- *
+ * The identity function - default for stream modifier.
  * @param {Object} x any
  * @return {Object}
  */
-var id = function (x) { return x }
+const id = x => x
 
 /**
  * The model of asset
  */
-var Asset = subclass(function (pt) {
+export default class Asset {
 
     /**
      * @constructor
@@ -24,7 +20,7 @@ var Asset = subclass(function (pt) {
      * @param {String|String[]} [opts.watch] The watch path (if omitted then equals to glob)
      * @param {String|String[]} [opts.watchOpts] The watch opation to chokidar#watch
      */
-    pt.constructor = function (glob, opts) {
+    constructor(glob, opts) {
 
         opts = opts || {}
 
@@ -41,9 +37,9 @@ var Asset = subclass(function (pt) {
      *
      * @return {Function}
      */
-    pt.getModifierSetter = function () {
+    getModifierSetter() {
 
-        var asset = this
+        const asset = this
 
         /**
          * Static setter of modifier
@@ -63,7 +59,7 @@ var Asset = subclass(function (pt) {
      * @param {stream.Writable} writableStream The writable strem
      * @return {Stream}
      */
-    pt.pipe = function (writableStream) {
+    pipe(writableStream) {
 
         return this.getStream().pipe(writableStream)
 
@@ -75,9 +71,9 @@ var Asset = subclass(function (pt) {
      * @return {Stream}
      * @throws {Error} When
      */
-    pt.getStream = function () {
+    getStream() {
 
-        var stream = this.modifier(vfs.src(this.glob, this.opts))
+        const stream = this.modifier(vfs.src(this.glob, this.opts))
 
         if (!(stream instanceof Stream)) {
 
@@ -94,7 +90,7 @@ var Asset = subclass(function (pt) {
      *
      * @return {String|String[]}
      */
-    pt.getWatchPath = function () {
+    getWatchPath() {
 
         return this.watchPath
 
@@ -105,12 +101,10 @@ var Asset = subclass(function (pt) {
      *
      * @return {Object}
      */
-    pt.getWatchOpts = function () {
+    getWatchOpts() {
 
         return this.watchOpts
 
     }
 
-})
-
-module.exports = Asset
+}

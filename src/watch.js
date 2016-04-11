@@ -1,6 +1,4 @@
-'use strict'
-
-var chokidar = require('chokidar')
+import chokidar from 'chokidar'
 
 /**
  * Watches the given patterns with chokidor and kicks the callback if file is created, removed or changed.
@@ -9,7 +7,7 @@ var chokidar = require('chokidar')
  * @param {Object} opts The chokidar watch options
  * @param {Function} cb The callback
  */
-module.exports = function (glob, opts, cb) {
+export default function (glob, opts, cb) {
 
     opts = opts || {}
 

@@ -4,11 +4,11 @@
   "description": "Streaming static site generator, based on gulp",
   "main": "lib/bulbo.js",
   "scripts": {
-    "test": "_mocha spec",
+    "test": "_mocha --require babel-register spec",
     "dist": "babel src -d lib",
     "demo-serve": "cd demo && ../bin/bulbo.js serve",
     "demo-build": "cd demo && ../bin/bulbo.js build",
-    "cov": "nyc --reporter=lcov _mocha spec",
+    "cov": "nyc --reporter=lcov _mocha --require babel-register spec",
     "cov-open": "npm run cov && open coverage/lcov-report/index.html",
     "codecov": "codecov < coverage/lcov.info",
     "lint": "souffle"
@@ -67,5 +67,10 @@
         "lib/mergeStream.js"
       ]
     }
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
   }
 }

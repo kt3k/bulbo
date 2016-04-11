@@ -2,7 +2,7 @@
 
 var subclass = require('subclassjs')
 
-var Asset = require('./Asset')
+var Asset = require('./Asset').default
 var AssetCollection = require('./AssetCollection')
 var AssetServer = require('./AssetServer')
 var AssetBuilder = require('./AssetBuilder')
