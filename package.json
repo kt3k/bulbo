@@ -6,6 +6,7 @@
   "scripts": {
     "test": "_mocha --require babel-register spec",
     "dist": "babel src -d lib",
+    "prepublish": "npm run dist",
     "demo-serve": "cd demo && ../bin/bulbo.js serve",
     "demo-build": "cd demo && ../bin/bulbo.js build",
     "cov": "nyc --reporter=lcov _mocha --require babel-register spec",
