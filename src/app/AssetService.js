@@ -33,23 +33,6 @@ export default class AssetService {
     }
 
     /**
-     * Registers an asset by the given glob and options.
-     *
-     * @param {String|String[]} glob The glob pattern(s)
-     * @param {Object} opts The options
-     * @return {Asset}
-     */
-    registerAsset(glob, opts) {
-
-        const asset = new Asset(glob, opts)
-
-        this.addAsset(asset)
-
-        return asset
-
-    }
-
-    /**
      * Serves the assets.
      *
      * @param {Function} cb The callback

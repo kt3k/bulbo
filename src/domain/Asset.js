@@ -26,7 +26,7 @@ export default class Asset {
         this.opts = opts
         this.watchPaths = []
         this.watchOpts = {}
-        this.modifier = id
+        this.transforms = []
 
     }
 
@@ -39,44 +39,37 @@ export default class Asset {
     }
 
     /**
-     * Gets the static setter of the modifier.
-     *
-     * @return {Function}
+     * Adds the transform
      */
-    getModifierSetter() {
+    addTransform(transform) {
 
-        const asset = this
+        this.transforms.push(transform)
 
-        return {
-            /**
-             * Sets the build function.
-             * @param {Function} build The build method
-             */
-            build(build) {
-                asset.modifier = build
-            },
+    }
 
-            /**
-             * Sets the watch paths and opts.
-             * @param {string|string[]}
-             */
-            watch(watchPaths) {
-                asset.watchPaths = asset.watchPaths.concat(watchPaths)
-            },
+    transformsToString() {
 
-            watchOptions(watchOptions) {
-                asset.watchOptions = watchOptsions
-            },
+        return JSON.stringify(this.transforms.map(transform => transform.toString()))
+        
+    }
 
-            /**
-             * Sets the base path.
-             * @param {string} base The base path
-             */
-            base(base) {
-                assets.opts.base = base
-            }
+    /**
+     * Sets the base path.
+     * @param {string} base The base path of the assets
+     */
+    setBase(base) {
 
-        }
+        this.opts.base = base
+
+    }
+
+    /**
+     * Sets the watch opts.
+     * @param {object} opts The watch opts
+     */
+    setWatchOpts(opts) {
+
+        this.watchOpts = opts
 
     }
 
@@ -99,11 +92,11 @@ export default class Asset {
      */
     getStream() {
 
-        const stream = this.modifier(vfs.src(this.glob, this.opts))
+        const stream = this.transforms.reduce((stream, transform) => transform(stream), vfs.src(this.glob, this.opts))
 
         if (!(stream instanceof Stream)) {
 
-            throw new Error('Asset modifier must return a stream (asset path: [' + this.glob.toString() + '], modifier: ' + this.modifier + ')')
+            throw new Error(`Asset transforms must return a stream (asset path: [${this.glob.toString()}], transforms: ${this.transformsToString()})`)
 
         }
 
