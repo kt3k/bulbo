@@ -44,12 +44,6 @@ export default function mergeStream(toMerge) {
 
     }
 
-    stream.destroy = function () {
-
-        toMerge.filter(e => e.destroy).forEach(e => e.destroy())
-
-    }
-
     return stream
 
 }
