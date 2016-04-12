@@ -25,7 +25,11 @@ export default function mergeStream(toMerge) {
 
         e.on('end', () => {
 
-            if (ended) { return }
+            if (ended) {
+
+                return
+
+            }
 
             ended = true
             endCount++
