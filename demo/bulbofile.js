@@ -2,7 +2,7 @@ var asset = require('../').asset
 var through = require('through')
 var browserify = require('browserify')
 
-asset('../spec/fixture/**/*.js')(function (src) {
+asset('../spec/fixture/**/*.js').build(function (src) {
 
     return src.pipe(through(function (file) {
 
