@@ -35,10 +35,10 @@ export default class AssetServer {
 
     /**
      * Serves, watching paths for assets.
-     *
      * @param {Function} cb The callback
+     * @return {Promise}
      */
-    serve(cb) {
+    serve() {
 
         this.assets.forEach(asset => {
 
@@ -62,14 +62,7 @@ export default class AssetServer {
 
         })
 
-        if (typeof cb === 'function') {
-
-            vinylServe.getInstance(this.port)
-                .startPromise
-                .then(() => { cb(null) })
-                .catch(err => { cb(err) })
-
-        }
+        return vinylServe.getInstance(this.port).startPromise
 
     }
 

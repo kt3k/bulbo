@@ -12,7 +12,6 @@ const SERVER_LAUNCH_WAIT = 800
 const BUILD_WAIT = 400
 
 describe('bulbo', () => {
-    /* eslint handle-callback-err: 0 */
 
     beforeEach(() => {
 
@@ -53,7 +52,7 @@ describe('bulbo', () => {
 
                 })))
 
-                bulbo.build(() => {
+                bulbo.build().then(() => {
 
                     const contents = fs.readFileSync('build/js/foo.js').toString()
 
@@ -88,7 +87,7 @@ describe('bulbo', () => {
 
             bulbo.asset('spec/fixture/**/*.js')
 
-            bulbo.build(err => {
+            return bulbo.build().then(() => {
 
                 expect(fs.readFileSync('build/js/foo.js').toString()).to.have.length.above(1)
 
@@ -102,7 +101,7 @@ describe('bulbo', () => {
 
             bulbo.asset('spec/fixture/**/*.js')
 
-            bulbo.build(err => {
+            bulbo.build().then(() => {
 
                 expect(fs.readFileSync('build/js/0.js').toString()).to.have.length.above(1)
                 expect(fs.readFileSync('build/js/1.js').toString()).to.have.length.above(1)
@@ -128,7 +127,7 @@ describe('bulbo', () => {
 
         })
 
-        it('does not throw when param is undefined', done => {
+        it('does not throw when assets are empty', done => {
 
             bulbo.build()
 
@@ -144,7 +143,7 @@ describe('bulbo', () => {
 
             bulbo.asset('spec/fixture/**/*.js')
 
-            bulbo.serve(() => {
+            bulbo.serve().then(() => {
 
                 setTimeout(() => {
 
@@ -164,7 +163,7 @@ describe('bulbo', () => {
 
         })
 
-        it('does not throw when the param is undefined', done => {
+        it('does not throw when the assets are empty', done => {
 
             bulbo.serve()
 
@@ -186,7 +185,7 @@ describe('bulbo', () => {
 
             bulbo.port(8500)
 
-            bulbo.serve(() => {
+            bulbo.serve().then(() => {
 
                 request.get('0.0.0.0:8500/__bulbo__').end((err, res) => {
 
@@ -210,7 +209,7 @@ describe('bulbo', () => {
 
             bulbo.asset('spec/fixture/**/*.js')
 
-            bulbo.build(() => {
+            bulbo.build().then(() => {
 
                 expect(fs.readFileSync('build/dist/js/foo.js').toString()).to.have.length.above(1)
 

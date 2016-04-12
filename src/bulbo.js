@@ -22,7 +22,7 @@ export function asset(glob, opts) {
 
     service.addAsset(asset)
 
-    return new AssetModifierFactory().createFromAsset(asset)
+    return AssetModifierFactory.createFromAsset(asset)
 
 }
 
@@ -30,41 +30,26 @@ export function asset(glob, opts) {
  * Gets the asset service.
  *
  * For internal use only.
- *
  * @private
  * @return {AssetService}
  */
-export function getService() {
-
-    return service
-
-}
+export const getService = () => service
 
 /**
  * Serves the assets at localhost.
  *
- * For internal use.
- *
- * @param {Function} cb The callback
+ * For internal use only.
+ * @return {Promise}
  */
-export function serve(cb) {
-
-    service.serve(cb)
-
-}
+export const serve = () => service.serve()
 
 /**
  * Builds the assets to the destination.
  *
- * For internal use.
- *
- * @param {Function} cb The callback
+ * For internal use only.
+ * @return {Promise}
  */
-export function build(cb) {
-
-    service.build(cb)
-
-}
+export const build = () => service.build()
 
 /**
  * Sets the dest.
@@ -73,11 +58,7 @@ export function build(cb) {
  *
  * @param {String} dest The destination
  */
-export function dest(dest) {
-
-    service.setDest(dest)
-
-}
+export const dest = dest => service.setDest(dest)
 
 /**
  * Sets the port number.
@@ -86,11 +67,7 @@ export function dest(dest) {
  *
  * @param {Number} port The port number
  */
-export function port(port) {
-
-    service.setPort(port)
-
-}
+export const port = port => service.setPort(port)
 
 /**
  * Returns if the assets are empty.
@@ -99,22 +76,14 @@ export function port(port) {
  *
  * @return {Boolean}
  */
-export function isEmpty() {
-
-    return service.isEmpty()
-
-}
+export const isEmpty = () => service.isEmpty()
 
 /**
  * Clears all the assets.
  *
  * For internal use only.
  */
-export function clear() {
-
-    service.clear()
-
-}
+export const clear = () => service.clear()
 
 /**
  * The module interface.

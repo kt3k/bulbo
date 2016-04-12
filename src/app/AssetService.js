@@ -4,7 +4,7 @@ import AssetServer from './AssetServer'
 import AssetBuilder from './AssetBuilder'
 
 /**
- * AssetService builds and serves the given assets.
+ * AssetService manages, builds and serves the collection of assets.
  */
 export default class AssetService {
 
@@ -22,7 +22,6 @@ export default class AssetService {
 
     /**
      * Adds the asset
-     *
      * @private
      * @param {Asset} asset The asset
      */
@@ -34,22 +33,21 @@ export default class AssetService {
 
     /**
      * Serves the assets.
-     *
-     * @param {Function} cb The callback
+     * @return {Promise} Resolves when the server started
      */
-    serve(cb) {
+    serve() {
 
-        new AssetServer(this.assets, this.port).serve(cb)
+        return new AssetServer(this.assets, this.port).serve()
 
     }
 
     /**
      * Builds the assets.
-     * @param {Function} cb The callback
+     * @return {Promise} Resolves when the assets built
      */
-    build(cb) {
+    build() {
 
-        new AssetBuilder(this.assets, this.dest).build(cb)
+        return new AssetBuilder(this.assets, this.dest).build()
 
     }
 

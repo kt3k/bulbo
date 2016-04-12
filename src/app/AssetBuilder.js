@@ -19,21 +19,13 @@ export default class AssetBuilder {
      * Builds the assets
      *
      * @param {Function} cb The callback
-     * @return {Stream}
+     * @return {Promise}
      */
     build(cb) {
 
         const stream = this.assets.getMergedStream().pipe(vfs.dest(this.dest)).pipe(through())
 
-        if (typeof cb === 'function') {
-
-            stream
-                .on('end', () => { cb(null) })
-                .on('error', e => { cb(e) })
-
-        }
-
-        return stream
+        return new Promise((resolve, reject) => stream.on('end', resolve).on('error', reject))
 
     }
 

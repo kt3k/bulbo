@@ -6,16 +6,16 @@ export default class AssetModifierFactory {
     /**
      * @param {Asset} asset The asset
      */
-    createFromAsset(asset) {
+    static createFromAsset(asset) {
 
         const modifier = {
             /**
              * Sets the build function.
-             * @param {Function} build The build method
+             * @param {Function} transform The build method takes a {@code Stream} and returns a {@code Stream}
              */
-            build(build) {
+            build(transform) {
 
-                asset.addTransform(build)
+                asset.addTransform(transform)
 
                 return modifier
 
