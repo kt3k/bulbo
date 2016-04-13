@@ -3,6 +3,8 @@
 - Command bulbo build -w
 - DSL verb .asset
 - write a bit more tests
+- DSL verb .pipe
+- DSL verb .assetOptions
 
 # DONE
 
