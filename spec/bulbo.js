@@ -150,6 +150,8 @@ describe('bulbo', () => {
 
                     request.get('0.0.0.0:7100/js/foo.js').buffer().end((err, res) => {
 
+                        if (err) { done(err) }
+
                         expect(res.text).to.contain('This is foo.js')
 
                         vinylServe.stop(7100)

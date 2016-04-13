@@ -1,4 +1,3 @@
-import Asset from '../domain/Asset'
 import AssetCollection from '../domain/AssetCollection'
 import AssetServer from './AssetServer'
 import AssetBuilder from './AssetBuilder'

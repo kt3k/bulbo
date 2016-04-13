@@ -2,13 +2,6 @@ import vfs from 'vinyl-fs'
 import {Stream} from 'stream'
 
 /**
- * The identity function - default for stream modifier.
- * @param {Object} x any
- * @return {Object}
- */
-const id = x => x
-
-/**
  * The model of asset
  */
 export default class Asset {
@@ -50,7 +43,7 @@ export default class Asset {
     transformsToString() {
 
         return JSON.stringify(this.transforms.map(transform => transform.toString()))
-        
+
     }
 
     /**

@@ -50,7 +50,7 @@
     "mocha": "^2.3.4",
     "nyc": "^5.1.1",
     "rimraf": "^2.5.0",
-    "souffle-cli": "^2.0.2",
+    "souffle-cli": "^3.0.0",
     "superagent": "^1.6.1",
     "through": "^2.3.8"
   },
