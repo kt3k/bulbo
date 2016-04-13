@@ -1,6 +1,6 @@
 import Asset from './domain/Asset'
 import AssetService from './app/AssetService'
-import AssetModifierFactory from './app/AssetModifierFactory'
+import AssetModifier from './app/AssetModifier'
 
 const DEFAULT_DEST = 'build' // The default destination
 const DEFAULT_PORT = 7100 // The default port number
@@ -22,7 +22,7 @@ export function asset(glob, opts) {
 
     service.addAsset(asset)
 
-    return AssetModifierFactory.createFromAsset(asset)
+    return new AssetModifier(asset)
 
 }
 
