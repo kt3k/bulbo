@@ -51,7 +51,7 @@ export default class AssetModifierFactory {
              */
             base(base) {
 
-                assets.setBase(base)
+                asset.setBase(base)
 
                 return modifier
 

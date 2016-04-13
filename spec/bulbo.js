@@ -42,9 +42,10 @@ describe('bulbo', () => {
 
             it('sets the asset builder', done => {
 
-                bulbo.asset('spec/fixture/js/{foo,bar}.js', {
-                    base: 'spec/fixture'
-                }).build(src => src.pipe(through(function (file) {
+                bulbo
+                .asset('spec/fixture/js/{foo,bar}.js')
+                .base('spec/fixture')
+                .build(src => src.pipe(through(function (file) {
 
                     file.contents = browserify(file.path).bundle()
 
