@@ -1,6 +1,8 @@
 # TODO
 
 - Command bulbo build -w
+- DSL verb .asset
+- write a bit more tests
 
 # DONE
 
