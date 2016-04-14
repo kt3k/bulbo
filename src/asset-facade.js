@@ -94,7 +94,7 @@ export default class AssetFacade {
 
     /**
      * Adds the trasform of transform stream.
-     * @param {Transform} transform
+     * @param {Transform} transform The transform to pass to the vinyl stream
      */
     pipe(transform) {
 

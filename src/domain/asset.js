@@ -37,7 +37,7 @@ export default class Asset {
      */
     setAssetOpts(opts) {
 
-        this.opts = opts
+        Object.assign(this.opts, opts)
 
     }
 
@@ -82,7 +82,7 @@ export default class Asset {
      */
     setWatchOpts(opts) {
 
-        this.watchOpts = opts
+        Object.assign(this.watchOpts, opts)
 
     }
 

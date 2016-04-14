@@ -1,5 +1,6 @@
 import {asset} from '../src/bulbo'
 import {expect} from 'chai'
+import through from 'through'
 
 describe('asset-facade', () => {
 
@@ -23,11 +24,9 @@ describe('asset-facade', () => {
 
         it('sets the asset options to the asset', () => {
 
-            const opts = {}
+            const facade = asset('foo').assetOptions({bar: 'baz'})
 
-            const facade = asset('foo').assetOptions(opts)
-
-            expect(facade.getAssetModel().opts).to.equal(opts)
+            expect(facade.getAssetModel().opts).to.eql({bar: 'baz'})
 
         })
 
@@ -53,11 +52,9 @@ describe('asset-facade', () => {
 
         it('sets the watch options', () => {
 
-            const opts = {}
+            const facade = asset('foo').watchOptions({bar: 'baz'})
 
-            const facade = asset('foo').watchOptions(opts)
-
-            expect(facade.getAssetModel().getWatchOpts()).to.equal(opts)
+            expect(facade.getAssetModel().getWatchOpts()).to.eql({bar: 'baz'})
 
         })
 
@@ -70,6 +67,14 @@ describe('asset-facade', () => {
             const facade = asset('foo').base('src')
 
             expect(facade.getAssetModel().opts.base).to.equal('src')
+
+        })
+
+        it('does not conflict with asset opts', () => {
+
+            const facade = asset('foo').base('src').assetOptions({bar: 'baz'})
+
+            expect(facade.getAssetModel().opts).to.eql({base: 'src', bar: 'baz'})
 
         })
 
@@ -95,6 +100,15 @@ describe('asset-facade', () => {
     })
 
     describe('.pipe', () => {
+
+        it('adds the transform', () => {
+
+            const facade = asset('foo').pipe(through())
+
+            expect(facade.getAssetModel().transforms.length).to.equal(1)
+
+        })
+
     })
 
 })

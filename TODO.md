@@ -1,13 +1,13 @@
 # TODO
 
 - Command bulbo build -w
-- write a bit more tests
-- DSL verb .pipe
 - Separate API reference and getting started guide
-- Fix bug of options overriding .base('foo').assetOptions({}) removes the base path setting
 
 # DONE
 
+- Fix bug of options overriding .base('foo').assetOptions({}) removes the base path setting
+- write a bit more tests
+- DSL verb .pipe
 - DSL verb .asset
 - DSL verb .assetOptions
 - Rename AssetModifier to AssetFacade, and write it to doc

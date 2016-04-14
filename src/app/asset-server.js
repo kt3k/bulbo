@@ -3,23 +3,6 @@ import logger from '../util/logger'
 import chalk from 'chalk'
 import vinylServe from 'vinyl-serve'
 
-vinylServe.setDebugPageTitle('Welcome to <i>Bulbo</i> asset path debug page!')
-vinylServe.setDebugPagePath('/__bulbo__')
-vinylServe.setHandlerOfStarting((url, debugUrl) => {
-
-    console.log('Server started at:', chalk.cyan(url))
-    console.log('See debug page is:', chalk.cyan(debugUrl))
-
-})
-
-vinylServe.setHandlerOfPortError(port => {
-
-    console.log(chalk.red(`Error: The port number ${port} is already in use`))
-
-    process.exit(1)
-
-})
-
 export default class AssetServer {
 
     /**
@@ -30,6 +13,23 @@ export default class AssetServer {
 
         this.assets = assets
         this.port = port
+
+        vinylServe.setDebugPageTitle('Welcome to <i>Bulbo</i> asset path debug page!')
+        vinylServe.setDebugPagePath('/__bulbo__')
+        vinylServe.setHandlerOfStarting((url, debugUrl) => {
+
+            console.log('Server started at:', chalk.cyan(url))
+            console.log('See debug page is:', chalk.cyan(debugUrl))
+
+        })
+
+        vinylServe.setHandlerOfPortError(port => {
+
+            console.log(chalk.red(`Error: The port number ${port} is already in use`))
+
+            process.exit(1)
+
+        })
 
     }
 
