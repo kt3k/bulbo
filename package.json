@@ -61,13 +61,10 @@
       "beforeEach"
     ]
   },
-  "config": {
-    "nyc": {
-      "exclude": [
-        "spec",
-        "lib/mergeStream.js"
-      ]
-    }
+  "nyc": {
+    "exclude": [
+      "spec/**/*"
+    ]
   },
   "babel": {
     "presets": [
