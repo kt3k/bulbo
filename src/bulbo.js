@@ -1,6 +1,6 @@
 import Asset from './domain/Asset'
 import AssetService from './app/AssetService'
-import AssetModifier from './app/AssetModifier'
+import AssetModifier from './asset-facade'
 
 const DEFAULT_DEST = 'build' // The default destination
 const DEFAULT_PORT = 7100 // The default port number

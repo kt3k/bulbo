@@ -1,7 +1,7 @@
 /**
  * The factory class of asset modifiers.
  */
-export default class AssetModifier {
+export default class AssetFacade {
 
     /**
      * @param {Asset} asset The asset to modify
