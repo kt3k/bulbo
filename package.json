@@ -1,6 +1,6 @@
 {
   "name": "bulbo",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Streaming static site generator, based on gulp",
   "main": "lib/bulbo.js",
   "scripts": {
