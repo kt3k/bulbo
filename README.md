@@ -30,21 +30,20 @@ asset('source/**/*.css')
 asset('source/page/*.js')
 .base('source')
 .watch('source/**/*.js')
-.build(src => src.pipe(through(function (file) {
+.pipe(through(function (file) {
 
   file.contents = browserify(file.path).bundle()
   this.queue(file)
 
-})))
+}))
 
 // html
 asset('source/*.html')
-.build(src => src
-  .pipe(frontMatter())
-  .pipe(wrap(data => fs.readFileSync('source/layouts/' + data.file.frontMatter.layout).toString())))
+.pipe(frontMatter())
+.pipe(wrap(data => fs.readFileSync('source/layouts/' + data.file.frontMatter.layout).toString())))
 
 // others
-asset(['source/**/*', '!source/**/*.{js,css,html,lodash}'])
+asset('source/**/*', '!source/**/*.{js,css,html,lodash}')
 ```
 
 And then `bulbo serve` command starts the server.
@@ -115,13 +114,13 @@ Example:
 bulbo
 .asset('src/js/pages/*.js')
 .watch('src/js/**/*.js') // Watches all js files under `src/js`, though build entry poits are only js files under `src/js/pages`.
-.build(src => src.pipe(through(function(file) {
+.pipe(through(function(file) {
 
   file.contents = browserify(file.path).bundle()
 
   this.queue(file)
 
-})))
+}))
 ```
 
 ## bulbo.asset(...).watchOptions(opts)
@@ -226,27 +225,20 @@ frontMatter = require 'gulp-front-matter'
 wrap = require 'gulp-wrap'
 
 asset 'source/**/*.css'
+asset 'source/**/*'
+asset '!source/**/*.{js,css,html,lodash}'
 
 asset 'source/page/*.js'
 .watch 'source/**/*.js'
-.build (src) =>
+.pipe through (file) ->
 
-  src.pipe through (file) ->
-
-    file.contents = browserify(file.path).bundle()
-    @queue file
+  file.contents = browserify(file.path).bundle()
+  @queue file
 
 asset 'source/*.html'
-.build (src) =>
-  src
-  .pipe frontMatter()
-  .pipe wrap (data) =>
-    fs.readFileSync("source/layouts/#{ data.file.frontMatter.layout }").toString()
-
-asset [
-  'source/**/*'
-  '!source/**/*.{js,css,html,lodash}'
-]
+.pipe frontMatter()
+.pipe wrap (data) =>
+  fs.readFileSync("source/layouts/#{ data.file.frontMatter.layout }").toString()
 ```
 
 ## Uglify scripts only when it's production build
@@ -260,7 +252,7 @@ import uglify from 'gulp-uglify'
 const PRODUCTION_BUILD = process.NODE_ENV === 'production'
 
 asset('source/**/*.js')
-.build(src => src.pipe(gulpif(PRODUCTION_BUILD, uglify()))
+.pipe(gulpif(PRODUCTION_BUILD, uglify())
 ```
 
 This uglifies the scripts only when the variable NODE_ENV is `'production'`.
@@ -274,7 +266,7 @@ import uglify from 'gulp-uglify'
 const PRODUCTION_BUILD = process.NODE_ENV === 'production'
 
 asset('source/**/*.js')
-.build(src => src.pipe(PRODUCTION_BUILD ? uglify() : through()))
+.pipe(PRODUCTION_BUILD ? uglify() : through())
 ```
 
 ## Want to render my contents with template engine *XXXX*
@@ -286,9 +278,8 @@ import wrap from 'gulp-wrap'
 import frontMatter from 'gulp-front-matter'
 
 asset('source/**/*.html')
-.build(src => src
-  .pipe(frontMatter())
-  .pipe(wrap({src: 'source/layout.nunjucks'}, null, {engine: 'nunjucks'})))
+.pipe(frontMatter())
+.pipe(wrap({src: 'source/layout.nunjucks'}, null, {engine: 'nunjucks'}))
 ```
 ***Note*** You need to `npm install nunjucks` in this case.
 
