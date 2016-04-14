@@ -4,6 +4,7 @@
 - write a bit more tests
 - DSL verb .pipe
 - Separate API reference and getting started guide
+- Fix bug of options overriding .base('foo').assetOptions({}) removes the base path setting
 
 # DONE
 
