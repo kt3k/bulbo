@@ -92,4 +92,16 @@ export default class AssetFacade {
 
     }
 
+    /**
+     * Adds the trasform of transform stream.
+     * @param {Transform} transform
+     */
+    pipe(transform) {
+
+        this.getAssetModel().addTransform(src => src.pipe(transform))
+
+        return this
+
+    }
+
 }
