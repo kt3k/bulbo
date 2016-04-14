@@ -2,6 +2,7 @@
 
 - Command bulbo build -w
 - Separate API reference and getting started guide
+- Use event emitter
 
 # DONE
 

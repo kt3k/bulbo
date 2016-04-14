@@ -17,11 +17,9 @@ export default class AssetBuilder {
 
     /**
      * Builds the assets
-     *
-     * @param {Function} cb The callback
      * @return {Promise}
      */
-    build(cb) {
+    build() {
 
         const stream = this.assets.getMergedStream().pipe(vfs.dest(this.dest)).pipe(through())
 

@@ -139,4 +139,14 @@ export default class Asset {
 
     }
 
+    /**
+     * Returns a string expression
+     * @return {string}
+     */
+    toString() {
+
+        return this.paths.toString()
+
+    }
+
 }

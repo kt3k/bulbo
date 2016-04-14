@@ -44,11 +44,11 @@ export default class AssetServer {
 
             watch(asset.getWatchPaths(), asset.getWatchOpts(), () => {
 
-                logger.log('❗️ File changed:', chalk.magenta(asset.glob))
+                logger.log('❗️ File changed:', chalk.magenta(asset.toString()))
 
                 asset.pipe(vinylServe(this.port)).on('end', () => {
 
-                    logger.log('✅ Files ready:', chalk.magenta(asset.glob))
+                    logger.log('✅ Files ready:', chalk.magenta(asset.toString()))
 
                 })
 
