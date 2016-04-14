@@ -1,5 +1,5 @@
-import Asset from './domain/Asset'
-import AssetService from './app/AssetService'
+import Asset from './domain/asset'
+import AssetService from './app/asset-service'
 import AssetFacade from './asset-facade'
 
 const DEFAULT_DEST = 'build' // The default destination

@@ -1,6 +1,6 @@
-import AssetCollection from '../domain/AssetCollection'
-import AssetServer from './AssetServer'
-import AssetBuilder from './AssetBuilder'
+import AssetCollection from '../domain/asset-collection'
+import AssetServer from './asset-server'
+import AssetBuilder from './asset-builder'
 
 /**
  * AssetService manages, builds and serves the collection of assets.
