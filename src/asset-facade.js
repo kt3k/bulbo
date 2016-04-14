@@ -8,8 +8,16 @@ export default class AssetFacade {
      */
     constructor(asset) {
 
-        this.asset = asset
+        this.setAssetModel(asset)
 
+    }
+
+    setAssetModel(asset) {
+        this.assetModel = asset
+    }
+
+    getAssetModel() {
+        return this.assetModel
     }
 
     /**
@@ -18,7 +26,7 @@ export default class AssetFacade {
      */
     asset(...paths) {
 
-        this.asset.addAssetPaths(...paths)
+        this.getAssetModel().addAssetPaths(...paths)
 
         return this
 
@@ -30,7 +38,7 @@ export default class AssetFacade {
      */
     assetOptions(opts) {
 
-        this.asset.setAssetOpts(opts)
+        this.getAssetModel().setAssetOpts(opts)
 
         return this
 
@@ -42,7 +50,7 @@ export default class AssetFacade {
      */
     build(transform) {
 
-        this.asset.addTransform(transform)
+        this.getAssetModel().addTransform(transform)
 
         return this
 
@@ -54,7 +62,7 @@ export default class AssetFacade {
      */
     watch(...watchPaths) {
 
-        this.asset.addWatchPaths(...watchPaths)
+        this.getAssetModel().addWatchPaths(...watchPaths)
 
         return this
 
@@ -66,7 +74,7 @@ export default class AssetFacade {
      */
     watchOptions(options) {
 
-        this.asset.setWatchOpts(options)
+        this.getAssetModel().setWatchOpts(options)
 
         return this
 
@@ -78,7 +86,7 @@ export default class AssetFacade {
      */
     base(base) {
 
-        this.asset.setBase(base)
+        this.getAssetModel().setBase(base)
 
         return this
 
