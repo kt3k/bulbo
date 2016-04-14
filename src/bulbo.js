@@ -1,6 +1,6 @@
 import Asset from './domain/Asset'
 import AssetService from './app/AssetService'
-import AssetModifier from './asset-facade'
+import AssetFacade from './asset-facade'
 
 const DEFAULT_DEST = 'build' // The default destination
 const DEFAULT_PORT = 7100 // The default port number
@@ -12,17 +12,16 @@ const service = new AssetService(DEFAULT_DEST, DEFAULT_PORT)
  *
  * DSL vocabulary.
  *
- * @param {String|String[]} glob The glob pattern
- * @param {Object} opts The options
+ * @param {Array<string|string[]>} paths The paths of the asset
  * @return {Function}
  */
-export function asset(glob, opts) {
+export function asset(...paths) {
 
-    const asset = new Asset(glob, opts)
+    const asset = new Asset(...paths)
 
     service.addAsset(asset)
 
-    return new AssetModifier(asset)
+    return new AssetFacade(asset)
 
 }
 

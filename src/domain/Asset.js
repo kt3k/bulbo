@@ -8,15 +8,13 @@ export default class Asset {
 
     /**
      * @constructor
-     * @param {String|String[]} glob The glob pattern
-     * @param {Object} [opts] The options to vinyl-fs#src
-     * @param {String|String[]} [opts.watch] The watch path (if omitted then equals to glob)
-     * @param {String|String[]} [opts.watchOpts] The watch opation to chokidar#watch
+     * @param {Array<string|string[]>} paths The paths to build
      */
-    constructor(glob, opts = {}) {
+    constructor(...paths) {
 
-        this.glob = glob
-        this.opts = opts
+        this.paths = []
+        this.addAssetPaths(...paths)
+        this.opts = {}
         this.watchPaths = []
         this.watchOpts = {}
         this.transforms = []
@@ -24,11 +22,33 @@ export default class Asset {
     }
 
     /**
+     * Adds the asset paths.
+     * @param {Array<string|string[]>} paths The paths to build
+     */
+    addAssetPaths(...paths) {
+
+        this.paths = this.paths.concat(...paths)
+
+    }
+
+    /**
+     * Sets the asset options.
+     * @param {object} opts The asset options to pass to vinyl-fs when creating vinyl stream
+     */
+    setAssetOpts(opts) {
+
+        this.opts = opts
+
+    }
+
+    /**
      * Adds the watch paths.
      * @param {string|string[]} paths The paths
      */
-    addWatchPaths(paths) {
+    addWatchPaths(...paths) {
+
         this.watchPaths = this.watchPaths.concat(paths)
+
     }
 
     /**
@@ -85,11 +105,11 @@ export default class Asset {
      */
     getStream() {
 
-        const stream = this.transforms.reduce((stream, transform) => transform(stream), vfs.src(this.glob, this.opts))
+        const stream = this.transforms.reduce((stream, transform) => transform(stream), vfs.src(this.paths, this.opts))
 
         if (!(stream instanceof Stream)) {
 
-            throw new Error(`Asset transforms must return a stream (asset path: [${this.glob.toString()}], transforms: ${this.transformsToString()})`)
+            throw new Error(`Asset transforms must return a stream (asset path: [${this.paths.toString()}], transforms: ${this.transformsToString()})`)
 
         }
 
@@ -104,7 +124,7 @@ export default class Asset {
      */
     getWatchPaths() {
 
-        return this.watchPaths || this.glob
+        return this.watchPaths.length > 0 ? this.watchPaths : this.paths
 
     }
 

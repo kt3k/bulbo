@@ -13,6 +13,30 @@ export default class AssetFacade {
     }
 
     /**
+     * Adds the asset paths.
+     * @param {Array<string|string[]>} paths The paths
+     */
+    asset(...paths) {
+
+        this.asset.addAssetPaths(...paths)
+
+        return this
+
+    }
+
+    /**
+     * Sets the asset options.
+     * @param {object} opts The options to pass to the vinyl-fs
+     */
+    assetOptions(opts) {
+
+        this.asset.setAssetOpts(opts)
+
+        return this
+
+    }
+
+    /**
      * Sets the build function.
      * @param {Function} transform The build method takes a {@code Stream} and returns a {@code Stream}
      */
@@ -26,11 +50,11 @@ export default class AssetFacade {
 
     /**
      * Sets the watch paths and opts.
-     * @param {string|string[]}
+     * @param {Array<string|string[]>} watchPaths The paths to watch
      */
-    watch(watchPaths) {
+    watch(...watchPaths) {
 
-        this.asset.addWatchPaths(watchPaths)
+        this.asset.addWatchPaths(...watchPaths)
 
         return this
 

@@ -1,14 +1,14 @@
 # TODO
 
 - Command bulbo build -w
-- DSL verb .asset
 - write a bit more tests
 - DSL verb .pipe
-- DSL verb .assetOptions
 - Separate API reference and getting started guide
 
 # DONE
 
+- DSL verb .asset
+- DSL verb .assetOptions
 - Rename AssetModifier to AssetFacade, and write it to doc
 - DSL verb .watch
 - DSL verb .base
