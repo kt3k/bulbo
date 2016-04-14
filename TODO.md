@@ -1,8 +1,10 @@
 # TODO
 
 - Command bulbo build -w
+  - Use event emitter
+  - create asset-watcher which extends event-emitter
+  - asset-builder and asset-server extend asset-watcher
 - Separate API reference and getting started guide
-- Use event emitter
 
 # DONE
 
