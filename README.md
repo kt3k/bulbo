@@ -7,21 +7,98 @@
 
 # Install
 
-```
-npm install --save-dev bulbo
-```
+    npm install --save-dev bulbo
 
-# Usage
+# Getting started
 
 First you need to set up `bulbofile.js` like the following.
 
 ```js
-const asset = require('bulbo').asset
+const bulbo = require('bulbo')
+const asset = bulbo.asset
+
+// copy css
+asset('source/**/*.css')
+```
+
+The above means that `'source/**/*.css'` is asset and which will be copied to the destination directory (default: `build`).
+
+## Change destination
+
+If you want to change the destination you can do it with `bulbo.dest` method
+
+```js
+bulbo.dest('output')
+```
+
+## Browserify
+
+If you need to bundle your scripts with `browserify` you can set up it like the following:
+
+```js
+const through = require('through')
+const browserify = require('browserify')
+
+// build js
+asset('source/page/*.js')
+.base('source')
+.watch('source/**/*.js')
+.pipe(through(function (file) {
+
+  file.contents = browserify(file.path).bundle()
+  this.queue(file)
+
+}))
+```
+
+- `.base('source')` means the base path of your glob pattern (`source/page/*.js`) is `source`.
+- `.watch('source/**/*.js')` means that this build process watches the files `source/**/*.js`, not only `source/page/*.js`
+- `.pipe(through(...))` means this build process applies the browserify bundling to its file stream.
+  - This transform is the same thing as you need to transform the gulp.src() stream.
+  - You can use any gulp plugins here.
+
+## Building html from layout and page source
+
+To build html from layout tempate, set up it like the following:
+
+```js
+const frontMatter = require('gulp-front-matter')
+const wrap = require('gulp-wrap')
+
+// html
+asset('source/*.html')
+.pipe(frontMatter())
+.pipe(wrap(data => fs.readFileSync('source/layouts/' + data.file.frontMatter.layout).toString())))
+```
+
+- `.pipe(frontMatter())` means it extracts the frontmatter from the file.
+- `.pipe(wrap(...))` means it renders its html using layour file under the `source/layouts/`.
+  - The layout file name is specified by `layout` property of the frontmatter.
+
+## Excluding some patterns
+
+To exclude some patterns, use `!` operator.
+
+```js
+// others
+asset('source/**/*', '!source/**/*.{js,css,html,lodash}')
+```
+
+The above copies all assets under `source` except `.js`, `.css`, `.html` or `.lodash` files.
+
+
+The resulting `bulbofile.js` looks like the following:
+
+```js
+const bulbo = require('bulbo')
+const asset = bulbo.asset
 
 const through = require('through')
 const browserify = require('browserify')
 const frontMatter = require('gulp-front-matter')
 const wrap = require('gulp-wrap')
+
+bulbo.dest('output')
 
 // css
 asset('source/**/*.css')
@@ -61,16 +138,15 @@ And the following builds all the given assets and saves them to `build/` directo
     Using bulbofile: /Users/kt3k/tmp/bulbo/demo/bulbofile.js
     bulbo build
 
-# API
+# API reference
 
 ```js
 const bulbo = require('bulbo')
 ```
 
-## bulbo.asset(glob, opts)
+## bulbo.asset(glob)
 
 - @param {String|String[]} glob The glob pattern(s)
-- @param {Object} [opts] The options
 
 This registers the glob pattern as the asset source.
 
@@ -79,11 +155,16 @@ Example:
 bulbo.asset('src/js/**/*.js')
 ```
 
-You can also pass the option to asset globing.
+## bulbo.assetOptions(opts)
+
+- @param {Object} [opts] The options
+
+This passes the option to asset globing.
 
 Example:
 ```js
-bulbo.asset('src/js/**/*.js', {read: false})
+bulbo.asset('src/js/**/*.js')
+.assetOptions({read: false})
 ```
 
 The above doesn't read actual file contents when being built. This is useful when you use the transform which doesn't require the file contents.
