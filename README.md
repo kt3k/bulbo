@@ -5,6 +5,8 @@
 
 > :tropical_drink: Gulp compatible static site generator
 
+Tired of configuring middleman for using it with browserify? Looking for a simpler gulp optimized for Static Site Generation? Use bulbo!
+
 # Install
 
     npm install --save-dev bulbo
