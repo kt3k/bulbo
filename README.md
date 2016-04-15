@@ -3,7 +3,7 @@
 
 [![npm bulbo](https://nodei.co/npm/bulbo.png?compact=true)](https://www.npmjs.com/package/bulbo)
 
-> Streaming static site generator, based on gulp
+> :tropical_drink: Gulp compatible static site generator
 
 # Install
 

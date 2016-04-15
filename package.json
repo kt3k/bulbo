@@ -1,7 +1,7 @@
 {
   "name": "bulbo",
   "version": "4.0.0",
-  "description": "Streaming static site generator, based on gulp",
+  "description": "Gulp compatible static site generator",
   "main": "lib/bulbo.js",
   "scripts": {
     "test": "_mocha --require babel-register spec",
