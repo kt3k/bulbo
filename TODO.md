@@ -4,11 +4,10 @@
   - Use event emitter
   - create asset-watcher which extends event-emitter
   - asset-builder and asset-server extend asset-watcher
-- Separate API reference and getting started guide
-- Provide default favicon.ico
 
 # DONE
 
+- Separate API reference and getting started guide
 - Fix bug of options overriding .base('foo').assetOptions({}) removes the base path setting
 - write a bit more tests
 - DSL verb .pipe
