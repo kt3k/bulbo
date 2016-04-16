@@ -385,6 +385,7 @@ MIT
 
 # Release history
 
+- 2016-04-16   v4.0.2   Fix loading bug.
 - 2016-04-14   v4.0.0   Update DSL.
 - 2016-04-13   v3.0.0   Update DSL.
 - 2016-01-09   v1.0.2   Improved server start time.
