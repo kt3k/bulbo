@@ -146,9 +146,9 @@ And the following builds all the given assets and saves them to `build/` directo
 const bulbo = require('bulbo')
 ```
 
-## bulbo.asset(glob)
+## bulbo.asset(...paths)
 
-- @param {String|String[]} glob The glob pattern(s)
+- @param {string[]} paths The glob pattern(s)
 
 This registers the glob pattern as the asset source.
 
@@ -157,7 +157,12 @@ Example:
 bulbo.asset('src/js/**/*.js')
 ```
 
-## bulbo.assetOptions(opts)
+Example:
+```js
+bulbo.asset('src/feature1/*.html', 'src/feature2/*.html')
+```
+
+## bulbo.asset().assetOptions(opts)
 
 - @param {Object} [opts] The options
 
