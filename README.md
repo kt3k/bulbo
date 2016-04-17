@@ -5,8 +5,6 @@
 
 > :tropical_drink: Gulp compatible static site generator
 
-Tired of configuring [middleman](https://middlemanapp.com/) for using with browserify? Use bulbo!
-
 # Features
 
 - **Compatible with gulp plugins** - you can use any gulp plugins in bulbo
