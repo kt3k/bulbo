@@ -7,6 +7,13 @@
 
 Tired of configuring [middleman](https://middlemanapp.com/) for using with browserify? Use bulbo!
 
+# Features
+
+- **Compatible with gulp plugins** - you can use any gulp plugins in bulbo
+- **Server and Watcher included** - you don't need to set up a dev server, bulbo does it for you
+- **Flexible** - bulbo doesn't assume any directory structure, you can configure anything
+- **Easy syntax** - see the getting started guide
+
 # Install
 
     npm install --save-dev bulbo
