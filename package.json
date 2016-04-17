@@ -39,7 +39,7 @@
     "minimist": "^1.2.0",
     "subclassjs": "^1.3.0",
     "vinyl-fs": "^2.2.1",
-    "vinyl-serve": "^1.3.0"
+    "vinyl-serve": "^1.3.4"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
