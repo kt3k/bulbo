@@ -1,4 +1,4 @@
-# bulbo v4.0.4 [![Build Status](https://travis-ci.org/kt3k/bulbo.svg?branch=master)](https://travis-ci.org/kt3k/bulbo) [![codecov.io](https://codecov.io/github/kt3k/bulbo/coverage.svg?branch=master)](https://codecov.io/github/kt3k/bulbo?branch=master) <img width="70" align="right" src="https://kt3k.github.io/bulbo/media/logo.svg" />
+# bulbo v4.1.0 [![Build Status](https://travis-ci.org/kt3k/bulbo.svg?branch=master)](https://travis-ci.org/kt3k/bulbo) [![codecov.io](https://codecov.io/github/kt3k/bulbo/coverage.svg?branch=master)](https://codecov.io/github/kt3k/bulbo?branch=master) <img width="70" align="right" src="https://kt3k.github.io/bulbo/media/logo.svg" />
 
 
 [![npm bulbo](https://nodei.co/npm/bulbo.png?compact=true)](https://www.npmjs.com/package/bulbo)
@@ -395,6 +395,7 @@ MIT
 
 # Release history
 
+- 2016-04-18   v4.1.0   Update vinyl-serve to v2.0.0 (fixed bug of serving data)
 - 2016-04-17   v4.0.3   Update vinyl-serve to v1.3.4 (fixed bug of binary data handling)
 - 2016-04-16   v4.0.2   Fix loading bug.
 - 2016-04-14   v4.0.0   Update DSL.
