@@ -395,6 +395,7 @@ MIT
 
 # Release history
 
+- 2016-04-19   v4.2.3   Auto cloning feature of piped transform
 - 2016-04-18   v4.1.0   Update vinyl-serve to v2.0.0 (fixed bug of serving data)
 - 2016-04-17   v4.0.3   Update vinyl-serve to v1.3.4 (fixed bug of binary data handling)
 - 2016-04-16   v4.0.2   Fix loading bug.
