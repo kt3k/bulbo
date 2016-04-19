@@ -18,6 +18,7 @@ export default class Asset {
         this.watchPaths = []
         this.watchOpts = {}
         this.transforms = []
+        this.transformStream = null
 
     }
 
@@ -104,6 +105,10 @@ export default class Asset {
      * @throws {Error} When
      */
     getStream() {
+
+        if (this.transformStream) {
+            return vfs.src().pipe(this.transformStream)
+        }
 
         const stream = this.transforms.reduce((stream, transform) => transform(stream), vfs.src(this.paths, this.opts))
 

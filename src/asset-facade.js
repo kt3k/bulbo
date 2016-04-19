@@ -98,9 +98,37 @@ export default class AssetFacade {
      */
     pipe(transform) {
 
-        this.getAssetModel().addTransform(src => src.pipe(transform))
+        this.getAssetModel().addTransform(src => src.pipe(AssetFacade.cloneTransform(transform)))
 
         return this
+
+    }
+
+    /**
+     * @param {TransformStream} transform The transform stream
+     */
+    static cloneTransform(transform) {
+
+        if (!AssetFacade.isCloneableTransform(transform)) {
+            throw new Error('The given transform stream does not confirm to Stream v2 TransformStream spec')
+        }
+
+        const clone = new Transform()
+
+        clone._transform = transform._transform
+        clone._flush = transform._flush
+
+        return clone
+
+    }
+
+    /**
+     * Checks if the object is a cloneable transform stream.
+     * @param {Object} obj The object
+     */
+    static isCloneableTransform(obj) {
+
+        return obj != null && typeof obj._transform === 'function' && typeof obj._flush === 'function'
 
     }
 
