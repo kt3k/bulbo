@@ -52,7 +52,8 @@
     "rimraf": "^2.5.2",
     "souffle-cli": "^3.0.0",
     "superagent": "^1.6.1",
-    "through": "^2.3.8"
+    "through": "^2.3.8",
+    "through2": "^2.0.1"
   },
   "souffle": {
     "globals": [

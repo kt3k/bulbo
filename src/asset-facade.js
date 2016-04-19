@@ -1,3 +1,4 @@
+import {Transform} from 'stream'
 /**
  * The factory class of asset modifiers.
  */
@@ -98,6 +99,8 @@ export default class AssetFacade {
      */
     pipe(transform) {
 
+        AssetFacade.checkTransformCloneable(transform)
+
         this.getAssetModel().addTransform(src => src.pipe(AssetFacade.cloneTransform(transform)))
 
         return this
@@ -109,16 +112,27 @@ export default class AssetFacade {
      */
     static cloneTransform(transform) {
 
-        if (!AssetFacade.isCloneableTransform(transform)) {
-            throw new Error('The given transform stream does not confirm to Stream v2 TransformStream spec')
-        }
-
         const clone = new Transform()
 
         clone._transform = transform._transform
         clone._flush = transform._flush
 
         return clone
+
+    }
+
+    /**
+     * Checks if the transform stream is cloneable. If not, throws.
+     * @param {Transform} transform The transform stream
+     * @throws {Error} when the transform is not cloneable
+     */
+    static checkTransformCloneable(transform) {
+
+        if (!AssetFacade.isCloneableTransform(transform)) {
+
+            throw new Error('The given transform stream does not confirm to Stream v2 TransformStream spec')
+
+        }
 
     }
 
