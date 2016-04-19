@@ -128,7 +128,7 @@ export default class AssetFacade {
      */
     static isCloneableTransform(obj) {
 
-        return obj != null && typeof obj._transform === 'function' && typeof obj._flush === 'function'
+        return obj != null && typeof obj._transform === 'function'
 
     }
 
