@@ -43,24 +43,25 @@ bulbo.dest('output')
 If you need to bundle your scripts with `browserify` you can set up it like the following:
 
 ```js
-const through = require('through')
+const through2 = require('through2')
 const browserify = require('browserify')
 
 // build js
 asset('source/page/*.js')
 .base('source')
 .watch('source/**/*.js')
-.pipe(through(function (file) {
+.pipe(through2.obj(function (file, enc, callback) {
 
   file.contents = browserify(file.path).bundle()
-  this.queue(file)
+  this.push(file)
+  callback()
 
 }))
 ```
 
 - `.base('source')` means the base path of your glob pattern (`source/page/*.js`) is `source`.
 - `.watch('source/**/*.js')` means that this build process watches the files `source/**/*.js`, not only `source/page/*.js`
-- `.pipe(through(...))` means this build process applies the browserify bundling to its file stream.
+- `.pipe(through2.obj(...))` means this build process applies the browserify bundling to its file stream.
   - This transform is the same thing as you need to transform the gulp.src() stream.
   - You can use any gulp plugins here.
 
@@ -100,7 +101,7 @@ The resulting `bulbofile.js` looks like the following:
 const bulbo = require('bulbo')
 const asset = bulbo.asset
 
-const through = require('through')
+const through2 = require('through2')
 const browserify = require('browserify')
 const frontMatter = require('gulp-front-matter')
 const wrap = require('gulp-wrap')
@@ -114,10 +115,11 @@ asset('source/**/*.css')
 asset('source/page/*.js')
 .base('source')
 .watch('source/**/*.js')
-.pipe(through(function (file) {
+.pipe(through2.obj(function (file, enc, callback) {
 
   file.contents = browserify(file.path).bundle()
-  this.queue(file)
+  this.push(file)
+  callback()
 
 }))
 
@@ -207,11 +209,11 @@ Example:
 bulbo
 .asset('src/js/pages/*.js')
 .watch('src/js/**/*.js') // Watches all js files under `src/js`, though build entry poits are only js files under `src/js/pages`.
-.pipe(through(function(file) {
+.pipe(through2.obj(function(file, enc, callback) {
 
   file.contents = browserify(file.path).bundle()
-
-  this.queue(file)
+  this.push(file)
+  callback()
 
 }))
 ```
@@ -234,11 +236,11 @@ Example:
 ```js
 bulbo
 .asset('src/js/**/*.js')
-.build(src => src.pipe(through(function (file) {
+.build(src => src.pipe(through2.obj(function (file, enc, callback) {
 
   file.contents = browserify(file.path).bundle()
-
-  this.queue(file)
+  this.push(file)
+  callback()
 
 })))
 ```
@@ -312,7 +314,7 @@ And your bulbofile.coffee looks like the following:
 ```coffee
 asset = require('bulbo').asset
 
-through = require 'through'
+through2 = require 'through2'
 browserify = require 'browserify'
 frontMatter = require 'gulp-front-matter'
 wrap = require 'gulp-wrap'
@@ -323,10 +325,11 @@ asset '!source/**/*.{js,css,html,lodash}'
 
 asset 'source/page/*.js'
 .watch 'source/**/*.js'
-.pipe through (file) ->
+.pipe through2.obj (file, enc, callback) ->
 
   file.contents = browserify(file.path).bundle()
-  @queue file
+  @push file
+  callback()
 
 asset 'source/*.html'
 .pipe frontMatter()
@@ -350,16 +353,16 @@ asset('source/**/*.js')
 
 This uglifies the scripts only when the variable NODE_ENV is `'production'`.
 
-Or alternatively use `through`:
+Or alternatively use `through2`:
 
 ```js
-import through from 'through'
+import through2 from 'through2'
 import uglify from 'gulp-uglify'
 
 const PRODUCTION_BUILD = process.NODE_ENV === 'production'
 
 asset('source/**/*.js')
-.pipe(PRODUCTION_BUILD ? uglify() : through())
+.pipe(PRODUCTION_BUILD ? uglify() : through2.obj())
 ```
 
 ## Want to render my contents with template engine *XXXX*
