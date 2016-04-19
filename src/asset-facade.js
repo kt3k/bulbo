@@ -112,7 +112,7 @@ export default class AssetFacade {
      */
     static cloneTransform(transform) {
 
-        const clone = new Transform()
+        const clone = new Transform({objectMode: true})
 
         clone._transform = transform._transform
         clone._flush = transform._flush
