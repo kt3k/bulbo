@@ -50,11 +50,10 @@ const browserify = require('browserify')
 asset('source/page/*.js')
 .base('source')
 .watch('source/**/*.js')
-.pipe(through2.obj(function (file, enc, callback) {
+.pipe(through2.obj((file, enc, callback) => {
 
   file.contents = browserify(file.path).bundle()
-  this.push(file)
-  callback()
+  callback(null, file)
 
 }))
 ```
@@ -115,11 +114,10 @@ asset('source/**/*.css')
 asset('source/page/*.js')
 .base('source')
 .watch('source/**/*.js')
-.pipe(through2.obj(function (file, enc, callback) {
+.pipe(through2.obj((file, enc, callback) => {
 
   file.contents = browserify(file.path).bundle()
-  this.push(file)
-  callback()
+  callback(null, file)
 
 }))
 
@@ -209,11 +207,10 @@ Example:
 bulbo
 .asset('src/js/pages/*.js')
 .watch('src/js/**/*.js') // Watches all js files under `src/js`, though build entry poits are only js files under `src/js/pages`.
-.pipe(through2.obj(function(file, enc, callback) {
+.pipe(through2.obj((file, enc, callback) => {
 
   file.contents = browserify(file.path).bundle()
-  this.push(file)
-  callback()
+  callback(null, file)
 
 }))
 ```
@@ -236,11 +233,10 @@ Example:
 ```js
 bulbo
 .asset('src/js/**/*.js')
-.build(src => src.pipe(through2.obj(function (file, enc, callback) {
+.build(src => src.pipe(through2.obj((file, enc, callback) => {
 
   file.contents = browserify(file.path).bundle()
-  this.push(file)
-  callback()
+  callback(null, file)
 
 })))
 ```
@@ -328,8 +324,7 @@ asset 'source/page/*.js'
 .pipe through2.obj (file, enc, callback) ->
 
   file.contents = browserify(file.path).bundle()
-  @push file
-  callback()
+  callback null, file
 
 asset 'source/*.html'
 .pipe frontMatter()
