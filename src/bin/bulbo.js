@@ -2,6 +2,7 @@ import chalk from 'chalk'
 import interpret from 'interpret'
 import Liftoff from 'liftoff'
 import minimist from 'minimist'
+import logger from '../util/logger'
 
 import pkg from '../../package'
 
@@ -53,7 +54,7 @@ function main(argv) {
 
     new Liftoff({name: 'bulbo', extensions: interpret.jsVariants})
 
-    .on('require', name => { console.log('Requiring external module', chalk.magenta(name)) })
+    .on('require', name => { logger.log('Requiring external module', chalk.magenta(name)) })
 
     .on('requireFail', name => { console.error('Failed to load external module', name) })
 
@@ -85,7 +86,7 @@ function onLaunch(env, command) {
 
     }
 
-    console.log('Using bulbofile:', chalk.magenta(env.configPath))
+    logger.log('Using:', chalk.magenta(env.configPath))
 
     const bulbo = require(env.modulePath)
 
@@ -101,13 +102,13 @@ function onLaunch(env, command) {
 
     if (/^b/.test(command)) { // build
 
-        console.log('bulbo build 🔨')
+        logger.log(chalk.green('building'))
 
-        bulbo.build()
+        bulbo.build().then(() => { logger.log(chalk.green('done')) })
 
     } else {
 
-        console.log('bulbo serve 🚿')
+        logger.log(chalk.green('serving'))
 
         bulbo.serve()
 

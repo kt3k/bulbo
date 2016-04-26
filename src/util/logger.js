@@ -29,7 +29,7 @@ export default {
      * @param {Array} args The messages
      */
     log(...args) {
-        console.log('[' + timestamp() + ']', ...args)
+        console.log('bulbo [' + timestamp() + ']', ...args)
     }
 
 }

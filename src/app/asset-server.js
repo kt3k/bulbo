@@ -18,14 +18,14 @@ export default class AssetServer {
         vinylServe.setDebugPagePath('/__bulbo__')
         vinylServe.setHandlerOfStarting((url, debugUrl) => {
 
-            console.log('Server started at:', chalk.cyan(url))
-            console.log('See debug page is:', chalk.cyan(debugUrl))
+            logger.log('Server started at:', chalk.cyan(url))
+            logger.log('See debug page is:', chalk.cyan(debugUrl))
 
         })
 
         vinylServe.setHandlerOfPortError(port => {
 
-            console.log(chalk.red(`Error: The port number ${port} is already in use`))
+            logger.log(chalk.red(`Error: The port number ${port} is already in use`))
 
             process.exit(1)
 
