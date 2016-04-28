@@ -1,5 +1,6 @@
 import vfs from 'vinyl-fs'
 import {Readable, Transform} from 'stream'
+import * as through from '../util/through'
 
 /**
  * The model of asset
@@ -18,10 +19,8 @@ export default class Asset {
         this.watchPaths = []
         this.watchOpts = {}
         this.transforms = []
-        this.transformIn = new Transform({objectMode: true})
-        this.transformIn._transform = (file, enc, cb) => cb(null, file)
-        this.transformOut = new Transform({objectMode: true})
-        this.transformOut._transform = (file, enc, cb) => cb(null, file)
+        this.transformIn = through.obj()
+        this.transformOut = through.obj()
 
     }
 
