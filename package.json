@@ -37,7 +37,6 @@
     "interpret": "^1.0.0",
     "liftoff": "^2.2.0",
     "minimist": "^1.2.0",
-    "through": "^2.3.8",
     "vinyl-fs": "^2.2.1",
     "vinyl-serve": "^2.0.0"
   },

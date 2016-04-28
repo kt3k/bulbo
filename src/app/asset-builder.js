@@ -1,5 +1,5 @@
 import vfs from 'vinyl-fs'
-import through from 'through'
+import * as drain from '../util/drain'
 
 export default class AssetBuilder {
 
@@ -21,7 +21,7 @@ export default class AssetBuilder {
      */
     build() {
 
-        const stream = this.assets.getMergedStream().pipe(vfs.dest(this.dest)).pipe(through())
+        const stream = this.assets.getMergedStream().pipe(vfs.dest(this.dest)).pipe(drain.obj())
 
         this.assets.forEach(asset => asset.reflow())
 
