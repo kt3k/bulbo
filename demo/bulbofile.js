@@ -1,16 +1,18 @@
 var asset = require('../').asset
-var through = require('through')
+var through2 = require('through2')
 var browserify = require('browserify')
 
 asset('../spec/fixture/**/*.js').build(function (src) {
 
-    return src.pipe(through(function (file) {
+    return src.pipe(through2.obj((file, enc, cb) => browserify(file.path).bundle((err, contents) => {
 
-        file.contents = browserify(file.path).bundle()
+        file.contents = contents
 
-        this.queue(file)
+        setTimeout(() => {
+            cb(null, file)
+        }, 50)
 
-    }))
+    })))
 
 })
 
