@@ -22,6 +22,18 @@ export default class Asset {
         this.transformIn = through.obj()
         this.transformOut = through.obj()
 
+        this.pipes = [this.transformIn, this.transformOut]
+
+    }
+
+    /**
+     * Returns the total buffer length in the pipeline.
+     * @return {number}
+     */
+    totalBufferLength() {
+
+        return this.pipes.map(pipe => pipe._readableState.length).reduce((x, y) => x + y, 0)
+
     }
 
     /**
@@ -109,10 +121,21 @@ export default class Asset {
 
         const source = this.getSourceStream()
 
-        this.transformOut.emptyCheck()
+        const ondata = () => {
+
+            if (this.totalBufferLength() === 0) {
+
+                this.transformOut.removeListener('data', ondata)
+                cb(null)
+
+            }
+
+        }
 
         if (cb) {
-            this.transformOut.once('feeling-empty', () => cb(null))
+
+            this.transformOut.on('data', ondata)
+
         }
 
         source.pipe(this.transformIn, options)
@@ -142,7 +165,15 @@ export default class Asset {
         }
 
         // Pipes the transforms from In to Out
-        this.transforms.reduce((readable, transform) => transform(readable), this.transformIn).pipe(this.transformOut)
+        this.transforms.reduce((readable, transform) => {
+
+            const transformed = transform(readable)
+
+            this.pipes.push(transformed)
+
+            return transformed
+
+        }, this.transformIn).pipe(this.transformOut)
 
         if (!(this.transformOut instanceof Readable)) {
 
