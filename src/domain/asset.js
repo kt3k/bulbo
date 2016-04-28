@@ -1,17 +1,20 @@
 import vfs from 'vinyl-fs'
 import {Readable, Transform} from 'stream'
 import * as through from '../util/through'
+import {EventEmitter} from 'events'
 
 /**
  * The model of asset
  */
-export default class Asset {
+export default class Asset extends EventEmitter {
 
     /**
      * @constructor
      * @param {Array<string|string[]>} paths The paths to build
      */
     constructor(...paths) {
+
+        super()
 
         this.paths = []
         this.addAssetPaths(...paths)
@@ -103,11 +106,17 @@ export default class Asset {
      * Pours the source files into the transform stream.
      * @param {object} options The pipe options
      */
-    reflow(options) {
+    reflow(options, cb) {
 
         this.createTransform()
 
         const source = this.getSourceStream()
+
+        this.transformOut.emptyCheck()
+
+        if (cb) {
+            this.transformOut.once('feeling-empty', () => cb(null))
+        }
 
         source.pipe(this.transformIn, options)
 

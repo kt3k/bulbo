@@ -40,13 +40,17 @@ export default class AssetServer {
      */
     serve() {
 
+        const serverWritable = vinylServe(this.port)
+
         this.assets.forEach(asset => {
+
+            asset.pipe(serverWritable)
 
             watch(asset.getWatchPaths(), asset.getWatchOpts(), () => {
 
                 logger.log('❗️ File changed:', chalk.magenta(asset.toString()))
 
-                asset.reflow({end: false}).on('end', () => {
+                asset.reflow({end: false}, () => {
 
                     logger.log('✅ Files ready:', chalk.magenta(asset.toString()))
 
@@ -54,10 +58,15 @@ export default class AssetServer {
 
             })
 
-        })
+            logger.log('Reading files:', chalk.magenta(asset.toString()))
 
-        this.assets.getMergedStream().pipe(vinylServe(this.port))
-        this.assets.forEach(asset => asset.reflow({end: false}))
+            asset.reflow({end: false}, () => {
+
+                logger.log('✅ Files ready:', chalk.magenta(asset.toString()))
+
+            })
+
+        })
 
         return vinylServe.getInstance(this.port).startPromise
 
