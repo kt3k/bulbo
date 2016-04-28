@@ -1,20 +1,17 @@
 import vfs from 'vinyl-fs'
 import {Readable, Transform} from 'stream'
 import * as through from '../util/through'
-import {EventEmitter} from 'events'
 
 /**
  * The model of asset
  */
-export default class Asset extends EventEmitter {
+export default class Asset {
 
     /**
      * @constructor
      * @param {Array<string|string[]>} paths The paths to build
      */
     constructor(...paths) {
-
-        super()
 
         this.paths = []
         this.addAssetPaths(...paths)
