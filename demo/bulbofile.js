@@ -10,7 +10,7 @@ asset('../spec/fixture/**/*.js').build(function (src) {
 
         setTimeout(() => {
             cb(null, file)
-        }, 50)
+        }, 5)
 
     })))
 
