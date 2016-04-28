@@ -102,12 +102,6 @@ describe('asset-facade', () => {
 
     describe('.pipe', () => {
 
-        it('throws when the transform does not conform to Stream v2 Transform', () => {
-
-            expect(() => asset('foo').pipe(through())).to.throw(Error)
-
-        })
-
         it('adds the transform', () => {
 
             const facade = asset('foo').pipe(through2())
