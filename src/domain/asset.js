@@ -1,5 +1,5 @@
 import vfs from 'vinyl-fs'
-import {Stream} from 'stream'
+import {Readable, Transform} from 'stream'
 
 /**
  * The model of asset
@@ -18,7 +18,10 @@ export default class Asset {
         this.watchPaths = []
         this.watchOpts = {}
         this.transforms = []
-        this.transformStream = null
+        this.transformIn = new Transform({objectMode: true})
+        this.transformIn._transform = (file, enc, cb) => cb(null, file)
+        this.transformOut = new Transform({objectMode: true})
+        this.transformOut._transform = (file, enc, cb) => cb(null, file)
 
     }
 
@@ -89,36 +92,70 @@ export default class Asset {
 
     /**
      *
-     * @param {stream.Writable} writableStream The writable strem
-     * @return {Stream}
+     * @param {Writable} writableStream The writable strem
      */
-    pipe(writableStream) {
+    pipe(writable) {
 
-        return this.getStream().pipe(writableStream)
+        this.transformOut.pipe(writable)
 
     }
 
     /**
-     * Gets the stream from source glob pattern and modified by the modfier.
-     *
-     * @return {Stream}
-     * @throws {Error} When
+     * Pours the source files into the transform stream.
+     * @param {object} options The pipe options
+     */
+    reflow(options) {
+
+        this.createTransform()
+
+        const source = this.getSourceStream()
+
+        source.pipe(this.transformIn, options)
+
+        return source
+    }
+
+    /**
+     * Gets the source stream.
+     * @return {Readable}
+     */
+    getSourceStream() {
+
+        return vfs.src(this.paths, this.opts)
+
+    }
+
+    /**
+     * Creates the transform sequence.
+     * @private
+     * @throws {Error} When the transfroms are invalid
+     */
+    createTransform() {
+
+        if (this.transformReady) {
+            return
+        }
+
+        // Pipes the transforms from In to Out
+        this.transforms.reduce((readable, transform) => transform(readable), this.transformIn).pipe(this.transformOut)
+
+        if (!(this.transformOut instanceof Readable)) {
+
+            throw new Error(`Asset transforms must return a readable stream (asset path: [${this.paths.toString()}], transforms: ${this.transformsToString()})`)
+
+        }
+
+        this.transformReady = true
+
+    }
+
+    /**
+     * Gets the readable end of the transform stream.
+     * @return {Readable}
      */
     getStream() {
 
-        if (this.transformStream) {
-            return vfs.src().pipe(this.transformStream)
-        }
-
-        const stream = this.transforms.reduce((stream, transform) => transform(stream), vfs.src(this.paths, this.opts))
-
-        if (!(stream instanceof Stream)) {
-
-            throw new Error(`Asset transforms must return a stream (asset path: [${this.paths.toString()}], transforms: ${this.transformsToString()})`)
-
-        }
-
-        return stream
+        return this.transformOut
 
     }
 

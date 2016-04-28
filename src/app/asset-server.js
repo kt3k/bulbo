@@ -46,7 +46,7 @@ export default class AssetServer {
 
                 logger.log('❗️ File changed:', chalk.magenta(asset.toString()))
 
-                asset.pipe(vinylServe(this.port)).on('end', () => {
+                asset.reflow({end: false}).on('end', () => {
 
                     logger.log('✅ Files ready:', chalk.magenta(asset.toString()))
 
@@ -56,11 +56,8 @@ export default class AssetServer {
 
         })
 
-        this.assets.getMergedStream().pipe(vinylServe(this.port)).on('end', () => {
-
-            logger.log('✅ All files ready')
-
-        })
+        this.assets.getMergedStream().pipe(vinylServe(this.port))
+        this.assets.forEach(asset => asset.reflow({end: false}))
 
         return vinylServe.getInstance(this.port).startPromise
 

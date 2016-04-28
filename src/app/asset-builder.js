@@ -23,6 +23,8 @@ export default class AssetBuilder {
 
         const stream = this.assets.getMergedStream().pipe(vfs.dest(this.dest)).pipe(through())
 
+        this.assets.forEach(asset => asset.reflow())
+
         return new Promise((resolve, reject) => stream.on('end', resolve).on('error', reject))
 
     }
