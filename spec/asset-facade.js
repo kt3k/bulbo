@@ -1,6 +1,5 @@
 import {asset} from '../src/bulbo'
 import {expect} from 'chai'
-import through from 'through'
 import through2 from 'through2'
 
 describe('asset-facade', () => {

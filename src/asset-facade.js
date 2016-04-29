@@ -1,4 +1,3 @@
-import {Transform} from 'stream'
 /**
  * The factory class of asset modifiers.
  */

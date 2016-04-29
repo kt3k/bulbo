@@ -1,5 +1,5 @@
 import vfs from 'vinyl-fs'
-import {Readable, Transform} from 'stream'
+import {Readable} from 'stream'
 import * as through from '../util/through'
 
 /**

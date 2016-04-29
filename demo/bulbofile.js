@@ -6,6 +6,8 @@ asset('../spec/fixture/**/*.js').build(function (src) {
 
     return src.pipe(through2.obj((file, enc, cb) => browserify(file.path).bundle((err, contents) => {
 
+        if (err) cb(err)
+
         file.contents = contents
 
         setTimeout(() => {
