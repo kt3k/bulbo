@@ -133,17 +133,29 @@ asset('source/**/*', '!source/**/*.{js,css,html,lodash}')
 And then `bulbo serve` command starts the server.
 
     $ bulbo serve
-    Using bulbofile: /Users/kt3k/tmp/bulbo/demo/bulbofile.js
-    bulbo serve
-    Server started at: http://0.0.0.0:7100/
-    See debug page is: http://0.0.0.0:7100/__bulbo__
-    [22:17:41] All files ready
+    bulbo [01:33:38] Using: /Users/kt3k/tmp/long-dream-core/bulbofile.js
+    bulbo [01:33:39] serving
+    bulbo [01:33:39] Reading files: site/**/*.js
+    bulbo [01:33:39] Reading files: src/infrastructure/infrastructure.js
+    bulbo [01:33:39] Reading files: site/*.html
+    bulbo [01:33:39] Reading files: site/data/**/*.*
+    bulbo [01:33:39] Reading files: site/img/**/*.*
+    bulbo [01:33:39] Reading files: site/css/**/*.*
+    bulbo [01:33:39] Server started at: http://0.0.0.0:7100/
+    bulbo [01:33:39] See debug page is: http://0.0.0.0:7100/__bulbo__
+    bulbo [01:33:39] ✅ Files ready: site/**/*.js
+    bulbo [01:33:39] ✅ Files ready: src/infrastructure/infrastructure.js
+    bulbo [01:33:39] ✅ Files ready: site/*.html
+    bulbo [01:33:39] ✅ Files ready: site/img/**/*.*
+    bulbo [01:33:39] ✅ Files ready: site/css/**/*.*
+    bulbo [01:33:39] ✅ Files ready: site/data/**/*.*
 
 And the following builds all the given assets and saves them to `build/` directory.
 
     $ bulbo build
-    Using bulbofile: /Users/kt3k/tmp/bulbo/demo/bulbofile.js
-    bulbo build
+    bulbo [12:04:19] Using: /Users/kt3k/tmp/long-dream-core/bulbofile.js
+    bulbo [12:04:20] building
+    bulbo [12:04:25] done
 
 # API reference
 
