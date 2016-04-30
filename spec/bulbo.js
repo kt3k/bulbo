@@ -31,27 +31,26 @@ describe('bulbo', () => {
         it('returns the asset\'s modifier', () => {
 
             expect(bulbo.asset('spec/fixture/**/*.js')).to.be.an('object')
-            expect(bulbo.asset('spec/fixture/**/*.js').build).to.be.a('function')
             expect(bulbo.asset('spec/fixture/**/*.js').watch).to.be.a('function')
             expect(bulbo.asset('spec/fixture/**/*.js').watchOptions).to.be.a('function')
             expect(bulbo.asset('spec/fixture/**/*.js').base).to.be.a('function')
 
         })
 
-        describe('.build', () => {
+        describe('.pipe', () => {
 
-            it('sets the asset builder', done => {
+            it('sets the transform to the asset', done => {
 
                 bulbo
                 .asset('spec/fixture/js/{foo,bar}.js')
                 .base('spec/fixture')
-                .build(src => src.pipe(through(function (file) {
+                .pipe(through(function (file) {
 
                     file.contents = browserify(file.path).bundle()
 
                     this.queue(file)
 
-                })))
+                }))
 
                 bulbo.build().then(() => {
 
@@ -63,18 +62,6 @@ describe('bulbo', () => {
                     rimraf('build', done)
 
                 }).catch(done)
-
-            })
-
-            it('cause error when building if the builder does not return stream', () => {
-
-                bulbo.asset('spec/fixture/**/*.js').build(src => null)
-
-                expect(() => {
-
-                    bulbo.build()
-
-                }).to.throw()
 
             })
 

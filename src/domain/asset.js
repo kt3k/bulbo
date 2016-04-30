@@ -1,6 +1,5 @@
 import vfs from 'vinyl-fs'
-import {Readable} from 'stream'
-import * as through from '../util/through'
+import splicer from 'stream-splicer'
 
 /**
  * The model of asset
@@ -18,11 +17,8 @@ export default class Asset {
         this.opts = {}
         this.watchPaths = []
         this.watchOpts = {}
-        this.transforms = []
-        this.transformIn = through.obj()
-        this.transformOut = through.obj()
 
-        this.pipes = [this.transformIn, this.transformOut]
+        this.pipeline = splicer.obj()
 
     }
 
@@ -32,7 +28,31 @@ export default class Asset {
      */
     totalBufferLength() {
 
-        return this.pipes.map(pipe => pipe._readableState.length).reduce((x, y) => x + y, 0)
+        return this.getPipes().map(pipe => Asset.getBufferLength(pipe))
+            .reduce((x, y) => x + y)
+
+    }
+
+    /**
+     * Returns the length of the readable buffer.
+     * @param {Duplex}
+     * @return {number}
+     */
+    static getBufferLength(pipe) {
+        if (pipe._readableState != null && typeof pipe._readableState.length === 'number') {
+            return pipe._readableState.length
+        }
+
+        // if it doesn't seem Readable type, then returns 0 for now
+        return 0
+    }
+
+    /**
+     * @return {Duplex[]}
+     */
+    getPipes() {
+
+        return this.pipeline._streams
 
     }
 
@@ -67,17 +87,11 @@ export default class Asset {
     }
 
     /**
-     * Adds the transform
+     * @param {Transform}
      */
-    addTransform(transform) {
+    addPipe(pipe) {
 
-        this.transforms.push(transform)
-
-    }
-
-    transformsToString() {
-
-        return JSON.stringify(this.transforms.map(transform => transform.toString()))
+        this.pipeline.push(pipe)
 
     }
 
@@ -103,11 +117,11 @@ export default class Asset {
 
     /**
      *
-     * @param {Writable} writableStream The writable strem
+     * @param {Writable} writable The writable stream
      */
     pipe(writable) {
 
-        this.transformOut.pipe(writable)
+        this.pipeline.pipe(writable)
 
     }
 
@@ -117,15 +131,13 @@ export default class Asset {
      */
     reflow(options, cb) {
 
-        this.createTransform()
-
         const source = this.getSourceStream()
 
         const ondata = () => {
 
             if (this.totalBufferLength() === 0) {
 
-                this.transformOut.removeListener('data', ondata)
+                this.pipeline.removeListener('data', ondata)
                 cb(null)
 
             }
@@ -134,11 +146,11 @@ export default class Asset {
 
         if (cb) {
 
-            this.transformOut.on('data', ondata)
+            this.pipeline.on('data', ondata)
 
         }
 
-        source.pipe(this.transformIn, options)
+        source.pipe(this.pipeline, options)
 
         return source
     }
@@ -154,44 +166,12 @@ export default class Asset {
     }
 
     /**
-     * Creates the transform sequence.
-     * @private
-     * @throws {Error} When the transfroms are invalid
-     */
-    createTransform() {
-
-        if (this.transformReady) {
-            return
-        }
-
-        // Pipes the transforms from In to Out
-        this.transforms.reduce((readable, transform) => {
-
-            const transformed = transform(readable)
-
-            this.pipes.push(transformed)
-
-            return transformed
-
-        }, this.transformIn).pipe(this.transformOut)
-
-        if (!(this.transformOut instanceof Readable)) {
-
-            throw new Error(`Asset transforms must return a readable stream (asset path: [${this.paths.toString()}], transforms: ${this.transformsToString()})`)
-
-        }
-
-        this.transformReady = true
-
-    }
-
-    /**
      * Gets the readable end of the transform stream.
      * @return {Readable}
      */
     getStream() {
 
-        return this.transformOut
+        return this.pipeline
 
     }
 

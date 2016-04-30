@@ -80,32 +80,13 @@ describe('asset-facade', () => {
 
     })
 
-    describe('.build', () => {
-
-        it('adds the transform to the asset', () => {
-
-            const f = () => 1
-            const g = () => 1
-
-            const facade = asset('foo').build(f)
-
-            expect(facade.getAssetModel().transforms[0]).to.equal(f)
-
-            facade.build(g)
-
-            expect(facade.getAssetModel().transforms[1]).to.equal(g)
-
-        })
-
-    })
-
     describe('.pipe', () => {
 
-        it('adds the transform', () => {
+        it('adds the pipe to the pipeline', () => {
 
             const facade = asset('foo').pipe(through2())
 
-            expect(facade.getAssetModel().transforms.length).to.equal(1)
+            expect(facade.getAssetModel().getPipes().length).to.equal(1)
 
         })
 

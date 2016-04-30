@@ -233,26 +233,6 @@ bulbo
 
 This options is passed to chokidar's watch option. You can modify the behaviour of the internal chokidar as you want.
 
-## bulbo.asset(...).build(transform)
-
-- @param {Function} transform The asset transform
-
-This registers the build transform for the asset. The transform takes file (`vinyl`) stream as the first paramter and have to return a transformed stream as its output. It throws exception if the transform does not return a readable stream.
-
-The source of the transform is compatible with gulp's `gulp.src(...)`. You can use pipe it to gulp plugins to transform it.
-
-Example:
-```js
-bulbo
-.asset('src/js/**/*.js')
-.build(src => src.pipe(through2.obj((file, enc, callback) => {
-
-  file.contents = browserify(file.path).bundle()
-  callback(null, file)
-
-})))
-```
-
 ## bulbo.dest(path)
 
 - @param {String} path

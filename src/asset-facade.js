@@ -45,18 +45,6 @@ export default class AssetFacade {
     }
 
     /**
-     * Sets the build function.
-     * @param {Function} transform The build method takes a {@code Stream} and returns a {@code Stream}
-     */
-    build(transform) {
-
-        this.getAssetModel().addTransform(transform)
-
-        return this
-
-    }
-
-    /**
      * Sets the watch paths and opts.
      * @param {Array<string|string[]>} watchPaths The paths to watch
      */
@@ -98,7 +86,7 @@ export default class AssetFacade {
      */
     pipe(transform) {
 
-        this.getAssetModel().addTransform(src => src.pipe(transform))
+        this.getAssetModel().addPipe(transform)
 
         return this
 
