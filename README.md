@@ -415,3 +415,26 @@ MIT
 - 2016-01-09   v1.0.2   Improved server start time.
 - 2016-01-08   v1.0.1   Fixed build file number limit bug.
 - 2016-01-03   v1.0.0   Initial release.
+
+# Dev info
+
+## Architecture
+
+Bulbo = `vinyl-fs` + `js-liftoff` + `stream-splicer` + `vinyl-serve` + Bulbo DSL
+
+- `vinyl-fs` is the same as `gulp.src()` and `gulp.dest()`. Bulbo uses it for creating file streams and saving them.
+- `js-liftoff` is a magical tool for creating CLI tool which is configurable by its DSL script, in this case like bulbofile.js.
+- `stream-splicer` is used for creating a linear pipeline of transforms of the assets.
+- `vinyl-serve` is a simple server which consumes readable vinyl streams and serves the files in them.
+
+## Model
+
+Bulbo has the only one model `Asset` which represents a group of assets and its transform.
+
+## Application layer
+
+Bulbo has 3 application layer classes, `AssetServer` `AssetBuilder` and `AssetService`
+
+## Bulbo DSL
+
+Bulbo DSL is implemented in `bulbo.js` (the module interface) and `AssetFacade` class.
