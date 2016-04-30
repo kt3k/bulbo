@@ -385,6 +385,7 @@ MIT
 
 # Release history
 
+- 2016-05-01   v6.0.0   Remove asset().build() DSL verb.
 - 2016-04-29   v5.1.1   Change the architecture. Use the same transform for an asset while watching.
 - 2016-04-19   v4.2.3   Auto cloning feature of piped transform
 - 2016-04-18   v4.1.0   Update vinyl-serve to v2.0.0 (fixed bug of serving data)
