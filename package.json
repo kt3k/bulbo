@@ -13,7 +13,7 @@
     "cov": "nyc --reporter=lcov _mocha --require babel-register spec",
     "cov-open": "npm run cov && open coverage/lcov-report/index.html",
     "codecov": "codecov < coverage/lcov.info",
-    "lint": "souffle"
+    "lint": "eslint src test"
   },
   "bin": {
     "bulbo": "bin/bulbo.js"
@@ -48,20 +48,28 @@
     "browserify": "^13.0.0",
     "chai": "^3.4.1",
     "codecov.io": "^0.1.6",
+    "eslint": "^2.9.0",
+    "eslint-config-souffle": "^3.0.0",
+    "eslint-config-standard": "^4.4.0",
+    "eslint-plugin-standard": "^1.3.2",
     "mocha": "^2.3.4",
     "nyc": "^6.4.0",
     "rimraf": "^2.5.2",
-    "souffle-cli": "^3.0.0",
     "superagent": "^1.6.1",
     "through": "^2.3.8",
     "through2": "^2.0.1"
   },
-  "souffle": {
-    "globals": [
-      "it",
-      "describe",
-      "beforeEach"
-    ]
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    },
+    "env": {
+      "mocha": true
+    },
+    "rules": {
+      "indent": 2
+    }
   },
   "nyc": {
     "exclude": [
