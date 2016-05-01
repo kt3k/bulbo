@@ -12,7 +12,7 @@
     "demo-build": "cd demo && ../bin/bulbo.js build",
     "cov": "nyc --reporter=lcov _mocha --require babel-register spec",
     "cov-open": "npm run cov && open coverage/lcov-report/index.html",
-    "codecov": "codecov < coverage/lcov.info",
+    "codecov": "npm run cov && codecov",
     "lint": "eslint src test"
   },
   "bin": {
@@ -48,7 +48,7 @@
     "babel-register": "^6.7.2",
     "browserify": "^13.0.0",
     "chai": "^3.4.1",
-    "codecov.io": "^0.1.6",
+    "codecov": "^1.0.1",
     "eslint": "^2.9.0",
     "eslint-config-souffle": "^4.0.0",
     "eslint-config-standard": "^5.2.0",
