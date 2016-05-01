@@ -17,7 +17,7 @@ class Pipeline extends Splicer {
 
         this.on('data', data => {
             if (this.totalBufferLength() === 0) {
-                this.emit('buffer-empty', data)
+                this.emit('buffer-empty')
             }
         })
     }

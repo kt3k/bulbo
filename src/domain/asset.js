@@ -98,17 +98,10 @@ export default class Asset {
      */
     reflow(options, cb) {
 
-        const source = this.getSourceStream()
+        this.getSourceStream().pipe(this.pipeline, options)
 
-        if (cb) {
+        if (cb) { this.pipeline.once('buffer-empty', cb) }
 
-            this.pipeline.once('buffer-empty', () => cb(null))
-
-        }
-
-        source.pipe(this.pipeline, options)
-
-        return source
     }
 
     /**
