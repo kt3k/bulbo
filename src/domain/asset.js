@@ -82,16 +82,6 @@ export default class Asset {
     }
 
     /**
-     *
-     * @param {Writable} writable The writable stream
-     */
-    pipe(writable) {
-
-        this.pipeline.pipe(writable)
-
-    }
-
-    /**
      * Pours the source files into the transform stream.
      * @param {object} options The pipe options
      * @param {Function} cb The callback

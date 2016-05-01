@@ -44,7 +44,7 @@ export default class AssetServer {
 
         this.assets.forEach(asset => {
 
-            asset.pipe(serverWritable)
+            asset.getStream().pipe(serverWritable)
 
             watch(asset.getWatchPaths(), asset.getWatchOpts(), () => {
 
