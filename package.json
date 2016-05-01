@@ -35,7 +35,7 @@
     "chalk": "^1.1.1",
     "chokidar": "^1.4.2",
     "eslint-plugin-promise": "^1.1.0",
-    "interpret": "^1.0.0",
+    "interpret": "^1.0.1",
     "liftoff": "^2.2.0",
     "minimist": "^1.2.0",
     "stream-splicer": "^2.0.0",
