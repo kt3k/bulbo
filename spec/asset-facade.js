@@ -86,7 +86,7 @@ describe('asset-facade', () => {
 
             const facade = asset('foo').pipe(through2())
 
-            expect(facade.getAssetModel().getPipes().length).to.equal(1)
+            expect(facade.getAssetModel().pipeline.length).to.equal(1)
 
         })
 

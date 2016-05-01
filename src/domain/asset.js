@@ -1,5 +1,5 @@
 import vfs from 'vinyl-fs'
-import splicer from 'stream-splicer'
+import pipeline from '../util/pipeline'
 
 /**
  * The model of asset
@@ -18,41 +18,7 @@ export default class Asset {
         this.watchPaths = []
         this.watchOpts = {}
 
-        this.pipeline = splicer.obj()
-
-    }
-
-    /**
-     * Returns the total buffer length in the pipeline.
-     * @return {number}
-     */
-    totalBufferLength() {
-
-        return this.getPipes().map(pipe => Asset.getBufferLength(pipe))
-            .reduce((x, y) => x + y)
-
-    }
-
-    /**
-     * Returns the length of the readable buffer.
-     * @param {Duplex}
-     * @return {number}
-     */
-    static getBufferLength(pipe) {
-        if (pipe._readableState != null && typeof pipe._readableState.length === 'number') {
-            return pipe._readableState.length
-        }
-
-        // if it doesn't seem Readable type, then returns 0 for now
-        return 0
-    }
-
-    /**
-     * @return {Duplex[]}
-     */
-    getPipes() {
-
-        return this.pipeline._streams
+        this.pipeline = pipeline.obj()
 
     }
 
@@ -128,25 +94,15 @@ export default class Asset {
     /**
      * Pours the source files into the transform stream.
      * @param {object} options The pipe options
+     * @param {Function} cb The callback
      */
     reflow(options, cb) {
 
         const source = this.getSourceStream()
 
-        const ondata = () => {
-
-            if (this.totalBufferLength() === 0) {
-
-                this.pipeline.removeListener('data', ondata)
-                cb(null)
-
-            }
-
-        }
-
         if (cb) {
 
-            this.pipeline.on('data', ondata)
+            this.pipeline.once('buffer-empty', () => cb(null))
 
         }
 
