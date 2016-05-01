@@ -21,11 +21,12 @@ export default class AssetBuilder {
      */
     build() {
 
-        const stream = this.assets.getMergedStream().pipe(vfs.dest(this.dest)).pipe(drain.obj())
+        this.assets.pipeAll(vfs.dest(this.dest))
+        this.assets.pipeAll(drain.obj())
 
-        this.assets.forEach(asset => asset.reflow())
+        this.assets.reflowAll()
 
-        return new Promise((resolve, reject) => stream.on('end', resolve).on('error', reject))
+        return this.assets.isAllReady()
 
     }
 

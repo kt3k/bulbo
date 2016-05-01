@@ -15,11 +15,13 @@ class Pipeline extends Splicer {
         opts.objectMode = objectMode
         super(streams, opts)
 
-        this.on('data', data => {
+        const onOutput = () => {
             if (this.totalBufferLength() === 0) {
                 this.emit('buffer-empty')
             }
-        })
+        }
+
+        this.on('data', onOutput).on('end', onOutput)
     }
 
     /**

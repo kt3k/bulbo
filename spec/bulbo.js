@@ -81,7 +81,7 @@ describe('bulbo', () => {
 
                 rimraf('build', done)
 
-            })
+            }).catch(done)
 
         })
 

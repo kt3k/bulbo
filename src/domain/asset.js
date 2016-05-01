@@ -1,10 +1,12 @@
 import vfs from 'vinyl-fs'
 import pipeline from '../util/pipeline'
+import {EventEmitter} from 'events'
+import {PassThrough} from 'stream'
 
 /**
  * The model of asset
  */
-export default class Asset {
+export default class Asset extends EventEmitter {
 
     /**
      * @constructor
@@ -12,14 +14,29 @@ export default class Asset {
      */
     constructor(...paths) {
 
+        super()
+
         this.paths = []
         this.addAssetPaths(...paths)
         this.opts = {}
         this.watchPaths = []
         this.watchOpts = {}
 
-        this.pipeline = pipeline.obj()
+        this.pipeline = pipeline.obj([PassThrough({objectMode: true})])
 
+        this._ready = new Promise((resolve, reject) => {
+            this.pipeline.once('buffer-empty', resolve)
+            this.pipeline.on('error', reject)
+        })
+
+    }
+
+    /**
+     * Returns a promise which resolves when the first flow of the source stream is finished.
+     * @return {Promise}
+     */
+    isReady() {
+        return this._ready
     }
 
     /**
@@ -67,7 +84,7 @@ export default class Asset {
      */
     setBase(base) {
 
-        this.opts.base = base
+        this.setAssetOpts({base})
 
     }
 
@@ -96,6 +113,7 @@ export default class Asset {
 
     /**
      * Gets the source stream.
+     * @private
      * @return {Readable}
      */
     getSourceStream() {
@@ -134,6 +152,16 @@ export default class Asset {
 
         return this.watchOpts
 
+    }
+
+    /**
+     * Starts watching the paths.
+     * @param {Function} cb The callback
+     */
+    watch() {
+        watch(this.getWatchPaths(), this.watchOpts(), () => {
+            this.emit('changed')
+        })
     }
 
     /**

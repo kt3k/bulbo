@@ -42,9 +42,17 @@ export default class AssetServer {
 
         const serverWritable = vinylServe(this.port)
 
+        this.assets.pipeAll(vinylServe(this.port))
+
+        this.assets.reflowAll({end: false}, asset => {
+
+            logger.log('✅ Files ready:', chalk.magenta(asset.toString()))
+
+        })
+
         this.assets.forEach(asset => {
 
-            asset.getStream().pipe(serverWritable)
+            logger.log('Reading files:', chalk.magenta(asset.toString()))
 
             watch(asset.getWatchPaths(), asset.getWatchOpts(), () => {
 
@@ -55,14 +63,6 @@ export default class AssetServer {
                     logger.log('✅ Files ready:', chalk.magenta(asset.toString()))
 
                 })
-
-            })
-
-            logger.log('Reading files:', chalk.magenta(asset.toString()))
-
-            asset.reflow({end: false}, () => {
-
-                logger.log('✅ Files ready:', chalk.magenta(asset.toString()))
 
             })
 
