@@ -40,7 +40,7 @@
     "minimist": "^1.2.0",
     "stream-splicer": "^2.0.0",
     "vinyl-fs": "^2.2.1",
-    "vinyl-serve": "^2.0.0"
+    "vinyl-serve": "^2.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
