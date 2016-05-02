@@ -51,6 +51,13 @@ export const serve = () => service.serve()
 export const build = () => service.build()
 
 /**
+ * Watches and builds the assets.
+ *
+ * For internal use only.
+ */
+export const watchAndBuild = () => service.watchAndBuild()
+
+/**
  * Sets the dest.
  *
  * DSL vocabulary.
@@ -87,4 +94,4 @@ export const clear = () => service.clear()
 /**
  * The module interface.
  */
-export default {asset, getService, serve, build, dest, port, isEmpty, clear}
+export default {asset, getService, serve, build, watchAndBuild, dest, port, isEmpty, clear}

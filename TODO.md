@@ -1,12 +1,11 @@
 # TODO
 
+# DONE
+
 - Command bulbo build -w
   - Use event emitter
   - create asset-watcher which extends event-emitter
   - asset-builder and asset-server extend asset-watcher
-
-# DONE
-
 - Create bulbo.base() which sets the default base path for all
 - Separate API reference and getting started guide
 - Fix bug of options overriding .base('foo').assetOptions({}) removes the base path setting

@@ -51,6 +51,13 @@ export default class AssetService {
     }
 
     /**
+     * Watches and builds the assets.
+     */
+    watchAndBuild() {
+        return new AssetBuilder(this.assets, this.dest).watchAndBuild()
+    }
+
+    /**
      * Sets the port number.
      * @param {Number} port The port number
      */

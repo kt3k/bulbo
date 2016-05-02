@@ -41,7 +41,9 @@ export default class AssetServer extends AssetWatcher {
      */
     serve() {
 
-        this.watchAssets(vinylServe(this.port))
+        logger.log(chalk.green('serving'))
+
+        this.watchAndPipe(vinylServe(this.port))
 
         return vinylServe.getInstance(this.port).startPromise
 

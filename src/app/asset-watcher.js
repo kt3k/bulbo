@@ -14,7 +14,7 @@ export default class AssetWatcher {
      * Watches all the assets and pipes everything into the given writable
      * @param {Writable} writable The writable
      */
-    watchAssets(writable) {
+    watchAndPipe(writable) {
 
         this.assets.forEach(asset => {
 

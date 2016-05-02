@@ -31,6 +31,28 @@ function isCommandValid(command) {
 
 }
 
+function getAction(command, argv) {
+
+    if (/^s/.test(command)) {
+
+        return 'serve'
+
+    } if (/^b/.test(command)) {
+
+        if (!argv.w) {
+
+            return 'build'
+
+        } else {
+
+            return 'watchAndBuild'
+
+        }
+
+    }
+
+}
+
 /**
  * @param {object} argv The minimist parsed object
  */
@@ -52,22 +74,24 @@ function main(argv) {
 
     }
 
+    const action = getAction(command, argv)
+
     new Liftoff({name: 'bulbo', extensions: interpret.jsVariants})
 
     .on('require', name => { logger.log('Requiring external module', chalk.magenta(name)) })
 
     .on('requireFail', name => { console.error('Failed to load external module', name) })
 
-    .launch({}, env => onLaunch(env, command))
+    .launch({}, env => onLaunch(env, action))
 
 }
 
 /**
  * Liftoff launch handler
  * @param {Object} env Litfoff env object
- * @param {string} command The command
+ * @param {string} action The action
  */
-function onLaunch(env, command) {
+function onLaunch(env, action) {
 
     if (!env.modulePath) {
 
@@ -100,17 +124,21 @@ function onLaunch(env, command) {
 
     }
 
-    if (/^b/.test(command)) { // build
+    if (action === 'build') { // build
 
-        logger.log(chalk.green('building'))
+        bulbo.build()
 
-        bulbo.build().then(() => { logger.log(chalk.green('done')) })
+    } else if (action === 'watchAndBuild') { // watch and build
+
+        bulbo.watchAndBuild()
+
+    } else if (action === 'serve') { // serve
+
+        bulbo.serve()
 
     } else {
 
-        logger.log(chalk.green('serving'))
-
-        bulbo.serve()
+        throw new Error('Unkown action: ' + action)
 
     }
 
