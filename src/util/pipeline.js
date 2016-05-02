@@ -15,9 +15,26 @@ class Pipeline extends Splicer {
         opts.objectMode = objectMode
         super(streams, opts)
 
+        this.version = 0
+
         this.on('data', data => {
+
+            this.version = this.version + 1
+
+            const version = this.version
+
             if (this.totalBufferLength() === 0) {
-                this.emit('buffer-empty')
+
+                setTimeout(() => {
+
+                    if (version === this.version) {
+
+                        this.emit('buffer-empty')
+
+                    }
+
+                }, 200)
+
             }
         })
     }
