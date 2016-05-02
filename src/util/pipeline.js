@@ -45,12 +45,20 @@ class Pipeline extends Splicer {
      * @return {number}
      */
     static getBufferLength(pipe) {
+
+        let length = 0
+
         if (pipe._readableState != null && typeof pipe._readableState.length === 'number') {
-            return pipe._readableState.length
+            // Adds readable buffer length
+            length += pipe._readableState.length
         }
 
-        // if it doesn't seem Readable type, then returns 0 for now
-        return 0
+        if (pipe._writableState != null && typeof pipe._readableState.getBuffer === 'function') {
+            // Adds writable buffer length
+            length += pipe._writableState.getBuffer().length
+        }
+
+        return length
     }
 
     /**
