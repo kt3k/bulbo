@@ -1,14 +1,17 @@
 import mergeStream from '../util/mergeStream'
+import {EventEmitter} from 'events'
 
 /**
  * The collection class of assets.
  */
-export default class AssetCollection {
+export default class AssetCollection extends EventEmitter {
 
     /**
      * @constructor
      */
     constructor() {
+
+        super()
 
         this.assets = []
 
@@ -21,6 +24,17 @@ export default class AssetCollection {
     add(asset) {
 
         this.assets.push(asset)
+
+    }
+
+    /**
+     * @param {Function} cb The callback
+     */
+    watchAll(cb) {
+
+        this.forEach(asset => asset.watch(() => {
+            if (cb) { cb(asset) }
+        }))
 
     }
 
@@ -41,6 +55,17 @@ export default class AssetCollection {
     pipeAll(duplex) {
 
         this.forEach(asset => asset.addPipe(duplex))
+
+    }
+
+    /**
+     * Pipes to the writable
+     * @param {Writable} writable The writable
+     * @return {Writable}
+     */
+    pipe(writable) {
+
+        return this.getMergedStream().pipe(writable)
 
     }
 
@@ -89,7 +114,11 @@ export default class AssetCollection {
      */
     reflowAll(options, cb) {
 
-        this.forEach(asset => asset.reflow(options, () => cb ? cb(null, asset) : null))
+        this.forEach(asset => asset.reflow(options, () => {
+
+            cb ? cb(null, asset) : null
+
+        }))
 
     }
 

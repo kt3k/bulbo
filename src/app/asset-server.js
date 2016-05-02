@@ -2,6 +2,8 @@ import watch from '../util/watch'
 import logger from '../util/logger'
 import chalk from 'chalk'
 import vinylServe from 'vinyl-serve'
+import * as drain from '../util/drain'
+import buffer from 'vinyl-buffer'
 
 export default class AssetServer {
 
@@ -40,13 +42,17 @@ export default class AssetServer {
      */
     serve() {
 
-        const serverWritable = vinylServe(this.port)
+        this.assets.forEach(asset => asset.pipeline.push(buffer()))
+        this.assets.pipe(vinylServe(this.port))
+        // this.assets.pipe(drain.obj())
 
-        this.assets.pipeAll(vinylServe(this.port))
+        this.assets.reflowAll({end: false})
 
-        this.assets.reflowAll({end: false}, asset => {
+        this.assets.watchAll(asset => {
 
-            logger.log('✅ Files ready:', chalk.magenta(asset.toString()))
+            logger.log('❗️ File changed:', chalk.magenta(asset.toString()))
+
+            asset.reflow({end: false})
 
         })
 
@@ -54,15 +60,9 @@ export default class AssetServer {
 
             logger.log('Reading files:', chalk.magenta(asset.toString()))
 
-            watch(asset.getWatchPaths(), asset.getWatchOpts(), () => {
+            asset.on('ready', () => {
 
-                logger.log('❗️ File changed:', chalk.magenta(asset.toString()))
-
-                asset.reflow({end: false}, () => {
-
-                    logger.log('✅ Files ready:', chalk.magenta(asset.toString()))
-
-                })
+                logger.log('✅ Files ready:', chalk.magenta(asset.toString()))
 
             })
 

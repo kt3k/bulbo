@@ -2,6 +2,7 @@ import vfs from 'vinyl-fs'
 import pipeline from '../util/pipeline'
 import {EventEmitter} from 'events'
 import {PassThrough} from 'stream'
+import watch from '../util/watch'
 
 /**
  * The model of asset
@@ -24,9 +25,13 @@ export default class Asset extends EventEmitter {
 
         this.pipeline = pipeline.obj([PassThrough({objectMode: true})])
 
+        this.pipeline.on('buffer-empty', () => this.emit('ready'))
+
         this._ready = new Promise((resolve, reject) => {
+
             this.pipeline.once('buffer-empty', resolve)
             this.pipeline.on('error', reject)
+
         })
 
     }
@@ -36,7 +41,9 @@ export default class Asset extends EventEmitter {
      * @return {Promise}
      */
     isReady() {
+
         return this._ready
+
     }
 
     /**
@@ -103,11 +110,9 @@ export default class Asset extends EventEmitter {
      * @param {object} options The pipe options
      * @param {Function} cb The callback
      */
-    reflow(options, cb) {
+    reflow(options) {
 
         this.getSourceStream().pipe(this.pipeline, options)
-
-        if (cb) { this.pipeline.once('buffer-empty', cb) }
 
     }
 
@@ -158,10 +163,8 @@ export default class Asset extends EventEmitter {
      * Starts watching the paths.
      * @param {Function} cb The callback
      */
-    watch() {
-        watch(this.getWatchPaths(), this.watchOpts(), () => {
-            this.emit('changed')
-        })
+    watch(cb) {
+        watch(this.getWatchPaths(), this.getWatchOpts(), cb)
     }
 
     /**

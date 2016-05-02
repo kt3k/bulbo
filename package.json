@@ -40,7 +40,7 @@
     "minimist": "^1.2.0",
     "stream-splicer": "^2.0.0",
     "vinyl-fs": "^2.2.1",
-    "vinyl-serve": "^2.0.0"
+    "vinyl-serve": "^2.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
@@ -58,7 +58,8 @@
     "rimraf": "^2.5.2",
     "superagent": "^1.6.1",
     "through": "^2.3.8",
-    "through2": "^2.0.1"
+    "through2": "^2.0.1",
+    "vinyl-buffer": "^1.0.0"
   },
   "eslintConfig": {
     "parserOptions": {

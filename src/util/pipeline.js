@@ -15,13 +15,37 @@ class Pipeline extends Splicer {
         opts.objectMode = objectMode
         super(streams, opts)
 
-        const onOutput = () => {
+        this.version = 0
+
+        const ondata = () => {
+
+            // console.log('ondata length', this.totalBufferLength(), 'version', this.version)
+
+            this.version++;
+
+            const lastVersion = this.version
+
             if (this.totalBufferLength() === 0) {
-                this.emit('buffer-empty')
+
+                setTimeout(() => {
+
+                    if (lastVersion === this.version) {
+
+                        // console.log('ondata buffer-empty version:', this.version)
+                        this.emit('buffer-empty')
+
+                    }
+
+                }, 300)
             }
         }
 
-        this.on('data', onOutput).on('end', onOutput)
+        this
+        .on('data', ondata)
+        .on('end', () => {
+            // console.log('end buffer-empty');
+            this.emit('buffer-empty')
+        })
     }
 
     /**
@@ -44,8 +68,10 @@ class Pipeline extends Splicer {
      */
     totalBufferLength() {
 
-        return this._streams.map(pipe => Pipeline.getBufferLength(pipe))
+        const length = this._streams.map(pipe => Pipeline.getBufferLength(pipe))
             .reduce((x, y) => x + y)
+
+        return length
 
     }
 
