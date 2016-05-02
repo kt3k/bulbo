@@ -1,5 +1,6 @@
 import vfs from 'vinyl-fs'
 import pipeline from '../util/pipeline'
+import watch from '../util/watch'
 
 /**
  * The model of asset
@@ -133,6 +134,16 @@ export default class Asset {
     getWatchOpts() {
 
         return this.watchOpts
+
+    }
+
+    /**
+     * Starts watching the given watch paths.
+     * @param {Function} cb The callback
+     */
+    watch(cb) {
+
+        watch(this.getWatchPaths(), this.getWatchOpts(), cb)
 
     }
 

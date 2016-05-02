@@ -1,9 +1,9 @@
-import watch from '../util/watch'
 import logger from '../util/logger'
 import chalk from 'chalk'
 import vinylServe from 'vinyl-serve'
+import AssetWatcher from './asset-watcher'
 
-export default class AssetServer {
+export default class AssetServer extends AssetWatcher {
 
     /**
      * @param {AssetCollection} assets The assets
@@ -11,7 +11,8 @@ export default class AssetServer {
      */
     constructor(assets, port) {
 
-        this.assets = assets
+        super(assets)
+
         this.port = port
 
         vinylServe.setDebugPageTitle('Welcome to <i>Bulbo</i> asset path debug page!')
@@ -40,33 +41,7 @@ export default class AssetServer {
      */
     serve() {
 
-        const serverWritable = vinylServe(this.port)
-
-        this.assets.forEach(asset => {
-
-            asset.getStream().pipe(serverWritable)
-
-            watch(asset.getWatchPaths(), asset.getWatchOpts(), () => {
-
-                logger.log('❗️ File changed:', chalk.magenta(asset.toString()))
-
-                asset.reflow({end: false}, () => {
-
-                    logger.log('✅ Files ready:', chalk.magenta(asset.toString()))
-
-                })
-
-            })
-
-            logger.log('Reading files:', chalk.magenta(asset.toString()))
-
-            asset.reflow({end: false}, () => {
-
-                logger.log('✅ Files ready:', chalk.magenta(asset.toString()))
-
-            })
-
-        })
+        this.watchAssets(vinylServe(this.port))
 
         return vinylServe.getInstance(this.port).startPromise
 
