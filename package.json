@@ -13,7 +13,7 @@
     "cov": "nyc --reporter=lcov _mocha --require babel-register spec",
     "cov-open": "npm run cov && open coverage/lcov-report/index.html",
     "codecov": "npm run cov && codecov",
-    "lint": "eslint src test"
+    "lint": "eslint src test bin demo/bulbofile.js"
   },
   "bin": {
     "bulbo": "bin/bulbo.js"
