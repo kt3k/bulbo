@@ -63,16 +63,6 @@ export default class Asset {
     }
 
     /**
-     * Sets the base path.
-     * @param {string} base The base path of the assets
-     */
-    setBase(base) {
-
-        this.opts.base = base
-
-    }
-
-    /**
      * Sets the watch opts.
      * @param {object} opts The watch opts
      */
@@ -97,6 +87,7 @@ export default class Asset {
 
     /**
      * Gets the source stream.
+     * @private
      * @return {Readable}
      */
     getSourceStream() {
@@ -117,7 +108,7 @@ export default class Asset {
 
     /**
      * Gets the watch path(s).
-     *
+     * @private
      * @return {String|String[]}
      */
     getWatchPaths() {
@@ -127,23 +118,12 @@ export default class Asset {
     }
 
     /**
-     * Gets the watch opts.
-     *
-     * @return {Object}
-     */
-    getWatchOpts() {
-
-        return this.watchOpts
-
-    }
-
-    /**
      * Starts watching the given watch paths.
      * @param {Function} cb The callback
      */
     watch(cb) {
 
-        watch(this.getWatchPaths(), this.getWatchOpts(), cb)
+        watch(this.getWatchPaths(), this.watchOpts, cb)
 
     }
 

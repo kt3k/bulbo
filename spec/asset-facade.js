@@ -54,7 +54,7 @@ describe('asset-facade', () => {
 
             const facade = asset('foo').watchOptions({bar: 'baz'})
 
-            expect(facade.getAssetModel().getWatchOpts()).to.eql({bar: 'baz'})
+            expect(facade.getAssetModel().watchOpts).to.eql({bar: 'baz'})
 
         })
 

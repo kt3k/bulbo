@@ -74,7 +74,7 @@ export default class AssetFacade {
      */
     base(base) {
 
-        this.getAssetModel().setBase(base)
+        this.getAssetModel().setAssetOpts({base})
 
         return this
 
