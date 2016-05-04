@@ -1,6 +1,5 @@
 import logger from '../util/logger'
 import chalk from 'chalk'
-import vinylServe from 'vinyl-serve'
 
 export default class AssetWatcher {
 

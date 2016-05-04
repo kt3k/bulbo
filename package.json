@@ -61,6 +61,7 @@
     "through2": "^2.0.1"
   },
   "eslintConfig": {
+    "extends": "souffle",
     "parserOptions": {
       "ecmaVersion": 6,
       "sourceType": "module"
