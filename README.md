@@ -43,26 +43,18 @@ bulbo.dest('output')
 If you need to bundle your scripts with `browserify` you can set up it like the following:
 
 ```js
-const through2 = require('through2')
-const browserify = require('browserify')
+const bundler = require('bundle-through')
 
 // build js
 asset('source/page/*.js')
 .base('source')
 .watch('source/**/*.js')
-.pipe(through2.obj((file, enc, callback) => {
-
-  file.contents = browserify(file.path).bundle()
-  callback(null, file)
-
-}))
+.pipe(bundler())
 ```
 
 - `.base('source')` means the base path of your glob pattern (`source/page/*.js`) is `source`.
 - `.watch('source/**/*.js')` means that this build process watches the files `source/**/*.js`, not only `source/page/*.js`
-- `.pipe(through2.obj(...))` means this build process applies the browserify bundling to its file stream.
-  - This transform is the same thing as you need to transform the gulp.src() stream.
-  - You can use any gulp plugins here.
+- `.pipe(bundler())` registers `bundler()` as the transform. `bundler()` transforms all files into the bundles using `browserify`. See [the document](https://github.com/kt3k/bundle-through) for details.
 
 ## Building html from layout and page source
 
@@ -100,8 +92,7 @@ The resulting `bulbofile.js` looks like the following:
 const bulbo = require('bulbo')
 const asset = bulbo.asset
 
-const through2 = require('through2')
-const browserify = require('browserify')
+const bundler = require('bundle-through')
 const frontMatter = require('gulp-front-matter')
 const wrap = require('gulp-wrap')
 
@@ -114,12 +105,7 @@ asset('source/**/*.css')
 asset('source/page/*.js')
 .base('source')
 .watch('source/**/*.js')
-.pipe(through2.obj((file, enc, callback) => {
-
-  file.contents = browserify(file.path).bundle()
-  callback(null, file)
-
-}))
+.pipe(bundler())
 
 // html
 asset('source/*.html')
