@@ -1,5 +1,5 @@
 /**
- * The factory class of asset modifiers.
+ * The interface which exposes as "asset" in bulbofile
  */
 export default class AssetFacade {
 
@@ -7,15 +7,13 @@ export default class AssetFacade {
      * @param {Asset} asset The asset to modify
      */
     constructor(asset) {
-
-        this.setAssetModel(asset)
-
-    }
-
-    setAssetModel(asset) {
         this.assetModel = asset
     }
 
+    /**
+     * Gets the asset model.
+     * @return {Asset}
+     */
     getAssetModel() {
         return this.assetModel
     }
@@ -25,11 +23,9 @@ export default class AssetFacade {
      * @param {Array<string|string[]>} paths The paths
      */
     asset(...paths) {
-
         this.getAssetModel().addAssetPaths(...paths)
 
         return this
-
     }
 
     /**
@@ -37,11 +33,9 @@ export default class AssetFacade {
      * @param {object} opts The options to pass to the vinyl-fs
      */
     assetOptions(opts) {
-
         this.getAssetModel().setAssetOpts(opts)
 
         return this
-
     }
 
     /**
@@ -49,11 +43,9 @@ export default class AssetFacade {
      * @param {Array<string|string[]>} watchPaths The paths to watch
      */
     watch(...watchPaths) {
-
         this.getAssetModel().addWatchPaths(...watchPaths)
 
         return this
-
     }
 
     /**
@@ -61,11 +53,9 @@ export default class AssetFacade {
      * @param {object} options The watch options
      */
     watchOptions(options) {
-
         this.getAssetModel().setWatchOpts(options)
 
         return this
-
     }
 
     /**
@@ -73,11 +63,9 @@ export default class AssetFacade {
      * @param {string} base The base path
      */
     base(base) {
-
         this.getAssetModel().setAssetOpts({base})
 
         return this
-
     }
 
     /**
@@ -85,11 +73,8 @@ export default class AssetFacade {
      * @param {Transform} transform The transform to pass to the vinyl stream
      */
     pipe(transform) {
-
         this.getAssetModel().addPipe(transform)
 
         return this
-
     }
-
 }
