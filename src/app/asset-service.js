@@ -1,6 +1,9 @@
 import AssetCollection from '../domain/asset-collection'
 import AssetServer from './asset-server'
 import AssetBuilder from './asset-builder'
+import logger from '../util/logger'
+
+import chalk from 'chalk'
 
 /**
  * AssetService manages, builds and serves the collection of assets.
@@ -17,6 +20,12 @@ export default class AssetService {
         this.dest = dest
         this.port = port
 
+        this.assets.on('error', (err, asset) => {
+
+            logger.log(chalk.red('Error: ' + asset.toString()))
+            logger.log(chalk.red(err.stack))
+
+        })
     }
 
     /**

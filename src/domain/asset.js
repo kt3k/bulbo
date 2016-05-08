@@ -1,11 +1,13 @@
 import vfs from 'vinyl-fs'
 import pipeline from '../util/pipeline'
 import watch from '../util/watch'
+import {EventEmitter} from 'events'
+import plumber from 'gulp-plumber'
 
 /**
  * The model of asset
  */
-export default class Asset {
+export default class Asset extends EventEmitter {
 
     /**
      * @constructor
@@ -13,13 +15,17 @@ export default class Asset {
      */
     constructor(...paths) {
 
+        super()
+
         this.paths = []
         this.addAssetPaths(...paths)
         this.opts = {}
         this.watchPaths = []
         this.watchOpts = {}
 
-        this.pipeline = pipeline.obj()
+        this.pipeline = pipeline.obj().on('error', err => this.emit('error', err))
+
+        this.addPipe(plumber())
 
     }
 

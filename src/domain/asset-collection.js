@@ -1,14 +1,17 @@
 import mergeStream from '../util/mergeStream'
+import {EventEmitter} from 'events'
 
 /**
  * The collection class of assets.
  */
-export default class AssetCollection {
+export default class AssetCollection extends EventEmitter {
 
     /**
      * @constructor
      */
     constructor() {
+
+        super()
 
         this.assets = []
 
@@ -19,6 +22,8 @@ export default class AssetCollection {
      * @param {Asset} asset The asset
      */
     add(asset) {
+
+        asset.on('error', err => this.emit('error', err, asset))
 
         this.assets.push(asset)
 
