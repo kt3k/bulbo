@@ -1,4 +1,4 @@
-# bulbo v6.0.2 [![Build Status](https://travis-ci.org/kt3k/bulbo.svg?branch=master)](https://travis-ci.org/kt3k/bulbo) [![codecov.io](https://codecov.io/github/kt3k/bulbo/coverage.svg?branch=master)](https://codecov.io/github/kt3k/bulbo?branch=master) [![bitHound Overall Score](https://www.bithound.io/github/kt3k/bulbo/badges/score.svg)](https://www.bithound.io/github/kt3k/bulbo) <img width="70" align="right" src="https://kt3k.github.io/bulbo/media/logo.svg" />
+# bulbo v6.1.0 [![Build Status](https://travis-ci.org/kt3k/bulbo.svg?branch=master)](https://travis-ci.org/kt3k/bulbo) [![codecov.io](https://codecov.io/github/kt3k/bulbo/coverage.svg?branch=master)](https://codecov.io/github/kt3k/bulbo?branch=master) [![bitHound Overall Score](https://www.bithound.io/github/kt3k/bulbo/badges/score.svg)](https://www.bithound.io/github/kt3k/bulbo) <img width="70" align="right" src="https://kt3k.github.io/bulbo/media/logo.svg" />
 
 
 [![npm bulbo](https://nodei.co/npm/bulbo.png?compact=true)](https://www.npmjs.com/package/bulbo)
