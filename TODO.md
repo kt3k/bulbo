@@ -1,5 +1,7 @@
 # TODO
 
+- bug(watch): the watch paths which is not the first one are ignored.
+
 # DONE
 
 - Command bulbo build -w
