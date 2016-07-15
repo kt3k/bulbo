@@ -57,7 +57,7 @@
     "mocha": "^2.5.0",
     "nyc": "^7.0.0",
     "rimraf": "^2.5.2",
-    "superagent": "^1.6.1",
+    "superagent": "^2.0.0",
     "through": "^2.3.8",
     "through2": "^2.0.1"
   },
