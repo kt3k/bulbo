@@ -36,7 +36,7 @@
     "chokidar": "^1.4.2",
     "gulp-plumber": "^1.1.0",
     "interpret": "^1.0.0",
-    "liftoff": "^2.2.0",
+    "liftoff": "^2.3.0",
     "minimist": "^1.2.0",
     "stream-splicer": "^2.0.0",
     "vinyl-fs": "^2.2.1",
