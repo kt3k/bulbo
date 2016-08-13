@@ -75,7 +75,7 @@ describe('bulbo', () => {
 
             bulbo.asset('spec/fixture/**/*.js')
 
-            return bulbo.build().then(() => {
+            bulbo.build().then(() => {
 
                 expect(fs.readFileSync('build/js/foo.js').toString()).to.have.length.above(1)
 
