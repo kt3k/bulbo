@@ -1,6 +1,9 @@
 # TODO
 
-- bug(watch): the watch paths which is not the first one are ignored.
+- fix(watch): the watch paths which is not the first one are ignored.
+- feat(index): do not show vinyl object as html, it is too long for some usecases
+- chore(lint): switch to standard
+- chore(ci): switch to circleci
 
 # DONE
 
