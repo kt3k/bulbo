@@ -18,22 +18,22 @@ describe('bulbo', () => {
 
   describe('asset', () => {
     it('registers the asset', () => {
-      bulbo.asset('spec/fixture/**/*.js')
+      bulbo.asset('test/fixture/**/*.js')
       expect(bulbo.isEmpty()).to.be.false
     })
 
     it('returns the asset\'s modifier', () => {
-      expect(bulbo.asset('spec/fixture/**/*.js')).to.be.an('object')
-      expect(bulbo.asset('spec/fixture/**/*.js').watch).to.be.a('function')
-      expect(bulbo.asset('spec/fixture/**/*.js').watchOptions).to.be.a('function')
-      expect(bulbo.asset('spec/fixture/**/*.js').base).to.be.a('function')
+      expect(bulbo.asset('test/fixture/**/*.js')).to.be.an('object')
+      expect(bulbo.asset('test/fixture/**/*.js').watch).to.be.a('function')
+      expect(bulbo.asset('test/fixture/**/*.js').watchOptions).to.be.a('function')
+      expect(bulbo.asset('test/fixture/**/*.js').base).to.be.a('function')
     })
 
     describe('.pipe', () => {
       it('sets the transform to the asset', done => {
         bulbo
-        .asset('spec/fixture/js/{foo,bar}.js')
-        .base('spec/fixture')
+        .asset('test/fixture/js/{foo,bar}.js')
+        .base('test/fixture')
         .pipe(through(function (file) {
           file.contents = browserify(file.path).bundle()
 
@@ -54,7 +54,7 @@ describe('bulbo', () => {
 
   describe('build', () => {
     it('builds the assets and put them in build/ dir', done => {
-      bulbo.asset('spec/fixture/**/*.js')
+      bulbo.asset('test/fixture/**/*.js')
 
       bulbo.build().then(() => {
         expect(fs.readFileSync('build/js/foo.js').toString()).to.have.length.above(1)
@@ -64,7 +64,7 @@ describe('bulbo', () => {
     })
 
     it('does not stop at highWaterMark(=16) files', done => {
-      bulbo.asset('spec/fixture/**/*.js')
+      bulbo.asset('test/fixture/**/*.js')
 
       bulbo.build().then(() => {
         expect(fs.readFileSync('build/js/0.js').toString()).to.have.length.above(1)
@@ -98,7 +98,7 @@ describe('bulbo', () => {
 
   describe('serve', () => {
     it('serves the assets at port 7100', done => {
-      bulbo.asset('spec/fixture/**/*.js')
+      bulbo.asset('test/fixture/**/*.js')
 
       bulbo.serve().then(() => {
         setTimeout(() => {
@@ -144,7 +144,7 @@ describe('bulbo', () => {
     it('sets the build destination', done => {
       bulbo.dest('build/dist')
 
-      bulbo.asset('spec/fixture/**/*.js')
+      bulbo.asset('test/fixture/**/*.js')
 
       bulbo.build().then(() => {
         expect(fs.readFileSync('build/dist/js/foo.js').toString()).to.have.length.above(1)

@@ -2,7 +2,7 @@ var asset = require('../').asset
 var through2 = require('through2')
 var browserify = require('browserify')
 
-asset('../spec/fixture/**/*.js')
+asset('../test/fixture/**/*.js')
 .pipe(through2.obj((file, enc, cb) => browserify(file.path).bundle((err, contents) => {
   if (err) cb(err)
 
@@ -13,4 +13,4 @@ asset('../spec/fixture/**/*.js')
   }, 5)
 })))
 
-asset('../spec/fixture/**/*.css')
+asset('../test/fixture/**/*.css')
