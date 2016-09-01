@@ -1,6 +1,5 @@
 # TODO
 
-- use standard itself
 - refactor(structure): isolate bulbo core
 - fix(watch): the watch paths which is not the first one are ignored.
 - feat(index): do not show vinyl object as html, it is too long for some usecases
@@ -8,6 +7,7 @@
 - chore(ci): switch to circleci
 
 # DONE
+- use standard itself
 - style: switch to standard
 - refactor(bin): use minimisted
 - Command bulbo build -w

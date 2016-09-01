@@ -13,7 +13,7 @@
     "cov": "nyc --reporter=lcov _mocha --require babel-register test",
     "cov-open": "npm run cov && open coverage/lcov-report/index.html",
     "codecov": "npm run cov && codecov",
-    "lint": "eslint src test bin demo/bulbofile.js"
+    "lint": "standard"
   },
   "bin": {
     "bulbo": "bin/bulbo.js"
@@ -49,19 +49,15 @@
     "browserify": "^13.0.0",
     "chai": "^3.4.1",
     "codecov": "^1.0.1",
-    "eslint": "^3.0.1",
-    "eslint-config-standard": "^5.2.0",
-    "eslint-plugin-promise": "^2.0.0",
-    "eslint-plugin-standard": "^1.3.2",
     "mocha": "^3.0.2",
     "nyc": "^8.0.0",
     "rimraf": "^2.5.2",
+    "standard": "^8.0.0",
     "superagent": "^2.1.0",
     "through": "^2.3.8",
     "through2": "^2.0.1"
   },
-  "eslintConfig": {
-    "extends": "standard",
+  "standard": {
     "parserOptions": {
       "ecmaVersion": 6,
       "sourceType": "module"
