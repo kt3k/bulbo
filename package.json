@@ -68,9 +68,6 @@
     },
     "env": {
       "mocha": true
-    },
-    "rules": {
-      "indent": [2, 4]
     }
   },
   "nyc": {

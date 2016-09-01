@@ -8,12 +8,12 @@ import chokidar from 'chokidar'
  * @param {Function} cb The callback
  */
 export default function (glob, opts, cb) {
-    opts = opts || {}
+  opts = opts || {}
 
-    opts.ignoreInitial = typeof opts.ignoreInitial === 'boolean' ? opts.ignoreInitial : true
+  opts.ignoreInitial = typeof opts.ignoreInitial === 'boolean' ? opts.ignoreInitial : true
 
-    return chokidar.watch(glob, opts)
-        .on('unlink', cb)
-        .on('change', cb)
-        .on('add', cb)
+  return chokidar.watch(glob, opts)
+    .on('unlink', cb)
+    .on('change', cb)
+    .on('add', cb)
 }

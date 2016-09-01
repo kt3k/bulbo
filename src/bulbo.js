@@ -16,11 +16,11 @@ const service = new AssetService(DEFAULT_DEST, DEFAULT_PORT)
  * @return {Function}
  */
 export function asset (...paths) {
-    const asset = new Asset(...paths)
+  const asset = new Asset(...paths)
 
-    service.addAsset(asset)
+  service.addAsset(asset)
 
-    return new AssetFacade(asset)
+  return new AssetFacade(asset)
 }
 
 /**
