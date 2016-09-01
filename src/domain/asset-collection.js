@@ -5,38 +5,31 @@ import {EventEmitter} from 'events'
  * The collection class of assets.
  */
 export default class AssetCollection extends EventEmitter {
-
     /**
      * @constructor
      */
-    constructor() {
-
+    constructor () {
         super()
 
         this.assets = []
-
     }
 
     /**
      * Adds the asset.
      * @param {Asset} asset The asset
      */
-    add(asset) {
-
+    add (asset) {
         asset.on('error', err => this.emit('error', err, asset))
 
         this.assets.push(asset)
-
     }
 
     /**
      * Gets the merged stream of assets.
      * @return {Stream}
      */
-    getMergedStream() {
-
+    getMergedStream () {
         return mergeStream(this.assets.map(asset => asset.getStream()))
-
     }
 
     /**
@@ -44,29 +37,22 @@ export default class AssetCollection extends EventEmitter {
      * @param {Function} cb The callback
      * @param {Object} ctx The this context
      */
-    forEach(cb, ctx) {
-
+    forEach (cb, ctx) {
         this.assets.forEach(cb, ctx)
-
     }
 
     /**
      * Returns if the assets are empty.
      * @return {Boolean}
      */
-    isEmpty() {
-
+    isEmpty () {
         return this.assets.length === 0
-
     }
 
     /**
      * Empties the assets list.
      */
-    empty() {
-
+    empty () {
         this.assets.splice(0)
-
     }
-
 }

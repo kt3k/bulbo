@@ -8,7 +8,6 @@ import chokidar from 'chokidar'
  * @param {Function} cb The callback
  */
 export default function (glob, opts, cb) {
-
     opts = opts || {}
 
     opts.ignoreInitial = typeof opts.ignoreInitial === 'boolean' ? opts.ignoreInitial : true
@@ -17,5 +16,4 @@ export default function (glob, opts, cb) {
         .on('unlink', cb)
         .on('change', cb)
         .on('add', cb)
-
 }

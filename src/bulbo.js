@@ -15,14 +15,12 @@ const service = new AssetService(DEFAULT_DEST, DEFAULT_PORT)
  * @param {Array<string|string[]>} paths The paths of the asset
  * @return {Function}
  */
-export function asset(...paths) {
-
+export function asset (...paths) {
     const asset = new Asset(...paths)
 
     service.addAsset(asset)
 
     return new AssetFacade(asset)
-
 }
 
 /**

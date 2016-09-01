@@ -9,22 +9,18 @@ import chalk from 'chalk'
  * AssetService manages, builds and serves the collection of assets.
  */
 export default class AssetService {
-
     /**
      * @param {String} dest The destination
      * @param {Number} port The port number
      */
-    constructor(dest, port) {
-
+    constructor (dest, port) {
         this.assets = new AssetCollection()
         this.dest = dest
         this.port = port
 
         this.assets.on('error', (err, asset) => {
-
             logger.log(chalk.red('Error: ' + asset.toString()))
             logger.log(chalk.red(err.stack))
-
         })
     }
 
@@ -33,36 +29,30 @@ export default class AssetService {
      * @private
      * @param {Asset} asset The asset
      */
-    addAsset(asset) {
-
+    addAsset (asset) {
         this.assets.add(asset)
-
     }
 
     /**
      * Serves the assets.
      * @return {Promise} Resolves when the server started
      */
-    serve() {
-
+    serve () {
         return new AssetServer(this.assets, this.port).serve()
-
     }
 
     /**
      * Builds the assets.
      * @return {Promise} Resolves when the assets built
      */
-    build() {
-
+    build () {
         return new AssetBuilder(this.assets, this.dest).build()
-
     }
 
     /**
      * Watches and builds the assets.
      */
-    watchAndBuild() {
+    watchAndBuild () {
         return new AssetBuilder(this.assets, this.dest).watchAndBuild()
     }
 
@@ -70,39 +60,30 @@ export default class AssetService {
      * Sets the port number.
      * @param {Number} port The port number
      */
-    setPort(port) {
-
+    setPort (port) {
         this.port = port
-
     }
 
     /**
      * Sets the destination.
      * @param {String} dest The destination of the build
      */
-    setDest(dest) {
-
+    setDest (dest) {
         this.dest = dest
-
     }
 
     /**
      * Returns if the assets are empty.
      * @return {Boolean}
      */
-    isEmpty() {
-
+    isEmpty () {
         return this.assets.isEmpty()
-
     }
 
     /**
      * Clears all the assets.
      */
-    clear() {
-
+    clear () {
         this.assets.empty()
-
     }
-
 }

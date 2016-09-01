@@ -8,13 +8,11 @@ import plumber from 'gulp-plumber'
  * The model of asset
  */
 export default class Asset extends EventEmitter {
-
     /**
      * @constructor
      * @param {Array<string|string[]>} paths The paths to build
      */
-    constructor(...paths) {
-
+    constructor (...paths) {
         super()
 
         this.paths = []
@@ -26,56 +24,45 @@ export default class Asset extends EventEmitter {
         this.pipeline = pipeline.obj().on('error', err => this.emit('error', err))
 
         this.addPipe(plumber())
-
     }
 
     /**
      * Adds the asset paths.
      * @param {Array<string|string[]>} paths The paths to build
      */
-    addAssetPaths(...paths) {
-
+    addAssetPaths (...paths) {
         this.paths = this.paths.concat(...paths)
-
     }
 
     /**
      * Sets the asset options.
      * @param {object} opts The asset options to pass to vinyl-fs when creating vinyl stream
      */
-    setAssetOpts(opts) {
-
+    setAssetOpts (opts) {
         Object.assign(this.opts, opts)
-
     }
 
     /**
      * Adds the watch paths.
      * @param {string|string[]} paths The paths
      */
-    addWatchPaths(...paths) {
-
+    addWatchPaths (...paths) {
         this.watchPaths = this.watchPaths.concat(paths)
-
     }
 
     /**
      * @param {Transform}
      */
-    addPipe(pipe) {
-
+    addPipe (pipe) {
         this.pipeline.push(pipe)
-
     }
 
     /**
      * Sets the watch opts.
      * @param {object} opts The watch opts
      */
-    setWatchOpts(opts) {
-
+    setWatchOpts (opts) {
         Object.assign(this.watchOpts, opts)
-
     }
 
     /**
@@ -83,12 +70,10 @@ export default class Asset extends EventEmitter {
      * @param {object} options The pipe options
      * @param {Function} cb The callback
      */
-    reflow(options, cb) {
-
+    reflow (options, cb) {
         this.getSourceStream().pipe(this.pipeline, options)
 
         if (cb) { this.pipeline.once('buffer-empty', cb) }
-
     }
 
     /**
@@ -96,20 +81,16 @@ export default class Asset extends EventEmitter {
      * @private
      * @return {Readable}
      */
-    getSourceStream() {
-
+    getSourceStream () {
         return vfs.src(this.paths, this.opts)
-
     }
 
     /**
      * Gets the readable end of the transform stream.
      * @return {Readable}
      */
-    getStream() {
-
+    getStream () {
         return this.pipeline
-
     }
 
     /**
@@ -117,27 +98,22 @@ export default class Asset extends EventEmitter {
      * @private
      * @return {String|String[]}
      */
-    getWatchPaths() {
-
+    getWatchPaths () {
         return this.watchPaths.length > 0 ? this.watchPaths : this.paths
-
     }
 
     /**
      * Starts watching the given watch paths.
      * @param {Function} cb The callback
      */
-    watch(cb) {
-
+    watch (cb) {
         watch(this.getWatchPaths(), this.watchOpts, cb)
-
     }
 
     /**
      * Returns a string expression
      */
-    toString() {
+    toString () {
         return this.paths.toString()
     }
-
 }
