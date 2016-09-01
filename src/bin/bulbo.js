@@ -6,8 +6,6 @@ import logger from '../util/logger'
 
 import pkg from '../../package'
 
-const argv = minimist(process.argv.slice(2))
-
 function version() {
 
     console.log(pkg.name + '@' + pkg.version)
@@ -56,7 +54,7 @@ function getAction(command, argv) {
 /**
  * @param {object} argv The minimist parsed object
  */
-function main(argv) {
+minimisted(function main(argv) {
 
     if (argv.version) {
 
@@ -84,7 +82,7 @@ function main(argv) {
 
     .launch({}, env => onLaunch(env, action))
 
-}
+})
 
 /**
  * Liftoff launch handler
@@ -143,5 +141,3 @@ function onLaunch(env, action) {
     }
 
 }
-
-main(argv)

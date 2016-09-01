@@ -1,12 +1,13 @@
 # TODO
 
+- style: switch to standard
 - fix(watch): the watch paths which is not the first one are ignored.
 - feat(index): do not show vinyl object as html, it is too long for some usecases
 - chore(lint): switch to standard
 - chore(ci): switch to circleci
 
 # DONE
-
+- refactor(bin): use minimisted
 - Command bulbo build -w
   - Use event emitter
   - create asset-watcher which extends event-emitter
