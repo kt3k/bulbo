@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import interpret from 'interpret'
 import Liftoff from 'liftoff'
-import minimist from 'minimist'
+import minimisted from 'minimisted'
 import logger from '../util/logger'
 
 import pkg from '../../package'
