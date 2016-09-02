@@ -8,7 +8,7 @@
 
 [![npm bulbo](https://nodei.co/npm/bulbo.png?compact=true)](https://www.npmjs.com/package/bulbo)
 
-> :tropical_drink: Gulp compatible static site generator
+> Gulp compatible static site generator
 
 # Features
 
