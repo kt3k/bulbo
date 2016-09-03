@@ -6,12 +6,18 @@ import logger from '../util/logger'
 
 import pkg from '../../package'
 
-function version () {
+/**
+ * Shows the version number.
+ */
+function showVersion () {
   console.log(pkg.name + '@' + pkg.version)
 }
 
+/**
+ * Shows the usage.
+ */
 function usage () {
-  console.log('Usage: bulbo [build|serve]')
+  console.log('Usage: bulbo <build|serve> [-h|--help] [-v|--version] [-w|--watch]')
 }
 
 /**
@@ -23,11 +29,15 @@ function isCommandValid (command) {
   return /^s|b/.test(command)
 }
 
-function getAction (command, argv) {
+/**
+ * @param {string} command The command
+ * @param {boolean} watchFlag The watching flag
+ */
+function getAction (command, watchFlag) {
   if (/^s/.test(command)) {
     return 'serve'
   } if (/^b/.test(command)) {
-    if (!argv.w) {
+    if (!watchFlag) {
       return 'build'
     } else {
       return 'watchAndBuild'
@@ -36,22 +46,31 @@ function getAction (command, argv) {
 }
 
 /**
- * @param {object} argv The minimist parsed object
+ * @param {object} _ The positional paremeters
+ * @param {object} v The version flag
+ * @param {object} version The version flag
+ * @param {object} h The help flag
+ * @param {object} help The help flag
  */
-minimisted(function main (argv) {
-  if (argv.version) {
-    version()
+minimisted(function main ({_, v, version, h, help, w, watch}) {
+  if (v || version) {
+    showVersion()
     process.exit(0)
   }
 
-  const command = argv._[0] || 'serve'
+  if (h || help) {
+    usage()
+    process.exit(0)
+  }
+
+  const command = _[0] || 'serve'
 
   if (!isCommandValid(command)) {
     usage()
     process.exit(1)
   }
 
-  const action = getAction(command, argv)
+  const action = getAction(command, w || watch)
 
   new Liftoff({name: 'bulbo', extensions: interpret.jsVariants})
 
