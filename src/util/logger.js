@@ -19,7 +19,7 @@ function timestamp () {
   ].join(':')
 }
 
-export default {
+module.exports = {
   /**
    * Logs the given messages with timestamp
    * @param {Array} args The messages
