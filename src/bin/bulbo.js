@@ -1,10 +1,10 @@
-import chalk from 'chalk'
-import interpret from 'interpret'
-import Liftoff from 'liftoff'
-import minimisted from 'minimisted'
-import logger from '../util/logger'
+const chalk = require('chalk')
+const interpret = require('interpret')
+const Liftoff = require('liftoff')
+const minimisted = require('minimisted')
+const logger = require('../util/logger')
 
-import pkg from '../../package'
+const pkg = require('../../package')
 
 /**
  * Shows the version number.
@@ -109,7 +109,7 @@ function onLaunch (env, action) {
   if (bulbo.isEmpty()) {
     console.log(chalk.red('Error: No asset defined in bulbofile'))
 
-    process.exit()
+    process.exit(1)
   }
 
   if (action === 'build') { // build
