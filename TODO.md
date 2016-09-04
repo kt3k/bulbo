@@ -1,5 +1,6 @@
 # TODO
 
+- remove through dep
 - refactor(structure): isolate bulbo core
 - fix(watch): the watch paths which is not the first one are ignored.
 - feat(index): do not show vinyl object as html, it is too long for some usecases
