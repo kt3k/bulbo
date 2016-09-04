@@ -376,6 +376,7 @@ MIT
 
 # Release history
 
+- 2016-05-08   v6.1.5   Refactoring (use minirocket).
 - 2016-05-08   v6.1.0   Better error handling.
 - 2016-05-01   v6.0.0   Remove asset().build() DSL verb.
 - 2016-04-29   v5.1.1   Change the architecture. Use the same transform for an asset while watching.
