@@ -1,8 +1,6 @@
 import AssetCollection from '../domain/asset-collection'
 import AssetServer from './asset-server'
 import AssetBuilder from './asset-builder'
-import logger from '../util/logger'
-
 import chalk from 'chalk'
 
 /**
@@ -19,9 +17,13 @@ export default class AssetService {
     this.port = port
 
     this.assets.on('error', (err, asset) => {
-      logger.log(chalk.red('Error: ' + asset.toString()))
-      logger.log(chalk.red(err.stack))
+      this.logger.log(chalk.red('Error: ' + asset.toString()))
+      this.logger.log(chalk.red(err.stack))
     })
+  }
+
+  setLogger (logger) {
+    this.logger = logger
   }
 
   /**
@@ -38,7 +40,7 @@ export default class AssetService {
    * @return {Promise} Resolves when the server started
    */
   serve () {
-    return new AssetServer(this.assets, this.port).serve()
+    return new AssetServer(this.assets, this.port, this.logger).serve()
   }
 
   /**
@@ -46,14 +48,14 @@ export default class AssetService {
    * @return {Promise} Resolves when the assets built
    */
   build () {
-    return new AssetBuilder(this.assets, this.dest).build()
+    return new AssetBuilder(this.assets, this.dest, this.logger).build()
   }
 
   /**
    * Watches and builds the assets.
    */
   watchAndBuild () {
-    return new AssetBuilder(this.assets, this.dest).watchAndBuild()
+    return new AssetBuilder(this.assets, this.dest, this.logger).watchAndBuild()
   }
 
   /**

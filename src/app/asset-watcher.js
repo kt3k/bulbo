@@ -1,9 +1,13 @@
-import logger from '../util/logger'
 import chalk from 'chalk'
 
 export default class AssetWatcher {
-  constructor (assets) {
+  /**
+   * @param {AssetCollection} assets The assets
+   * @param {Logger} logger The logger
+   */
+  constructor (assets, logger) {
     this.assets = assets
+    this.logger = logger
   }
 
   /**
@@ -15,17 +19,17 @@ export default class AssetWatcher {
       asset.getStream().pipe(writable)
 
       asset.watch(() => {
-        logger.log('❗️ File changed:', chalk.magenta(asset.toString()))
+        this.logger.log(chalk.yellow('Changed:'), chalk.magenta(asset.toString()))
 
         asset.reflow({end: false}, () => {
-          logger.log('✅ Files ready:', chalk.magenta(asset.toString()))
+          this.logger.log(chalk.green('Ready:'), chalk.magenta(asset.toString()))
         })
       })
 
-      logger.log('Reading files:', chalk.magenta(asset.toString()))
+      this.logger.log(chalk.yellow('Reading:'), chalk.magenta(asset.toString()))
 
       asset.reflow({end: false}, () => {
-        logger.log('✅ Files ready:', chalk.magenta(asset.toString()))
+        this.logger.log(chalk.green('Ready:'), chalk.magenta(asset.toString()))
       })
     })
   }

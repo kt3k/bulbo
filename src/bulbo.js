@@ -83,6 +83,12 @@ export const port = port => service.setPort(port)
 export const isEmpty = () => service.isEmpty()
 
 /**
+ * Sets the logger.
+ * @param {Logger} logger The logger
+ */
+export const setLogger = logger => service.setLogger(logger)
+
+/**
  * Clears all the assets.
  *
  * For internal use only.

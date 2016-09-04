@@ -1,7 +1,6 @@
 import vfs from 'vinyl-fs'
 import * as drain from '../util/drain'
 import AssetWatcher from './asset-watcher'
-import logger from '../util/logger'
 import chalk from 'chalk'
 
 /**
@@ -12,9 +11,10 @@ export default class AssetBuilder extends AssetWatcher {
    * @constructor
    * @param {AssetCollection} assets The assets
    * @param {String} dest The destination
+   * @param {Logger} logger The logger
    */
-  constructor (assets, dest) {
-    super(assets)
+  constructor (assets, dest, logger) {
+    super(assets, logger)
 
     this.dest = dest
   }
@@ -24,21 +24,21 @@ export default class AssetBuilder extends AssetWatcher {
    * @return {Promise}
    */
   build () {
-    logger.log(chalk.green('building'))
+    this.logger.log(chalk.green('building'))
 
     const stream = this.assets.getMergedStream().pipe(vfs.dest(this.dest)).pipe(drain.obj())
 
     this.assets.forEach(asset => asset.reflow())
 
     return new Promise((resolve, reject) => stream.on('end', resolve).on('error', reject))
-      .then(() => logger.log(chalk.green('done')))
+      .then(() => this.logger.log(chalk.green('done')))
   }
 
   /**
    * Watches and builds.
    */
   watchAndBuild () {
-    logger.log(chalk.green('watching and building'))
+    this.logger.log(chalk.green('watching and building'))
 
     this.watchAndPipe(vfs.dest(this.dest))
   }

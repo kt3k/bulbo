@@ -4,7 +4,7 @@ const Liftoff = require('liftoff')
 const minimisted = require('minimisted')
 const dispatch = require('cli-dispatch')
 
-const logger = require('../util/logger')
+const logger = require('../util/logger')('bulbo')
 const usage = require('./usage')
 
 /**
@@ -59,6 +59,8 @@ function onLaunch (env, action, argv) {
   logger.log('Using:', chalk.magenta(env.configPath))
 
   const bulbo = require(env.modulePath)
+
+  bulbo.setLogger(logger)
 
   require(env.configPath)
 

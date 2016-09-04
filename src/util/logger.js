@@ -19,12 +19,27 @@ function timestamp () {
   ].join(':')
 }
 
-module.exports = {
+/**
+ * The logger class.
+ */
+class Logger {
+  /**
+   * @param {string} name The logger name
+   */
+  constructor (name) {
+    this.name = name
+  }
+
   /**
    * Logs the given messages with timestamp
    * @param {Array} args The messages
    */
   log (...args) {
-    console.log('bulbo [' + timestamp() + ']', ...args)
+    console.log(`${this.name} [${timestamp()}]`, ...args)
   }
 }
+
+/**
+ * @param {string} name The logger name
+ */
+module.exports = name => new Logger(name)
