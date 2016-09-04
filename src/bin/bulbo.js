@@ -1,31 +1,26 @@
 const chalk = require('chalk')
 const minimisted = require('minimisted')
-const dispatch = require('cli-dispatch')
+const minirocket = require('minirocket')
 
 const logger = require('../util/logger')('bulbo')
 const usage = require('./usage')
 
 /**
- * @param {object} _ The positional paremeters
- * @param {object} v The version flag
- * @param {object} version The version flag
- * @param {object} h The help flag
- * @param {object} help The help flag
+ * @param {boolean} v The version flag
+ * @param {boolean} version The version flag
+ * @param {boolean} h The help flag
+ * @param {boolean} help The help flag
+ * @param {string} action The action name
  */
-minimisted(function ({_: [action], v, version, h, help}) {
-  if (v || version) {
-    action = 'version'
-  }
+minimisted(argv => {
+  const {v, version, h, help, _: [action]} = argv
 
-  if (h || help) {
-    action = 'help'
-  }
-
-  if (!action) {
-    action = 'serve'
-  }
-
-  dispatch(action, Object.assign({logger}, arguments[0])).on('no-action', () => {
+  minirocket({
+    version: v || version,
+    help: h || help,
+    serve: !action,
+    [action]: true
+  }, Object.assign({logger}, argv)).on('no-action', name => {
     console.log(chalk.red(`Error: No such action: ${action}`))
     usage()
     process.exit(1)

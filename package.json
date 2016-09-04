@@ -34,11 +34,11 @@
   "dependencies": {
     "chalk": "^1.1.1",
     "chokidar": "^1.4.2",
-    "cli-dispatch": "^1.2.0",
     "gulp-plumber": "^1.1.0",
     "interpret": "^1.0.0",
     "liftoff": "^2.2.0",
     "minimisted": "^1.1.1",
+    "minirocket": "^1.0.0",
     "stream-splicer": "^2.0.0",
     "vinyl-fs": "^2.2.1",
     "vinyl-serve": "^2.0.0"
