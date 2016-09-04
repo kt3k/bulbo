@@ -1,4 +1,10 @@
+const liftoff = require('../liftoff')
+
 /**
  * The serve action.
  */
-module.exports = ({bulbo}) => bulbo.serve()
+module.exports = ({logger}) => {
+  liftoff(logger).then(bulbo => {
+    bulbo.serve()
+  })
+}

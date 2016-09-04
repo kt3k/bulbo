@@ -1,10 +1,17 @@
+const liftoff = require('../liftoff')
+
 /**
- * The build action.
+ * The serve action.
+ * @param {Logger} logger The logger
+ * @param {boolean} w The watch flag
+ * @param {boolean} watch The watch flag
  */
-module.exports = ({bulbo, w, watch}) => {
-  if (w || watch) {
-    bulbo.watchAndBuild()
-  } else {
-    bulbo.build()
-  }
+module.exports = ({logger, w, watch}) => {
+  liftoff(logger).then(bulbo => {
+    if (w || watch) {
+      bulbo.watchAndBuild()
+    } else {
+      bulbo.build()
+    }
+  })
 }
