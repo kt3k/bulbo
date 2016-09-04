@@ -1,7 +1,7 @@
-import fs from 'fs'
-import bulbo from '../src/bulbo'
+const fs = require('fs')
+const bulbo = require('../src/bulbo')
 
-import {expect} from 'chai'
+const {expect} = require('chai')
 import rimraf from 'rimraf'
 import request from 'superagent'
 import vinylServe from 'vinyl-serve'
@@ -14,6 +14,7 @@ const BUILD_WAIT = 400
 describe('bulbo', () => {
   beforeEach(() => {
     bulbo.clear()
+    bulbo.setLogger(require('../src/util/logger')('bulbo'))
   })
 
   describe('asset', () => {
