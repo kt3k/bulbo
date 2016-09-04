@@ -1,6 +1,6 @@
 {
   "name": "bulbo",
-  "version": "6.1.3",
+  "version": "6.1.4",
   "description": "Gulp compatible static site generator",
   "main": "lib/bulbo.js",
   "scripts": {
