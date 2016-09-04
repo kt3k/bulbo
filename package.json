@@ -34,7 +34,7 @@
   "dependencies": {
     "chalk": "^1.1.1",
     "chokidar": "^1.4.2",
-    "cli-dispatch": "^1.0.0",
+    "cli-dispatch": "^1.2.0",
     "gulp-plumber": "^1.1.0",
     "interpret": "^1.0.0",
     "liftoff": "^2.2.0",
