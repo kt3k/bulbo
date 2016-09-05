@@ -5,7 +5,7 @@ const {expect} = require('chai')
 import rimraf from 'rimraf'
 import request from 'superagent'
 import vinylServe from 'vinyl-serve'
-import through from 'through'
+import through2 from 'through2'
 import browserify from 'browserify'
 
 const SERVER_LAUNCH_WAIT = 800
@@ -35,10 +35,10 @@ describe('bulbo', () => {
         bulbo
         .asset('test/fixture/js/{foo,bar}.js')
         .base('test/fixture')
-        .pipe(through(function (file) {
+        .pipe(through2.obj(function (file, enc, cb) {
           file.contents = browserify(file.path).bundle()
 
-          this.queue(file)
+          cb(null, file)
         }))
 
         bulbo.build().then(() => {
