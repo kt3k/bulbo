@@ -1,4 +1,4 @@
-# bulbo v6.1.5
+# bulbo v6.2.0
 
 [![CircleCI](https://circleci.com/gh/kt3k/bulbo.svg?style=svg)](https://circleci.com/gh/kt3k/bulbo)
 [![codecov.io](https://codecov.io/github/kt3k/bulbo/coverage.svg?branch=master)](https://codecov.io/github/kt3k/bulbo?branch=master)
@@ -419,7 +419,8 @@ MIT
 
 # Release history
 
-- 2016-05-08   v6.1.5   Refactoring (use minirocket).
+- 2016-09-05   v6.2.0   Add extension API.
+- 2016-09-05   v6.1.5   Refactoring (use minirocket).
 - 2016-05-08   v6.1.0   Better error handling.
 - 2016-05-01   v6.0.0   Remove asset().build() DSL verb.
 - 2016-04-29   v5.1.1   Change the architecture. Use the same transform for an asset while watching.
