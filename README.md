@@ -126,20 +126,20 @@ And then `bulbo serve` command starts the server.
     $ bulbo serve
     bulbo [01:33:38] Using: /Users/kt3k/tmp/long-dream-core/bulbofile.js
     bulbo [01:33:39] serving
-    bulbo [01:33:39] Reading files: site/**/*.js
-    bulbo [01:33:39] Reading files: src/infrastructure/infrastructure.js
-    bulbo [01:33:39] Reading files: site/*.html
-    bulbo [01:33:39] Reading files: site/data/**/*.*
-    bulbo [01:33:39] Reading files: site/img/**/*.*
-    bulbo [01:33:39] Reading files: site/css/**/*.*
+    bulbo [01:33:39] Reading: site/**/*.js
+    bulbo [01:33:39] Reading: src/infrastructure/infrastructure.js
+    bulbo [01:33:39] Reading: site/*.html
+    bulbo [01:33:39] Reading: site/data/**/*.*
+    bulbo [01:33:39] Reading: site/img/**/*.*
+    bulbo [01:33:39] Reading: site/css/**/*.*
     bulbo [01:33:39] Server started at: http://0.0.0.0:7100/
     bulbo [01:33:39] See debug page is: http://0.0.0.0:7100/__bulbo__
-    bulbo [01:33:39] ✅ Files ready: site/**/*.js
-    bulbo [01:33:39] ✅ Files ready: src/infrastructure/infrastructure.js
-    bulbo [01:33:39] ✅ Files ready: site/*.html
-    bulbo [01:33:39] ✅ Files ready: site/img/**/*.*
-    bulbo [01:33:39] ✅ Files ready: site/css/**/*.*
-    bulbo [01:33:39] ✅ Files ready: site/data/**/*.*
+    bulbo [01:33:39] Ready: site/**/*.js
+    bulbo [01:33:39] Ready: src/infrastructure/infrastructure.js
+    bulbo [01:33:39] Ready: site/*.html
+    bulbo [01:33:39] Ready: site/img/**/*.*
+    bulbo [01:33:39] Ready: site/css/**/*.*
+    bulbo [01:33:39] Ready: site/data/**/*.*
 
 And the following builds all the given assets and saves them to `build/` directory.
 
@@ -369,6 +369,49 @@ asset('source/page/*.js')
 ```
 
 This is useful when the entrypoints of the asset and the actual source files are different. For example, if you use browserify to bunble your scripts, your entrypoints are bundle's entrypoint files but you need to watch all of your source files which form the bundles.
+
+# Extension API
+
+`bulbo` can be used as internal engine of your own static site generator.
+
+The example looks like the following:
+
+index.js:
+
+```js
+const bulbo = require('bulbo')
+
+bulbo.asset(...).pipe(...) // Some preset settings are here.
+
+module.exports = bulbo
+```
+
+bin/index.js
+
+```js
+const bulbo = require('bulbo')
+
+bulbo.cli.liftoff('mycommand', {configIsOptional: true}).then(bulbo => {
+  bulbo.build()
+})
+```
+
+and bin/index.js works as static site generator cli with some asset building preset.
+
+   $ node bin/index.js
+
+This builds preset assets without your configuration. This is useful if you want to share the same bulbo setting across the projects.
+
+## bulbo.cli.liftoff(name, options)
+
+- @param {string} name The command (module) name
+- @param {object} options The options
+- @param {boolean} [options.configIsOptional] True iff the config is optional. Default is false.
+- @return {Promise}
+
+This set up your module using `liftoff`. This returns a promise which is resolved by the your own module. Your module needs to implement `setLogger` method. It is recommended you expose bulbo module instance as your module interface.
+
+This does not take care of cli options. It is recommended to use with option parsers like `minimist`, `minimisted` etc.
 
 # License
 
