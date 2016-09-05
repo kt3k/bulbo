@@ -4,10 +4,11 @@
 - refactor(structure): isolate bulbo core
 - fix(watch): the watch paths which is not the first one are ignored.
 - feat(index): do not show vinyl object as html, it is too long for some usecases
-- chore(lint): switch to standard
-- chore(ci): switch to circleci
+- fix(build -w): watch and build does not work with large number of files.
 
 # DONE
+- chore(lint): switch to standard
+- chore(ci): switch to circleci
 - use standard itself
 - style: switch to standard
 - refactor(bin): use minimisted
