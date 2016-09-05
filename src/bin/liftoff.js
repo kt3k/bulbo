@@ -1,49 +1,53 @@
 const chalk = require('chalk')
-const interpret = require('interpret')
+const {jsVariants} = require('interpret')
 const Liftoff = require('liftoff')
-
-const logger = require('../util/logger')('bulbo')
 
 /**
  * Lifts off the bulbo.
+ * @param {string} name The name of the module
+ * @param {object} options The options
+ * @return {Promise}
  */
-module.exports = function () {
+module.exports = (name, options) => {
+  const logger = require('../util/logger')(name)
+  options = options || {}
+
   return new Promise((resolve, reject) => {
-    new Liftoff({name: 'bulbo', extensions: interpret.jsVariants})
+    new Liftoff({name, extensions: jsVariants})
 
-    .on('require', name => { logger.log('Requiring external module', chalk.magenta(name)) })
+    .on('require', moduleName => { logger.log('Requiring external module', chalk.magenta(moduleName)) })
 
-    .on('requireFail', name => { console.error('Failed to load external module', name) })
+    .on('requireFail', moduleName => { logger.log(chalk.red(`Failed to load external module ${moduleName}`)) })
 
     .launch({}, env => {
       if (!env.modulePath) {
-        console.log(chalk.red('Error: Local bulbo module not found'))
-        console.log('Try running:', chalk.green('npm install bulbo'))
+        logger.log(chalk.red(`Error: Local ${name} module not found`))
+        logger.log('Try running:', chalk.green(`npm install ${name}`))
 
         process.exit(1)
       }
 
-      if (!env.configPath) {
-        console.log(chalk.red('Error: No bulbofile found'))
+      const moduleIf = require(env.modulePath)
+
+      moduleIf.setLogger(logger)
+
+      if (!options.noConfig && !env.configPath) {
+        logger.log(chalk.red(`Error: No ${name}file found`))
 
         process.exit(1)
       }
 
       logger.log('Using:', chalk.magenta(env.configPath))
 
-      const bulbo = require(env.modulePath)
-
-      bulbo.setLogger(logger)
-
       require(env.configPath)
 
-      if (bulbo.isEmpty()) {
-        console.log(chalk.red('Error: No asset defined in bulbofile'))
+      if (moduleIf.isEmpty()) {
+        logger.log(chalk.red('Error: No asset defined'))
 
         process.exit(1)
       }
 
-      resolve(bulbo)
+      resolve(moduleIf)
     })
   })
 }

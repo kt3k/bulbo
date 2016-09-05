@@ -6,8 +6,8 @@ const liftoff = require('../liftoff')
  * @param {boolean} w The watch flag
  * @param {boolean} watch The watch flag
  */
-module.exports = ({logger, w, watch}) => {
-  liftoff(logger).then(bulbo => {
+module.exports = ({w, watch}) => {
+  liftoff('bulbo').then(bulbo => {
     if (w || watch) {
       bulbo.watchAndBuild()
     } else {
