@@ -2,7 +2,6 @@ const chalk = require('chalk')
 const minimisted = require('minimisted')
 const minirocket = require('minirocket')
 
-const logger = require('../util/logger')('bulbo')
 const usage = require('./usage')
 
 /**
@@ -20,7 +19,7 @@ minimisted(argv => {
     help: h || help,
     serve: !action,
     [action]: true
-  }, Object.assign({logger}, argv)).on('no-action', name => {
+  }, argv).on('no-action', name => {
     console.log(chalk.red(`Error: No such action: ${action}`))
     usage()
     process.exit(1)

@@ -2,10 +2,12 @@ const chalk = require('chalk')
 const interpret = require('interpret')
 const Liftoff = require('liftoff')
 
+const logger = require('../util/logger')('bulbo')
+
 /**
- * @param {Logger} logger The logger
+ * Lifts off the bulbo.
  */
-module.exports = function (logger) {
+module.exports = function () {
   return new Promise((resolve, reject) => {
     new Liftoff({name: 'bulbo', extensions: interpret.jsVariants})
 
