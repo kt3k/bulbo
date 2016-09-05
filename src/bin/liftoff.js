@@ -3,7 +3,7 @@ const {jsVariants} = require('interpret')
 const Liftoff = require('liftoff')
 
 /**
- * Lifts off the bulbo.
+ * Lifts off the module using js-liftoff.
  * @param {string} name The name of the module
  * @param {object} options The options
  * @return {Promise}
@@ -31,7 +31,7 @@ module.exports = (name, options) => {
 
       moduleIf.setLogger(logger)
 
-      if (!options.noConfig && !env.configPath) {
+      if (!env.configPath) {
         logger.log(chalk.red(`Error: No ${name}file found`))
 
         process.exit(1)
