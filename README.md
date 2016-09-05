@@ -1,4 +1,4 @@
-# bulbo v6.1.5
+# bulbo v6.2.0
 
 [![CircleCI](https://circleci.com/gh/kt3k/bulbo.svg?style=svg)](https://circleci.com/gh/kt3k/bulbo)
 [![codecov.io](https://codecov.io/github/kt3k/bulbo/coverage.svg?branch=master)](https://codecov.io/github/kt3k/bulbo?branch=master)
