@@ -6,10 +6,11 @@ const Liftoff = require('liftoff')
  * Lifts off the module using js-liftoff.
  * @param {string} name The name of the module
  * @param {object} options The options
+ * @param {boolean} [options.configIsOptional] True iff the config file is optional. Default is false.
  * @return {Promise}
  */
 module.exports = (name, options) => {
-  const logger = require('../util/logger')(name)
+  const logger = require('./logger')(name)
   options = options || {}
 
   return new Promise((resolve, reject) => {
@@ -31,6 +32,11 @@ module.exports = (name, options) => {
 
       moduleIf.setLogger(logger)
 
+      if (options.configIsOptional && !env.configPath) {
+        resolve(moduleIf)
+        return
+      }
+
       if (!env.configPath) {
         logger.log(chalk.red(`Error: No ${name}file found`))
 
@@ -40,12 +46,6 @@ module.exports = (name, options) => {
       logger.log('Using:', chalk.magenta(env.configPath))
 
       require(env.configPath)
-
-      if (moduleIf.isEmpty()) {
-        logger.log(chalk.red('Error: No asset defined'))
-
-        process.exit(1)
-      }
 
       resolve(moduleIf)
     })

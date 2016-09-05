@@ -1,4 +1,4 @@
-const liftoff = require('../liftoff')
+const bulbo = require('../../bulbo')
 
 /**
  * The serve action.
@@ -7,7 +7,13 @@ const liftoff = require('../liftoff')
  * @param {boolean} watch The watch flag
  */
 module.exports = ({w, watch}) => {
-  liftoff('bulbo').then(bulbo => {
+  bulbo.cli.liftoff('bulbo').then(bulbo => {
+    if (bulbo.isEmpty()) {
+      bulbo.logger.log(chalk.red('Error: No asset defined'))
+
+      process.exit(1)
+    }
+
     if (w || watch) {
       bulbo.watchAndBuild()
     } else {
