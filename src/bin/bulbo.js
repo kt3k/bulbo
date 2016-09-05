@@ -6,11 +6,11 @@ const logger = require('../util/logger')('bulbo')
 const usage = require('./usage')
 
 /**
- * @param {boolean} v The version flag
- * @param {boolean} version The version flag
- * @param {boolean} h The help flag
- * @param {boolean} help The help flag
- * @param {string} action The action name
+ * @param {boolean} argv.v The version flag
+ * @param {boolean} argv.version The version flag
+ * @param {boolean} argv.h The help flag
+ * @param {boolean} argv.help The help flag
+ * @param {string} argv._.0 The action name
  */
 minimisted(argv => {
   const {v, version, h, help, _: [action]} = argv
