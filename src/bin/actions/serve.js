@@ -1,4 +1,5 @@
 const bulbo = require('../../bulbo')
+const chalk = require('chalk')
 
 /**
  * The serve action.
