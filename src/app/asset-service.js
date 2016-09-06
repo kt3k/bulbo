@@ -6,7 +6,7 @@ import chalk from 'chalk'
 /**
  * AssetService manages, builds and serves the collection of assets.
  */
-export default class AssetService {
+class AssetService {
   /**
    * @param {String} dest The destination
    * @param {Number} port The port number
@@ -89,3 +89,5 @@ export default class AssetService {
     this.assets.empty()
   }
 }
+
+module.exports = AssetService

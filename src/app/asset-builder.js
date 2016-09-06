@@ -6,7 +6,7 @@ import chalk from 'chalk'
 /**
  * The service class which builds the assets to the file system.
  */
-export default class AssetBuilder extends AssetWatcher {
+class AssetBuilder extends AssetWatcher {
   /**
    * @constructor
    * @param {AssetCollection} assets The assets
@@ -43,3 +43,5 @@ export default class AssetBuilder extends AssetWatcher {
     this.watchAndPipe(vfs.dest(this.dest))
   }
 }
+
+module.exports = AssetBuilder

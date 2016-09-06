@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 
-export default class AssetWatcher {
+class AssetWatcher {
   /**
    * @param {AssetCollection} assets The assets
    * @param {Logger} logger The logger
@@ -34,3 +34,5 @@ export default class AssetWatcher {
     })
   }
 }
+
+module.exports = AssetWatcher

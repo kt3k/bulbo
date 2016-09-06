@@ -2,7 +2,7 @@ import chalk from 'chalk'
 import vinylServe from 'vinyl-serve'
 import AssetWatcher from './asset-watcher'
 
-export default class AssetServer extends AssetWatcher {
+class AssetServer extends AssetWatcher {
   /**
    * @param {AssetCollection} assets The assets
    * @param {Number} port The port number
@@ -40,3 +40,5 @@ export default class AssetServer extends AssetWatcher {
     return vinylServe.getInstance(this.port).startPromise
   }
 }
+
+module.exports = AssetServer
