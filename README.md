@@ -1,4 +1,4 @@
-# bulbo v6.2.0
+# bulbo v6.2.1
 
 [![CircleCI](https://circleci.com/gh/kt3k/bulbo.svg?style=svg)](https://circleci.com/gh/kt3k/bulbo)
 [![codecov.io](https://codecov.io/github/kt3k/bulbo/coverage.svg?branch=master)](https://codecov.io/github/kt3k/bulbo?branch=master)
@@ -419,6 +419,7 @@ MIT
 
 # Release history
 
+- 2016-09-18   v6.2.1   Update vinyl-serve.
 - 2016-09-05   v6.2.0   Add extension API.
 - 2016-09-05   v6.1.5   Refactoring (use minirocket).
 - 2016-05-08   v6.1.0   Better error handling.
