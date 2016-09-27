@@ -15,7 +15,7 @@ class AssetService {
     this.assets = new AssetCollection()
     this.dest = dest
     this.port = port
-    this.debugPageTitle = 'TODO'
+    this.debugPageTitle = 'Welcome to <i>Bulbo</i> asset path debug page!'
     this.debugPagePath = '__bulbo__'
 
     this.assets.on('error', (err, asset) => {

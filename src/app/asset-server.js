@@ -13,7 +13,7 @@ class AssetServer extends AssetWatcher {
    * @param {string} [debugPageTitle] The page title of the debug page. Html tags are available. Optional.
    * @param {string} [debugPagePath] The path of the debug page. Default is '__bulbo__'.
    */
-  constructor (assets, port, logger, debugPageTitle = 'Welcome to <i>Bulbo</i> asset path debug page!', debugPagePath = '__bulbo__') {
+  constructor (assets, port, logger, debugPageTitle, debugPagePath) {
     super(assets, logger)
 
     this.port = port
