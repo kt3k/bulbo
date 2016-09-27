@@ -1,7 +1,7 @@
 /**
  * The interface which exposes as "asset" in bulbofile
  */
-export default class AssetFacade {
+class AssetFacade {
   /**
    * @param {Asset} asset The asset to modify
    */
@@ -77,3 +77,5 @@ export default class AssetFacade {
     return this
   }
 }
+
+module.exports = AssetFacade

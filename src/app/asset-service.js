@@ -15,6 +15,8 @@ class AssetService {
     this.assets = new AssetCollection()
     this.dest = dest
     this.port = port
+    this.debugPageTitle = 'TODO'
+    this.debugPagePath = '__bulbo__'
 
     this.assets.on('error', (err, asset) => {
       this.logger.log(chalk.red('Error: ' + asset.toString()))
@@ -40,7 +42,7 @@ class AssetService {
    * @return {Promise} Resolves when the server started
    */
   serve () {
-    return new AssetServer(this.assets, this.port, this.logger).serve()
+    return new AssetServer(this.assets, this.port, this.logger, this.debugPageTitle, this.debugPagePath).serve()
   }
 
   /**
@@ -72,6 +74,22 @@ class AssetService {
    */
   setDest (dest) {
     this.dest = dest
+  }
+
+  /**
+   * Sets the debug page title.
+   * @param {string} debugPageTitle The debug page title
+   */
+  setDebugPageTitle (debugPageTitle) {
+    this.debugPageTitle = debugPageTitle
+  }
+
+  /**
+   * Sets the debug page path.
+   * @param {string} debugPagePath The debug page path
+   */
+  setDebugPagePath (debugPagePath) {
+    this.debugPagePath = debugPagePath
   }
 
   /**

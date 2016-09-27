@@ -2,11 +2,11 @@ const fs = require('fs')
 const bulbo = require('../src/bulbo')
 
 const {expect} = require('chai')
-import rimraf from 'rimraf'
-import request from 'superagent'
-import vinylServe from 'vinyl-serve'
-import through2 from 'through2'
-import browserify from 'browserify'
+const rimraf = require('rimraf')
+const request = require('superagent')
+const vinylServe = require('vinyl-serve')
+const through2 = require('through2')
+const browserify = require('browserify')
 
 const SERVER_LAUNCH_WAIT = 800
 const BUILD_WAIT = 400
@@ -151,6 +151,46 @@ describe('bulbo', () => {
         expect(fs.readFileSync('build/dist/js/foo.js').toString()).to.have.length.above(1)
 
         rimraf('build', done)
+      })
+    })
+  })
+
+  describe('debugPageTitle', () => {
+    it('sets the debug page\'s title', done => {
+      bulbo.asset('test/fixture/**/*.js')
+      bulbo.debugPageTitle('FooBarBaz')
+      bulbo.port(7111)
+
+      bulbo.serve().then(() => {
+        request.get('0.0.0.0:7111/__bulbo__').buffer().end((err, res) => {
+          if (err) { done(err) }
+
+          expect(res.text).to.contain('<title>FooBarBaz</title>')
+
+          vinylServe.stop(7111)
+
+          done()
+        })
+      })
+    })
+  })
+
+  describe('debugPagePath', () => {
+    it('sets the debug page path', done => {
+      bulbo.asset('test/fixture/**/*.js')
+      bulbo.debugPagePath('__foobarbaz__')
+      bulbo.port(8113)
+
+      bulbo.serve().then(() => {
+        request.get('0.0.0.0:8113/__foobarbaz__').buffer().end((err, res) => {
+          if (err) { done(err) }
+
+          expect(res.text).to.contain('<html>')
+
+          vinylServe.stop(8113)
+
+          done()
+        })
       })
     })
   })

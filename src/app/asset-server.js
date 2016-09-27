@@ -1,23 +1,28 @@
-import chalk from 'chalk'
-import vinylServe from 'vinyl-serve'
-import AssetWatcher from './asset-watcher'
+'use strict'
+
+const chalk = require('chalk')
+const vinylServe = require('vinyl-serve')
+const AssetWatcher = require('./asset-watcher')
+const path = require('path')
 
 class AssetServer extends AssetWatcher {
   /**
    * @param {AssetCollection} assets The assets
    * @param {Number} port The port number
    * @param {Logger} logger The logger
+   * @param {string} [debugPageTitle] The page title of the debug page. Html tags are available. Optional.
+   * @param {string} [debugPagePath] The path of the debug page. Default is '__bulbo__'.
    */
-  constructor (assets, port, logger) {
+  constructor (assets, port, logger, debugPageTitle = 'Welcome to <i>Bulbo</i> asset path debug page!', debugPagePath = '__bulbo__') {
     super(assets, logger)
 
     this.port = port
 
-    vinylServe.setDebugPageTitle('Welcome to <i>Bulbo</i> asset path debug page!')
-    vinylServe.setDebugPagePath('/__bulbo__')
+    vinylServe.setDebugPageTitle(debugPageTitle)
+    vinylServe.setDebugPagePath(path.join('/', debugPagePath))
     vinylServe.setHandlerOfStarting((url, debugUrl) => {
       this.logger.log('Server started at:', chalk.cyan(url))
-      this.logger.log('See debug page is:', chalk.cyan(debugUrl))
+      this.logger.log('See debug info at:', chalk.cyan(debugUrl))
     })
 
     vinylServe.setHandlerOfPortError(port => {

@@ -7,7 +7,7 @@ import plumber from 'gulp-plumber'
 /**
  * The model of asset
  */
-export default class Asset extends EventEmitter {
+class Asset extends EventEmitter {
   /**
    * @constructor
    * @param {Array<string|string[]>} paths The paths to build
@@ -117,3 +117,5 @@ export default class Asset extends EventEmitter {
     return this.paths.toString()
   }
 }
+
+module.exports = Asset

@@ -1,6 +1,8 @@
-import Asset from './domain/asset'
-import AssetService from './app/asset-service'
-import AssetFacade from './asset-facade'
+'use strict'
+
+const Asset = require('./domain/asset')
+const AssetService = require('./app/asset-service')
+const AssetFacade = require('./asset-facade')
 
 const liftoff = require('./util/liftoff')
 
@@ -9,11 +11,12 @@ const DEFAULT_PORT = 7100 // The default port number
 
 const service = new AssetService(DEFAULT_DEST, DEFAULT_PORT)
 
+// -- DSL vocabularies -- //
+// These are used in bulbofiles.
+
 /**
- * Sets the asset and returns the static modifier setter for the asset.
- *
- * DSL vocabulary.
- *
+ * Creates and registers an asset by the given paths and returns AssetFacade interface for further modification of asset building.
+ * See the document of AssetFacade about what can be modified about the assets.
  * @param {Array<string|string[]>} paths The paths of the asset
  * @return {Function}
  */
@@ -26,74 +29,74 @@ exports.asset = (...paths) => {
 }
 
 /**
- * Gets the asset service.
- *
- * For internal use only.
- * @private
- * @return {AssetService}
- */
-exports.getService = () => service
-
-/**
- * Serves the assets at localhost.
- *
- * For internal use only.
- * @return {Promise}
- */
-exports.serve = () => service.serve()
-
-/**
- * Builds the assets to the destination.
- *
- * For internal use only.
- * @return {Promise}
- */
-exports.build = () => service.build()
-
-/**
- * Watches and builds the assets.
- *
- * For internal use only.
- */
-exports.watchAndBuild = () => service.watchAndBuild()
-
-/**
  * Sets the dest.
- *
- * DSL vocabulary.
- *
  * @param {String} dest The destination
  */
 exports.dest = dest => service.setDest(dest)
 
 /**
  * Sets the port number.
- *
- * DSL vocabulary.
- *
  * @param {Number} port The port number
  */
 exports.port = port => service.setPort(port)
 
 /**
- * Returns if the assets are empty.
- *
- * For internal use only.
- *
+ * Sets the debug page title.
+ * @param {string} debugPageTitle
+ */
+exports.debugPageTitle = debugPageTitle => service.setDebugPageTitle(debugPageTitle)
+
+/**
+ * Sets the debug page path.
+ * @param {string} debugPagePath
+ */
+exports.debugPagePath = debugPagePath => service.setDebugPagePath(debugPagePath)
+
+// -- API for CLI -- //
+// These are used in CLIs.
+
+/**
+ * Serves the assets at localhost.
+ * @return {Promise}
+ */
+exports.serve = () => service.serve()
+
+/**
+ * Builds the assets to the destination.
+ * @return {Promise}
+ */
+exports.build = () => service.build()
+
+/**
+ * Watches and builds the assets.
+ */
+exports.watchAndBuild = () => service.watchAndBuild()
+
+/**
+ * Returns true iff the assets are empty.
  * @return {Boolean}
  */
 exports.isEmpty = () => service.isEmpty()
 
 /**
- * Sets the logger.
+ * Sets the logger. Private API.
  * @param {Logger} logger The logger
  */
 exports.setLogger = logger => service.setLogger(logger)
 
+// -- Private API -- //
+// These are used in tests.
+
 /**
- * Clears all the assets.
- *
- * For internal use only.
+ * Gets the asset service. Private API.
+ * @private
+ * @return {AssetService}
+ */
+exports.getService = () => service
+
+/**
+ * Clears all the assets. Private API.
+ * @private
  */
 exports.clear = () => service.clear()
 
