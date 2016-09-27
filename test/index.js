@@ -1,5 +1,5 @@
 const fs = require('fs')
-const bulbo = require('../src/bulbo')
+const bulbo = require('../src/')
 
 const {expect} = require('chai')
 const rimraf = require('rimraf')

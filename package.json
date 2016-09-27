@@ -2,7 +2,7 @@
   "name": "bulbo",
   "version": "6.2.3",
   "description": "Gulp compatible static site generator",
-  "main": "lib/bulbo.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "_mocha --require babel-register test",
     "clean": "rimraf lib coverage",

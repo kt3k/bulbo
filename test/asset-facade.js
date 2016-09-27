@@ -1,4 +1,4 @@
-import {asset} from '../src/bulbo'
+import {asset} from '../src/'
 import {expect} from 'chai'
 import through2 from 'through2'
 
