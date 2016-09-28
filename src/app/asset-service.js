@@ -42,7 +42,13 @@ class AssetService {
    * @return {Promise} Resolves when the server started
    */
   serve () {
-    return new AssetServer(this.assets, this.port, this.logger, this.debugPageTitle, this.debugPagePath).serve()
+    const server = new AssetServer(this.assets, this.port, this.logger, this.debugPageTitle, this.debugPagePath)
+
+    server.on('reading', asset => this.logger.log(chalk.yellow('Changed:'), chalk.magenta(asset.toString())))
+    server.on('changed', asset => this.logger.log(chalk.yellow('Changed:'), chalk.magenta(asset.toString())))
+    server.on('ready', asset => this.logger.log(chalk.green('Ready:'), chalk.magenta(asset.toString())))
+
+    return server.serve()
   }
 
   /**
@@ -57,7 +63,13 @@ class AssetService {
    * Watches and builds the assets.
    */
   watchAndBuild () {
-    return new AssetBuilder(this.assets, this.dest, this.logger).watchAndBuild()
+    const builder = new AssetBuilder(this.assets, this.dest, this.logger)
+
+    builder.on('reading', asset => this.logger.log(chalk.yellow('Changed:'), chalk.magenta(asset.toString())))
+    builder.on('changed', asset => this.logger.log(chalk.yellow('Changed:'), chalk.magenta(asset.toString())))
+    builder.on('ready', asset => this.logger.log(chalk.green('Ready:'), chalk.magenta(asset.toString())))
+
+    builder.watchAndBuild()
   }
 
   /**

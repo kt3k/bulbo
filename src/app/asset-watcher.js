@@ -1,13 +1,13 @@
-const chalk = require('chalk')
+const {EventEmitter} = require('events')
 
-class AssetWatcher {
+class AssetWatcher extends EventEmitter {
   /**
    * @param {AssetCollection} assets The assets
-   * @param {Logger} logger The logger
    */
-  constructor (assets, logger) {
+  constructor (assets) {
+    super()
+
     this.assets = assets
-    this.logger = logger
   }
 
   /**
@@ -19,18 +19,14 @@ class AssetWatcher {
       asset.getStream().pipe(writable)
 
       asset.watch(() => {
-        this.logger.log(chalk.yellow('Changed:'), chalk.magenta(asset.toString()))
+        this.emit('changed', asset)
 
-        asset.reflow({end: false}, () => {
-          this.logger.log(chalk.green('Ready:'), chalk.magenta(asset.toString()))
-        })
+        asset.reflow({end: false}, () => this.emit('ready', asset))
       })
 
-      this.logger.log(chalk.yellow('Reading:'), chalk.magenta(asset.toString()))
+      this.emit('reading', asset)
 
-      asset.reflow({end: false}, () => {
-        this.logger.log(chalk.green('Ready:'), chalk.magenta(asset.toString()))
-      })
+      asset.reflow({end: false}, () => this.emit('ready', asset))
     })
   }
 }

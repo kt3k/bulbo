@@ -14,9 +14,10 @@ class AssetServer extends AssetWatcher {
    * @param {string} [debugPagePath] The path of the debug page. Default is '__bulbo__'.
    */
   constructor (assets, port, logger, debugPageTitle, debugPagePath) {
-    super(assets, logger)
+    super(assets)
 
     this.port = port
+    this.logger = logger
 
     vinylServe.setDebugPageTitle(debugPageTitle)
     vinylServe.setDebugPagePath(path.join('/', debugPagePath))

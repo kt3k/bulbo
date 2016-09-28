@@ -14,8 +14,9 @@ class AssetBuilder extends AssetWatcher {
    * @param {Logger} logger The logger
    */
   constructor (assets, dest, logger) {
-    super(assets, logger)
+    super(assets)
 
+    this.logger = logger
     this.dest = dest
   }
 
