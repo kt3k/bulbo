@@ -10,6 +10,7 @@ const browserify = require('browserify')
 
 const SERVER_LAUNCH_WAIT = 800
 const BUILD_WAIT = 400
+const WATCH_BUILD_WAIT = 1000
 
 describe('bulbo', () => {
   beforeEach(() => {
@@ -94,6 +95,20 @@ describe('bulbo', () => {
       bulbo.build()
 
       setTimeout(done, BUILD_WAIT)
+    })
+  })
+
+  describe('watchAndBuild', () => {
+    it('builds the assets', done => {
+      bulbo.asset('test/fixture/**/*.js')
+
+      bulbo.watchAndBuild()
+
+      setTimeout(() => {
+        expect(fs.readFileSync('build/js/0.js').toString()).to.have.length.above(1)
+
+        rimraf('build', done)
+      }, WATCH_BUILD_WAIT)
     })
   })
 
