@@ -1,6 +1,6 @@
-import {EventEmitter} from 'events'
+const {EventEmitter} = require('events')
 
-export const obj = () => {
+exports.obj = () => {
   const drain = new EventEmitter()
   drain.write = () => {}
   drain.end = function () { this.emit('end') }

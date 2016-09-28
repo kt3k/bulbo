@@ -1,4 +1,4 @@
-import {Stream} from 'stream'
+const {Stream} = require('stream')
 
 /**
  * This is taken from event-stream npm module.
@@ -7,7 +7,7 @@ import {Stream} from 'stream'
  *
  * @param {Stream[]) toMerge streams to be merged
  */
-export default function mergeStream (toMerge) {
+module.exports = function mergeStream (toMerge) {
   const stream = new Stream()
 
   stream.setMaxListeners(0) // allow adding more than 11 streams

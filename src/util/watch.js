@@ -1,4 +1,4 @@
-import chokidar from 'chokidar'
+const chokidar = require('chokidar')
 
 /**
  * Watches the given patterns with chokidor and kicks the callback if file is created, removed or changed.
@@ -7,7 +7,7 @@ import chokidar from 'chokidar'
  * @param {Object} opts The chokidar watch options
  * @param {Function} cb The callback
  */
-export default function (glob, opts, cb) {
+module.exports = function (glob, opts, cb) {
   opts = opts || {}
 
   opts.ignoreInitial = typeof opts.ignoreInitial === 'boolean' ? opts.ignoreInitial : true

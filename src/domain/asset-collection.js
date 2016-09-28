@@ -1,10 +1,10 @@
-import mergeStream from '../util/mergeStream'
-import {EventEmitter} from 'events'
+const mergeStream = require('../util/mergeStream')
+const {EventEmitter} = require('events')
 
 /**
  * The collection class of assets.
  */
-export default class AssetCollection extends EventEmitter {
+class AssetCollection extends EventEmitter {
   /**
    * @constructor
    */
@@ -56,3 +56,5 @@ export default class AssetCollection extends EventEmitter {
     this.assets.splice(0)
   }
 }
+
+module.exports = AssetCollection

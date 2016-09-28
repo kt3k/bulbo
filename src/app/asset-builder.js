@@ -1,7 +1,7 @@
-import vfs from 'vinyl-fs'
-import * as drain from '../util/drain'
-import AssetWatcher from './asset-watcher'
-import chalk from 'chalk'
+const vfs = require('vinyl-fs')
+const drain = require('../util/drain')
+const AssetWatcher = require('./asset-watcher')
+const chalk = require('chalk')
 
 /**
  * The service class which builds the assets to the file system.

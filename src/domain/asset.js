@@ -1,8 +1,8 @@
-import vfs from 'vinyl-fs'
-import pipeline from '../util/pipeline'
-import watch from '../util/watch'
-import {EventEmitter} from 'events'
-import plumber from 'gulp-plumber'
+const vfs = require('vinyl-fs')
+const pipeline = require('../util/pipeline')
+const watch = require('../util/watch')
+const {EventEmitter} = require('events')
+const plumber = require('gulp-plumber')
 
 /**
  * The model of asset

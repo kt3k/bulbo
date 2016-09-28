@@ -1,6 +1,6 @@
-import {asset} from '../src/'
-import {expect} from 'chai'
-import through2 from 'through2'
+const {asset} = require('../src/')
+const {expect} = require('chai')
+const through2 = require('through2')
 
 describe('asset-facade', () => {
   describe('.asset', () => {

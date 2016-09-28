@@ -1,7 +1,7 @@
-import AssetCollection from '../domain/asset-collection'
-import AssetServer from './asset-server'
-import AssetBuilder from './asset-builder'
-import chalk from 'chalk'
+const AssetCollection = require('../domain/asset-collection')
+const AssetServer = require('./asset-server')
+const AssetBuilder = require('./asset-builder')
+const chalk = require('chalk')
 
 /**
  * AssetService manages, builds and serves the collection of assets.

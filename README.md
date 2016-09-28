@@ -320,8 +320,8 @@ asset 'source/*.html'
 Use `gulp-if`:
 
 ```js
-import gulpif from 'gulp-if'
-import uglify from 'gulp-uglify'
+const gulpif = require('gulp-if')
+const uglify = require('gulp-uglify')
 
 const PRODUCTION_BUILD = process.NODE_ENV === 'production'
 
@@ -334,8 +334,8 @@ This uglifies the scripts only when the variable NODE_ENV is `'production'`.
 Or alternatively use `through2`:
 
 ```js
-import through2 from 'through2'
-import uglify from 'gulp-uglify'
+const through2 = require('through2')
+const uglify = require('gulp-uglify')
 
 const PRODUCTION_BUILD = process.NODE_ENV === 'production'
 
@@ -348,8 +348,8 @@ asset('source/**/*.js')
 Use `gulp-wrap` and the `engine` option:
 
 ```js
-import wrap from 'gulp-wrap'
-import frontMatter from 'gulp-front-matter'
+const wrap = require('gulp-wrap')
+const frontMatter = require('gulp-front-matter')
 
 asset('source/**/*.html')
 .pipe(frontMatter())
