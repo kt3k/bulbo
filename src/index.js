@@ -88,13 +88,6 @@ exports.setLogger = logger => service.setLogger(logger)
 // These are used in tests.
 
 /**
- * Gets the asset service. Private API.
- * @private
- * @return {AssetService}
- */
-exports.getService = () => service
-
-/**
  * Clears all the assets. Private API.
  * @private
  */
