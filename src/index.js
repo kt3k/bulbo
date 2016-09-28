@@ -6,10 +6,7 @@ const AssetFacade = require('./asset-facade')
 
 const liftoff = require('./util/liftoff')
 
-const DEFAULT_DEST = 'build' // The default destination
-const DEFAULT_PORT = 7100 // The default port number
-
-const service = new AssetService(DEFAULT_DEST, DEFAULT_PORT)
+const service = new AssetService()
 
 // -- DSL vocabularies -- //
 // These are used in bulbofiles.

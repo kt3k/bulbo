@@ -3,20 +3,19 @@ const AssetServer = require('./asset-server')
 const AssetBuilder = require('./asset-builder')
 const chalk = require('chalk')
 
+const DEFAULT_DEST = 'build' // The default destination
+const DEFAULT_PORT = 7100 // The default port number
+const DEFAULT_DEBUG_PAGE_TITLE = 'Welcome to <i>Bulbo</i> asset path debug page!'
+const DEFAULT_DEBUG_PAGE_PATH = '__bulbo__'
+
 /**
  * AssetService manages, builds and serves the collection of assets.
  */
 class AssetService {
-  /**
-   * @param {String} dest The destination
-   * @param {Number} port The port number
-   */
-  constructor (dest, port) {
+  constructor () {
     this.assets = new AssetCollection()
-    this.dest = dest
-    this.port = port
-    this.debugPageTitle = 'Welcome to <i>Bulbo</i> asset path debug page!'
-    this.debugPagePath = '__bulbo__'
+
+    this.reset()
 
     this.assets.on('error', (err, asset) => {
       this.logger.log(chalk.red('Error: ' + asset.toString()))
@@ -116,7 +115,19 @@ class AssetService {
    * Clears all the assets.
    */
   clear () {
+    this.reset()
+  }
+
+  /**
+   * Resets the settings.
+   */
+  reset () {
     this.assets.empty()
+
+    this.dest = DEFAULT_DEST
+    this.port = DEFAULT_PORT
+    this.debugPageTitle = DEFAULT_DEBUG_PAGE_TITLE
+    this.debugPagePath = DEFAULT_DEBUG_PAGE_PATH
   }
 }
 
