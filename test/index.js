@@ -10,7 +10,8 @@ const browserify = require('browserify')
 
 const SERVER_LAUNCH_WAIT = 800
 const BUILD_WAIT = 400
-const WATCH_BUILD_WAIT = 1000
+const WATCH_BUILD_WAIT = 100
+const WATCH_BUILD_WAIT_CHANGED = 300
 
 describe('bulbo', () => {
   beforeEach(() => {
@@ -100,14 +101,34 @@ describe('bulbo', () => {
 
   describe('watchAndBuild', () => {
     it('builds the assets', done => {
-      bulbo.asset('test/fixture/**/*.js')
+      bulbo.asset('test/fixture/js/0.js').base('test/fixture')
 
       bulbo.watchAndBuild()
 
       setTimeout(() => {
-        expect(fs.readFileSync('build/js/0.js').toString()).to.have.length.above(1)
+        expect(fs.readFileSync('build/js/0.js').toString()).to.equal("console.log('hello')\n")
 
         rimraf('build', done)
+      }, WATCH_BUILD_WAIT)
+    })
+
+    it('watches the assets', done => {
+      bulbo.asset('test/fixture/js/0.js').base('test/fixture')
+
+      bulbo.watchAndBuild()
+
+      setTimeout(() => {
+        expect(fs.readFileSync('build/js/0.js').toString()).to.equal("console.log('hello')\n")
+
+        fs.writeFileSync('test/fixture/js/0.js', "console.log('spam')\n")
+
+        setTimeout(() => {
+          expect(fs.readFileSync('build/js/0.js').toString()).to.equal("console.log('spam')\n")
+
+          fs.writeFileSync('test/fixture/js/0.js', "console.log('hello')\n")
+
+          rimraf('build', done)
+        }, WATCH_BUILD_WAIT_CHANGED)
       }, WATCH_BUILD_WAIT)
     })
   })
