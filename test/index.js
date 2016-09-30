@@ -108,6 +108,7 @@ describe('bulbo', () => {
       setTimeout(() => {
         expect(fs.readFileSync('build/js/0.js').toString()).to.equal("console.log('hello')\n")
 
+        bulbo.unwatch()
         rimraf('build', done)
       }, WATCH_BUILD_WAIT)
     })
@@ -127,6 +128,7 @@ describe('bulbo', () => {
 
           fs.writeFileSync('test/fixture/js/0.js', "console.log('hello')\n")
 
+          bulbo.unwatch()
           rimraf('build', done)
         }, WATCH_BUILD_WAIT_CHANGED)
       }, WATCH_BUILD_WAIT)
@@ -146,6 +148,7 @@ describe('bulbo', () => {
 
             vinylServe.stop(7100)
 
+            bulbo.unwatch()
             done()
           })
         }, SERVER_LAUNCH_WAIT)
@@ -158,6 +161,7 @@ describe('bulbo', () => {
       setTimeout(() => {
         vinylServe.stop(7100)
 
+        bulbo.unwatch()
         done()
       }, SERVER_LAUNCH_WAIT)
     })
@@ -171,6 +175,7 @@ describe('bulbo', () => {
         request.get('0.0.0.0:8500/__bulbo__').end((err, res) => {
           vinylServe.stop(8500)
 
+          bulbo.unwatch()
           done(err)
         })
       })
@@ -203,6 +208,7 @@ describe('bulbo', () => {
 
           expect(res.text).to.contain('<title>FooBarBaz</title>')
 
+          bulbo.unwatch()
           vinylServe.stop(7111)
 
           done()
@@ -223,6 +229,7 @@ describe('bulbo', () => {
 
           expect(res.text).to.contain('<html>')
 
+          bulbo.unwatch()
           vinylServe.stop(8113)
 
           done()

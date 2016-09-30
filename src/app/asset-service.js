@@ -47,6 +47,8 @@ class AssetService {
     server.on('changed', asset => this.logger.log(chalk.yellow('Changed:'), chalk.magenta(asset.toString())))
     server.on('ready', asset => this.logger.log(chalk.green('Ready:'), chalk.magenta(asset.toString())))
 
+    this.server = server
+
     return server.serve()
   }
 
@@ -68,7 +70,22 @@ class AssetService {
     builder.on('changed', asset => this.logger.log(chalk.yellow('Changed:'), chalk.magenta(asset.toString())))
     builder.on('ready', asset => this.logger.log(chalk.green('Ready:'), chalk.magenta(asset.toString())))
 
+    this.builder = builder
+
     builder.watchAndBuild()
+  }
+
+  /**
+   * Unwatches the asset if a server or a builder exists.
+   */
+  unwatch () {
+    if (this.builder) {
+      this.builder.unwatch()
+    }
+
+    if (this.server) {
+      this.server.unwatch()
+    }
   }
 
   /**

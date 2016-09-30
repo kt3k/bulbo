@@ -107,7 +107,15 @@ class Asset extends EventEmitter {
    * @param {Function} cb The callback
    */
   watch (cb) {
-    watch(this.getWatchPaths(), this.watchOpts, cb)
+    // fswatcher is an instance of FWWatcher class of chokidar module. See chokidar's document for the details.
+    this.fswatcher = watch(this.getWatchPaths(), this.watchOpts, cb)
+  }
+
+  /**
+   * Unwatches the assets.
+   */
+  unwatch () {
+    this.fswatcher.unwatch(this.getWatchPaths())
   }
 
   /**

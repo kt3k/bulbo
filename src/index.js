@@ -70,6 +70,11 @@ exports.build = () => service.build()
 exports.watchAndBuild = () => service.watchAndBuild()
 
 /**
+ * Unwatches the assets.
+ */
+exports.unwatch = () => service.unwatch()
+
+/**
  * Returns true iff the assets are empty.
  * @return {Boolean}
  */

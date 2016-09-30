@@ -29,6 +29,13 @@ class AssetWatcher extends EventEmitter {
       asset.reflow({end: false}, () => this.emit('ready', asset))
     })
   }
+
+  /**
+   * Unwatches the assets
+   */
+  unwatch () {
+    this.assets.forEach(asset => asset.unwatch())
+  }
 }
 
 module.exports = AssetWatcher
