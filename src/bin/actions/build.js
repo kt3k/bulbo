@@ -1,4 +1,4 @@
-const bulbo = require('../../bulbo')
+const bulbo = require('../../')
 const chalk = require('chalk')
 
 /**
