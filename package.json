@@ -38,7 +38,7 @@
     "interpret": "^1.0.0",
     "liftoff": "^2.2.0",
     "minimisted": "^1.1.1",
-    "minirocket": "^1.0.0",
+    "minirocket": "^2.0.0",
     "stream-splicer": "^2.0.0",
     "vinyl-fs": "^2.2.1",
     "vinyl-serve": "^2.4.1"

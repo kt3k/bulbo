@@ -19,7 +19,9 @@ minimisted(argv => {
     help: h || help,
     serve: !action,
     [action]: true
-  }, argv).on('no-action', name => {
+  }, action => {
+    action(argv)
+  }).on('no-action', name => {
     console.log(chalk.red(`Error: No such action: ${action}`))
     usage()
     process.exit(1)
