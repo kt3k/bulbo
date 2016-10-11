@@ -4,10 +4,11 @@ const Liftoff = require('liftoff')
 
 /**
  * Lifts off the module using js-liftoff.
+ * @param <T> The type of the module to load
  * @param {string} name The name of the module
  * @param {object} options The options
  * @param {boolean} [options.configIsOptional] True iff the config file is optional. Default is false.
- * @return {Promise}
+ * @return {Promise<T>} The module interface
  */
 module.exports = (name, options) => {
   const logger = require('./logger')(name)
