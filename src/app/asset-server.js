@@ -35,13 +35,13 @@ class AssetServer extends AssetWatcher {
 
   /**
    * Serves, watching paths for assets.
-   * @param {Function} cb The callback
+   * @param {Object} options The options
    * @return {Promise}
    */
-  serve () {
+  serve (options) {
     this.logger.log(chalk.green('serving'))
 
-    this.watchAndPipe(vinylServe(this.port))
+    this.watchAndPipe(vinylServe(this.port), options)
 
     return vinylServe.getInstance(this.port).startPromise
   }

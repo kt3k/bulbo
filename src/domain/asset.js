@@ -71,7 +71,9 @@ class Asset extends EventEmitter {
    * @param {Function} cb The callback
    */
   reflow (options, cb) {
-    this.getSourceStream().pipe(this.pipeline, options)
+    options = options || {}
+
+    this.getSourceStream({base: options.base}).pipe(this.pipeline, {end: options.end})
 
     if (cb) { this.pipeline.once('buffer-empty', cb) }
   }
@@ -79,10 +81,11 @@ class Asset extends EventEmitter {
   /**
    * Gets the source stream.
    * @private
+   * @param {Object} options The options
    * @return {Readable}
    */
-  getSourceStream () {
-    return vfs.src(this.paths, this.opts)
+  getSourceStream (options) {
+    return vfs.src(this.paths, Object.assign(options, this.opts))
   }
 
   /**

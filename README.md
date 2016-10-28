@@ -246,6 +246,24 @@ Example:
 bulbo.port(7500)
 ```
 
+## bulbo.base(base)
+
+- @param {string} base
+
+This sets the default base path for all the assets.
+
+Example:
+```js
+bulbo.base('source')
+
+bulbo.asset('source/news/**/*.md')
+bulbo.asset('source/events/**/*.md')
+
+bulbo.dest('build')
+```
+
+The above assets build to `build/news/**/*.md` and `build/events/**/*.md` respectively.
+
 # Commands
 
 `npm install -g bulbo` installs command `bulbo`. Which supports 2 subcommands `build` and `serve`.
@@ -419,6 +437,7 @@ MIT
 
 # Release history
 
+- 2016-10-28   v6.3.0   Add base method.
 - 2016-10-11   v6.2.4   Update minirocket.
 - 2016-09-18   v6.2.1   Update vinyl-serve.
 - 2016-09-05   v6.2.0   Add extension API.

@@ -13,20 +13,24 @@ class AssetWatcher extends EventEmitter {
   /**
    * Watches all the assets and pipes everything into the given writable
    * @param {Writable} writable The writable
+   * @param {Object} options The options
+   * @param {string} options.base The default base path of the asset
    */
-  watchAndPipe (writable) {
+  watchAndPipe (writable, options) {
+    options = options || {}
+
     this.assets.forEach(asset => {
       asset.getStream().pipe(writable)
 
       asset.watch(() => {
         this.emit('changed', asset)
 
-        asset.reflow({end: false}, () => this.emit('ready', asset))
+        asset.reflow({end: false, base: options.base}, () => this.emit('ready', asset))
       })
 
       this.emit('reading', asset)
 
-      asset.reflow({end: false}, () => this.emit('ready', asset))
+      asset.reflow({end: false, base: options.base}, () => this.emit('ready', asset))
     })
   }
 

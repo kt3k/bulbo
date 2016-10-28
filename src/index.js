@@ -32,6 +32,12 @@ exports.asset = (...paths) => {
 exports.dest = dest => service.setDest(dest)
 
 /**
+ * Sets the default of the asset's base path.
+ * @param {string} base The default base path
+ */
+exports.base = base => service.setAssetBasePath(base)
+
+/**
  * Sets the port number.
  * @param {Number} port The port number
  */
@@ -80,14 +86,14 @@ exports.unwatch = () => service.unwatch()
  */
 exports.isEmpty = () => service.isEmpty()
 
+// -- Private API -- //
+// These are used in tests.
+
 /**
  * Sets the logger. Private API.
  * @param {Logger} logger The logger
  */
 exports.setLogger = logger => service.setLogger(logger)
-
-// -- Private API -- //
-// These are used in tests.
 
 /**
  * Clears all the assets. Private API.

@@ -24,12 +24,14 @@ class AssetBuilder extends AssetWatcher {
    * Builds the assets.
    * @return {Promise}
    */
-  build () {
+  build (options) {
+    options = options || {}
+
     this.logger.log(chalk.green('building'))
 
     const stream = this.assets.getMergedStream().pipe(vfs.dest(this.dest)).pipe(drain.obj())
 
-    this.assets.forEach(asset => asset.reflow())
+    this.assets.forEach(asset => asset.reflow({base: options.base}))
 
     return new Promise((resolve, reject) => stream.on('end', resolve).on('error', reject))
       .then(() => this.logger.log(chalk.green('done')))
@@ -37,11 +39,12 @@ class AssetBuilder extends AssetWatcher {
 
   /**
    * Watches and builds.
+   * @param {Object} options The options
    */
-  watchAndBuild () {
+  watchAndBuild (options) {
     this.logger.log(chalk.green('watching and building'))
 
-    this.watchAndPipe(vfs.dest(this.dest))
+    this.watchAndPipe(vfs.dest(this.dest), options)
   }
 }
 

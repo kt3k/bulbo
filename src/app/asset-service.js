@@ -47,9 +47,9 @@ class AssetService {
     server.on('changed', asset => this.logger.log(chalk.yellow('Changed:'), chalk.magenta(asset.toString())))
     server.on('ready', asset => this.logger.log(chalk.green('Ready:'), chalk.magenta(asset.toString())))
 
-    this.server = server
+    this.watcher = server
 
-    return server.serve()
+    return server.serve({base: this.base})
   }
 
   /**
@@ -57,7 +57,7 @@ class AssetService {
    * @return {Promise} Resolves when the assets built
    */
   build () {
-    return new AssetBuilder(this.assets, this.dest, this.logger).build()
+    return new AssetBuilder(this.assets, this.dest, this.logger).build({base: this.base})
   }
 
   /**
@@ -70,21 +70,17 @@ class AssetService {
     builder.on('changed', asset => this.logger.log(chalk.yellow('Changed:'), chalk.magenta(asset.toString())))
     builder.on('ready', asset => this.logger.log(chalk.green('Ready:'), chalk.magenta(asset.toString())))
 
-    this.builder = builder
+    this.watcher = builder
 
-    builder.watchAndBuild()
+    builder.watchAndBuild({base: this.base})
   }
 
   /**
    * Unwatches the asset if a server or a builder exists.
    */
   unwatch () {
-    if (this.builder) {
-      this.builder.unwatch()
-    }
-
-    if (this.server) {
-      this.server.unwatch()
+    if (this.watcher) {
+      this.watcher.unwatch()
     }
   }
 
@@ -121,6 +117,13 @@ class AssetService {
   }
 
   /**
+   * @param {string} base The default base path for assets.
+   */
+  setAssetBasePath (base) {
+    this.base = base
+  }
+
+  /**
    * Returns if the assets are empty.
    * @return {Boolean}
    */
@@ -141,6 +144,7 @@ class AssetService {
   reset () {
     this.assets.empty()
 
+    this.base = null
     this.dest = DEFAULT_DEST
     this.port = DEFAULT_PORT
     this.debugPageTitle = DEFAULT_DEBUG_PAGE_TITLE

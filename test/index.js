@@ -237,4 +237,29 @@ describe('bulbo', () => {
       })
     })
   })
+
+  describe('base', () => {
+    it('sets the default base path of the assets', done => {
+      bulbo.asset('test/fixture/js/foo.js')
+      bulbo.base('test')
+      bulbo.port(8114)
+
+      bulbo.serve().then(() => {
+        setTimeout(() => {
+          request.get('0.0.0.0:8114/fixture/js/foo.js').buffer().end((err, res) => {
+            if (err) { done(err) }
+
+            expect(res.text).to.contain('This is foo.js')
+
+            bulbo.unwatch()
+            vinylServe.stop(8114)
+
+            bulbo.base(null)
+
+            done()
+          })
+        }, SERVER_LAUNCH_WAIT)
+      })
+    })
+  })
 })
