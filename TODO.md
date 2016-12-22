@@ -2,6 +2,7 @@
 
 - fix(watch): the watch paths which is not the first one are ignored.
 - fix(build -w): watch and build does not work with large number of files.
+- feat(asset): add asset-wise destination settings
 
 # DONE
 - feat(pipe): throw error when the piped transform is null
