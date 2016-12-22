@@ -1,11 +1,11 @@
 # TODO
 
 - fix(watch): the watch paths which is not the first one are ignored.
-- feat(index): do not show vinyl object as html, it is too long for some usecases
 - fix(build -w): watch and build does not work with large number of files.
 - feat(pipe): throw error when the piped transform is null
 
 # DONE
+- feat(index): do not show vinyl object as html, it is too long for some usecases
 - refactor(structure): isolate bulbo core
 - remove through dep
 - chore(lint): switch to standard
