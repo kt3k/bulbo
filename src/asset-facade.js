@@ -72,6 +72,10 @@ class AssetFacade {
    * @param {Transform} transform The transform to pass to the vinyl stream
    */
   pipe (transform) {
+    if (!transform) {
+      throw new Error(`null transform is given for asset: ${this.getAssetModel().toString()}`)
+    }
+
     this.getAssetModel().addPipe(transform)
 
     return this

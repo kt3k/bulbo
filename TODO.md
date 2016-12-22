@@ -2,9 +2,9 @@
 
 - fix(watch): the watch paths which is not the first one are ignored.
 - fix(build -w): watch and build does not work with large number of files.
-- feat(pipe): throw error when the piped transform is null
 
 # DONE
+- feat(pipe): throw error when the piped transform is null
 - feat(index): do not show vinyl object as html, it is too long for some usecases
 - refactor(structure): isolate bulbo core
 - remove through dep

@@ -63,5 +63,9 @@ describe('asset-facade', () => {
 
       expect(facade.getAssetModel().pipeline.length).to.equal(2)
     })
+
+    it('throws when the given tranform equals null', () => {
+      expect(() => asset('foo').pipe(null)).to.throw(Error);
+    })
   })
 })

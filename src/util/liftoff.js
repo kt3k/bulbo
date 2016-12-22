@@ -46,7 +46,13 @@ module.exports = (name, options) => {
 
       logger.log('Using:', chalk.magenta(env.configPath))
 
-      require(env.configPath)
+      try {
+        require(env.configPath)
+      } catch (e) {
+        logger.log(chalk.red(e.stack))
+
+        process.exit(1)
+      }
 
       resolve(moduleIf)
     })
