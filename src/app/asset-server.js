@@ -20,7 +20,7 @@ class AssetServer extends AssetWatcher {
     this.logger = logger
 
     vinylServe.setDebugPageTitle(debugPageTitle)
-    vinylServe.setDebugPagePath(path.join('/', debugPagePath))
+    vinylServe.setDebugPagePath(`/${debugPagePath}`)
     vinylServe.setHandlerOfStarting((url, debugUrl) => {
       this.logger.log('Server started at:', chalk.cyan(url))
       this.logger.log('See debug info at:', chalk.cyan(debugUrl))

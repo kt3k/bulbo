@@ -141,7 +141,7 @@ describe('bulbo', () => {
 
       bulbo.serve().then(() => {
         setTimeout(() => {
-          request.get('0.0.0.0:7100/js/foo.js').buffer().end((err, res) => {
+          request.get('localhost:7100/js/foo.js').buffer().end((err, res) => {
             if (err) { done(err) }
 
             expect(res.text).to.contain('This is foo.js')
@@ -172,7 +172,7 @@ describe('bulbo', () => {
       bulbo.port(8500)
 
       bulbo.serve().then(() => {
-        request.get('0.0.0.0:8500/__bulbo__').end((err, res) => {
+        request.get('localhost:8500/__bulbo__').end((err, res) => {
           vinylServe.stop(8500)
 
           bulbo.unwatch()
@@ -203,7 +203,7 @@ describe('bulbo', () => {
       bulbo.port(7111)
 
       bulbo.serve().then(() => {
-        request.get('0.0.0.0:7111/__bulbo__').buffer().end((err, res) => {
+        request.get('localhost:7111/__bulbo__').buffer().end((err, res) => {
           if (err) { done(err) }
 
           expect(res.text).to.contain('<title>FooBarBaz</title>')
@@ -224,7 +224,7 @@ describe('bulbo', () => {
       bulbo.port(8113)
 
       bulbo.serve().then(() => {
-        request.get('0.0.0.0:8113/__foobarbaz__').buffer().end((err, res) => {
+        request.get('localhost:8113/__foobarbaz__').buffer().end((err, res) => {
           if (err) { done(err) }
 
           expect(res.text).to.contain('<html>')
@@ -246,7 +246,7 @@ describe('bulbo', () => {
 
       bulbo.serve().then(() => {
         setTimeout(() => {
-          request.get('0.0.0.0:8114/fixture/js/foo.js').buffer().end((err, res) => {
+          request.get('localhost:8114/fixture/js/foo.js').buffer().end((err, res) => {
             if (err) { done(err) }
 
             expect(res.text).to.contain('This is foo.js')
