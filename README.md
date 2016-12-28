@@ -1,14 +1,15 @@
 # bulbo v6.4.0
 
+> Generate your static site with gulp plugins!
+
 [![CircleCI](https://circleci.com/gh/kt3k/bulbo.svg?style=svg)](https://circleci.com/gh/kt3k/bulbo)
 [![codecov.io](https://codecov.io/github/kt3k/bulbo/coverage.svg?branch=master)](https://codecov.io/github/kt3k/bulbo?branch=master)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-[![bitHound Overall Score](https://www.bithound.io/github/kt3k/bulbo/badges/score.svg)](https://www.bithound.io/github/kt3k/bulbo) <img width="70" align="right" src="https://kt3k.github.io/bulbo/media/logo.svg" />
-
+[![bitHound Overall Score](https://www.bithound.io/github/kt3k/bulbo/badges/score.svg)](https://www.bithound.io/github/kt3k/bulbo)
 
 [![npm bulbo](https://nodei.co/npm/bulbo.png?compact=true)](https://www.npmjs.com/package/bulbo)
 
-> Gulp compatible static site generator
+<img width="100" src="https://kt3k.github.io/bulbo/media/logo.svg" />
 
 # Features
 
