@@ -5,6 +5,7 @@
 <img width="100" src="https://kt3k.github.io/bulbo/media/logo.svg" />
 
 [![CircleCI](https://circleci.com/gh/kt3k/bulbo.svg?style=svg)](https://circleci.com/gh/kt3k/bulbo)
+[![Build status](https://ci.appveyor.com/api/projects/status/51xxba14ksrl1142?svg=true)](https://ci.appveyor.com/project/kt3k/bulbo)
 [![codecov.io](https://codecov.io/github/kt3k/bulbo/coverage.svg?branch=master)](https://codecov.io/github/kt3k/bulbo?branch=master)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 [![bitHound Overall Score](https://www.bithound.io/github/kt3k/bulbo/badges/score.svg)](https://www.bithound.io/github/kt3k/bulbo)
