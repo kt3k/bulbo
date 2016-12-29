@@ -1,4 +1,4 @@
-# bulbo v6.4.0
+# bulbo v6.5.0
 
 > Generate your static site with gulp plugins!
 
@@ -439,6 +439,7 @@ MIT
 
 # Release history
 
+- 2016-12-29   v6.5.0   Fix windows issues.
 - 2016-12-28   v6.4.0   Update vinyl-serve.
 - 2016-10-28   v6.3.0   Add base method.
 - 2016-10-11   v6.2.4   Update minirocket.
