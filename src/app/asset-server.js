@@ -3,7 +3,6 @@
 const chalk = require('chalk')
 const vinylServe = require('vinyl-serve')
 const AssetWatcher = require('./asset-watcher')
-const path = require('path')
 
 class AssetServer extends AssetWatcher {
   /**

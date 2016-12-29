@@ -65,7 +65,7 @@ describe('asset-facade', () => {
     })
 
     it('throws when the given tranform equals null', () => {
-      expect(() => asset('foo').pipe(null)).to.throw(Error);
+      expect(() => asset('foo').pipe(null)).to.throw(Error)
     })
   })
 })
