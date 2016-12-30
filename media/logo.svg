@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="106px" height="117px" viewBox="0 0 106 117" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="212px" height="233px" viewBox="0 0 212 233" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 41.2 (35397) - http://www.bohemiancoding.com/sketch -->
     <title>logo</title>
     <desc>Created with Sketch.</desc>
     <defs>
-        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
-            <stop stop-color="#7BF6E0" offset="0%"></stop>
-            <stop stop-color="#45E9BC" offset="100%"></stop>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="82.5816913%" id="linearGradient-1">
+            <stop stop-color="#00F069" offset="0%"></stop>
+            <stop stop-color="#8DE200" offset="100%"></stop>
         </linearGradient>
+        <path d="M227.203125,55.0042941 C220.403055,55.0042941 212.562245,64.2846185 204.964643,77.1351713 C200.362027,60.3167979 194.145762,47 186,47 C177.93724,47 171.764856,60.046796 167.176556,76.6221571 C159.674261,64.0383683 151.951891,55.0042941 145.242647,55.0042941 C135.566667,55.0042941 133.44292,73.794275 134.113536,94.9233262 C101.816994,107.93243 80,134.226231 80,172.067096 C80,227.877797 167.176556,254.924047 186,280 C204.964643,254.924047 292,227.877797 292,172.067096 C292,134.398349 270.381022,108.171862 238.326511,95.1016647 C239.014739,73.9001214 236.90632,55.0042941 227.203125,55.0042941 Z" id="path-2"></path>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="1.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="0" dy="0" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0.78651148   0 0 0 0 0.491210658   0 0 0 0 0.0677304808  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
     </defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Artboard" transform="translate(-230.000000, -209.000000)" fill="url(#linearGradient-1)">
-            <path d="M303.601562,213 C300.201528,213 296.281122,217.637673 292.482321,224.059502 C290.181013,215.654827 287.072881,209 283,209 C278.96862,209 275.882428,215.519898 273.588278,223.803133 C269.83713,217.514614 265.975946,213 262.621323,213 C257.783333,213 256.72146,222.38995 257.056768,232.948808 C240.908497,239.44987 230,252.589718 230,271.5 C230,299.39038 273.588278,312.90625 283,325.4375 C292.482321,312.90625 336,299.39038 336,271.5 C336,252.675731 325.190511,239.569522 309.163256,233.03793 C309.507369,222.442845 308.45316,213 303.601562,213 Z" id="logo"></path>
+        <g id="Artboard-2" transform="translate(-80.000000, -47.000000)">
+            <g id="logo">
+                <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+            </g>
         </g>
     </g>
 </svg>
