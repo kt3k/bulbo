@@ -1,5 +1,6 @@
 # TODO
 
+- feat(index.html): show index.html when the directory index is requested
 - fix(build -w): watch and build does not work with large number of files.
 
 # DONE
