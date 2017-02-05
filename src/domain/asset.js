@@ -23,7 +23,7 @@ class Asset extends EventEmitter {
 
     this.pipeline = pipeline.obj().on('error', err => this.emit('error', err))
 
-    this.addPipe(plumber())
+    this.addPipe(plumber(err => this.emit('error', err)))
   }
 
   /**
