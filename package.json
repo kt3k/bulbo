@@ -58,13 +58,9 @@
     "through2": "^2.0.1"
   },
   "standard": {
-    "parserOptions": {
-      "ecmaVersion": 6,
-      "sourceType": "module"
-    },
-    "env": {
-      "mocha": true
-    }
+    "env": [
+      "mocha"
+    ]
   },
   "babel": {
     "presets": [
