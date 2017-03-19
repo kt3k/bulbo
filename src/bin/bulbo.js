@@ -22,7 +22,7 @@ minimisted(argv => {
   }, action => {
     action(argv)
   }).on('no-action', name => {
-    console.log(chalk.red(`Error: No such action: ${action}`))
+    console.log(chalk.red(`Error: No such action: ${name}`))
     usage()
     process.exit(1)
   })
