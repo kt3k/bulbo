@@ -19,7 +19,14 @@ class AssetService {
 
     this.assets.on('error', (err, asset) => {
       this.logger.log(chalk.red('Error: ' + asset.toString()))
-      this.logger.log(chalk.red(err.stack))
+
+      if (err.stack != null) {
+        // log stack if available
+        this.logger.log(chalk.red(err.stack))
+      } else {
+        // log error itself if stack is null
+        this.logger.log(chalk.red(err))
+      }
     })
   }
 
