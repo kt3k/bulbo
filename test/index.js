@@ -1,7 +1,7 @@
 const fs = require('fs')
 const bulbo = require('../src/')
 
-const {expect} = require('chai')
+const { expect } = require('chai')
 const rimraf = require('rimraf')
 const request = require('superagent')
 const vinylServe = require('vinyl-serve')
@@ -145,11 +145,11 @@ describe('bulbo', () => {
             if (err) { done(err) }
 
             expect(res.text).to.contain('This is foo.js')
-
-            vinylServe.stop(7100)
-
             bulbo.unwatch()
-            done()
+
+            vinylServe.stop(7100).then(() => {
+              done()
+            })
           })
         }, SERVER_LAUNCH_WAIT)
       })
@@ -159,11 +159,33 @@ describe('bulbo', () => {
       bulbo.serve()
 
       setTimeout(() => {
-        vinylServe.stop(7100)
-
         bulbo.unwatch()
-        done()
+
+        vinylServe.stop(7100).then(() => {
+          done()
+        })
       }, SERVER_LAUNCH_WAIT)
+    })
+
+    it('serves the index.html when the directory is requested', done => {
+      bulbo.port(7101)
+
+      bulbo.asset('test/fixture/**/*.*')
+
+      bulbo.serve().then(() => {
+        setTimeout(() => {
+          request.get('localhost:7101/js/').buffer().end((err, res) => {
+            if (err) { done(err) }
+
+            expect(res.text).to.contain('This is js/index.html')
+
+            bulbo.unwatch()
+            vinylServe.stop(7101).then(() => {
+              done()
+            })
+          })
+        }, SERVER_LAUNCH_WAIT)
+      })
     })
   })
 
