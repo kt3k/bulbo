@@ -13,7 +13,8 @@
     "cov": "nyc --reporter=lcov _mocha --require babel-register test",
     "cov-open": "npm run cov && open coverage/lcov-report/index.html",
     "codecov": "npm run cov && codecov",
-    "lint": "standard"
+    "lint": "standard",
+    "fix": "standard --fix"
   },
   "bin": {
     "bulbo": "bin/bulbo.js"
@@ -50,6 +51,7 @@
     "browserify": "^14.0.0",
     "chai": "^3.4.1",
     "codecov": "^2.0.1",
+    "dirty-chai": "^1.2.2",
     "mocha": "^3.0.2",
     "nyc": "^10.0.0",
     "rimraf": "^2.5.2",

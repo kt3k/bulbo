@@ -1,5 +1,5 @@
-const {asset} = require('../src/')
-const {expect} = require('chai')
+const { asset } = require('../src/')
+const { expect } = require('chai')
 const through2 = require('through2')
 
 describe('asset-facade', () => {
