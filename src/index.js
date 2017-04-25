@@ -86,6 +86,12 @@ exports.unwatch = () => service.unwatch()
  */
 exports.isEmpty = () => service.isEmpty()
 
+/**
+ * Sets the logger title.
+ * @param {string} name The logger title
+ */
+exports.loggerTitle = title => service.setLogger(require('./util/logger')(title))
+
 // -- Private API -- //
 // These are used in tests.
 

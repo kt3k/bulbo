@@ -1,5 +1,5 @@
 const chalk = require('chalk')
-const {jsVariants} = require('interpret')
+const { jsVariants } = require('interpret')
 const Liftoff = require('liftoff')
 
 /**

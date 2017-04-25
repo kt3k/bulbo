@@ -266,6 +266,28 @@ bulbo.dest('build')
 
 The above assets build to `build/news/**/*.md` and `build/events/**/*.md` respectively.
 
+## bulbo.loggerTitle(title)
+
+- @param {string} title The title of the logger
+
+This sets the logger title.
+
+```js
+bulbo.loggerTitle('myapp')
+```
+
+Then the console looks like the below:
+
+    $ bulbo serve
+    bulbo [21:22:38] Using: /Users/kt3k/t/bulbo/demo/bulbofile.js
+    myapp [21:22:38] serving
+    myapp [21:22:38] Reading: ../test/fixture/**/*.js
+    myapp [21:22:38] Reading: ../test/fixture/**/*.css
+    myapp [21:22:38] Server started at: http://localhost:7100/
+    myapp [21:22:38] See debug info at: http://localhost:7100/__bulbo__
+    myapp [21:22:38] Ready: ../test/fixture/**/*.css
+    myapp [21:22:44] Ready: ../test/fixture/**/*.js
+
 # Commands
 
 `npm install -g bulbo` installs command `bulbo`. Which supports 2 subcommands `build` and `serve`.
@@ -439,6 +461,7 @@ MIT
 
 # Release history
 
+- 2017-04-25   v6.9.0   loggerTitle method.
 - 2017-04-23   v6.8.0   Serve index.html.
 - 2017-04-12   v6.7.0   Improve error logging.
 - 2016-12-29   v6.5.0   Fix windows issues.

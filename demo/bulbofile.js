@@ -1,4 +1,5 @@
 var asset = require('../').asset
+var loggerTitle = require('../').loggerTitle
 var through2 = require('through2')
 var browserify = require('browserify')
 
@@ -14,3 +15,5 @@ asset('../test/fixture/**/*.js')
 })))
 
 asset('../test/fixture/**/*.css')
+
+loggerTitle('myapp')
