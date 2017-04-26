@@ -461,6 +461,7 @@ MIT
 
 # Release history
 
+- 2017-04-26   v6.10.0  Update cli.liftoff util.
 - 2017-04-25   v6.9.0   loggerTitle method.
 - 2017-04-23   v6.8.0   Serve index.html.
 - 2017-04-12   v6.7.0   Improve error logging.
