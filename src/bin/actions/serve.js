@@ -5,7 +5,7 @@ const chalk = require('chalk')
  * The serve action.
  */
 module.exports = () => {
-  bulbo.cli.liftoff('bulbo').then(bulbo => {
+  bulbo.cli.liftoff('bulbo').then(({ module: bulbo }) => {
     if (bulbo.isEmpty()) {
       bulbo.logger.log(chalk.red('Error: No asset defined'))
 

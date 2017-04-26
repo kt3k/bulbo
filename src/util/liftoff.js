@@ -11,11 +11,13 @@ const Liftoff = require('liftoff')
  * @return {Promise<T>} The module interface
  */
 module.exports = (name, options) => {
-  const logger = require('./logger')(name)
   options = options || {}
 
+  const logger = console
+  const configName = options.configName || `${name}file`
+
   return new Promise((resolve, reject) => {
-    new Liftoff({name, extensions: jsVariants})
+    new Liftoff({ name, configName, extensions: jsVariants })
 
     .on('require', moduleName => { logger.log('Requiring external module', chalk.magenta(moduleName)) })
 
@@ -29,17 +31,16 @@ module.exports = (name, options) => {
         process.exit(1)
       }
 
-      const moduleIf = require(env.modulePath)
+      const module = require(env.modulePath)
 
-      moduleIf.setLogger(logger)
+      module.setLogger(require('./logger')(name))
 
       if (options.configIsOptional && !env.configPath) {
-        resolve(moduleIf)
-        return
+        return resolve({ module })
       }
 
       if (!env.configPath) {
-        logger.log(chalk.red(`Error: No ${name}file found`))
+        logger.log(chalk.red(`Error: No ${configName} found`))
 
         process.exit(1)
       }
@@ -47,14 +48,14 @@ module.exports = (name, options) => {
       logger.log('Using:', chalk.magenta(env.configPath))
 
       try {
-        require(env.configPath)
+        const config = require(env.configPath)
+
+        return resolve({ config, module })
       } catch (e) {
         logger.log(chalk.red(e.stack))
 
         process.exit(1)
       }
-
-      resolve(moduleIf)
     })
   })
 }
