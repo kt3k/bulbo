@@ -1,5 +1,5 @@
 const chalk = require('chalk')
-const { jsVariants } = require('interpret')
+const { extensions } = require('interpret')
 const Liftoff = require('liftoff')
 
 /**
@@ -17,7 +17,7 @@ module.exports = (name, options) => {
   const configName = options.configName || `${name}file`
 
   return new Promise((resolve, reject) => {
-    new Liftoff({ name, configName, extensions: jsVariants })
+    new Liftoff({ name, configName, extensions })
 
     .on('require', moduleName => { logger.log('Requiring external module', chalk.magenta(moduleName)) })
 
