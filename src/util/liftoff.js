@@ -8,6 +8,7 @@ const Liftoff = require('liftoff')
  * @param {string} name The name of the module
  * @param {object} options The options
  * @param {boolean} [options.configIsOptional] True iff the config file is optional. Default is false.
+ * @param {boolean} [options.moduleIsOptional] True iff the config file is optional. Default is false.
  * @return {Promise<T>} The module interface
  */
 module.exports = (name, options) => {
@@ -24,16 +25,19 @@ module.exports = (name, options) => {
     .on('requireFail', moduleName => { logger.log(chalk.red(`Failed to load external module ${moduleName}`)) })
 
     .launch({}, env => {
-      if (!env.modulePath) {
+      if (!options.moduleIsOptional && !env.modulePath) {
         logger.log(chalk.red(`Error: Local ${name} module not found`))
         logger.log('Try running:', chalk.green(`npm install ${name}`))
 
         process.exit(1)
       }
 
-      const module = require(env.modulePath)
+      let module = null
+      if (env.modulePath) {
+        module = require(env.modulePath)
 
-      module.setLogger(require('./logger')(name))
+        module.setLogger(require('./logger')(name))
+      }
 
       if (options.configIsOptional && !env.configPath) {
         return resolve({ module })
