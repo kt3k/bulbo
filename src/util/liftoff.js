@@ -36,7 +36,9 @@ module.exports = (name, options) => {
       if (env.modulePath) {
         module = require(env.modulePath)
 
-        module.setLogger(require('./logger')(name))
+        if (typeof module.setLogger === 'function') {
+          module.setLogger(require('./logger')(name))
+        }
       }
 
       if (options.configIsOptional && !env.configPath) {
