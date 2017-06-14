@@ -1,5 +1,7 @@
 # bulbo v6.12.1
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/kt3k/bulbo.svg)](https://greenkeeper.io/)
+
 > Generate your static site with gulp plugins!
 
 <img width="100" src="https://kt3k.github.io/bulbo/media/logo.svg" />
