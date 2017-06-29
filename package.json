@@ -33,7 +33,7 @@
   },
   "homepage": "https://github.com/kt3k/bulbo#readme",
   "dependencies": {
-    "chalk": "^1.1.1",
+    "chalk": "^2.0.0",
     "chokidar": "^1.4.2",
     "gulp-plumber": "^1.1.0",
     "interpret": "^1.0.0",
