@@ -1,4 +1,4 @@
-# bulbo v6.12.1
+# bulbo v6.13.0
 
 > Generate your static site with gulp plugins!
 
@@ -461,6 +461,7 @@ MIT
 
 # Release history
 
+- 2017-04-26   v6.13.0  Update debug page design.
 - 2017-04-26   v6.11.0  Add config extension types.
 - 2017-04-26   v6.10.0  Update cli.liftoff util.
 - 2017-04-25   v6.9.0   loggerTitle method.
