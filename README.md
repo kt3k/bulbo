@@ -1,4 +1,4 @@
-# bulbo v6.13.0
+# bulbo v6.13.1
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/kt3k/bulbo.svg)](https://greenkeeper.io/)
 

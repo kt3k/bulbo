@@ -1,6 +1,6 @@
 {
   "name": "bulbo",
-  "version": "6.13.0",
+  "version": "6.13.1",
   "description": "Generate your static site with gulp plugins!",
   "main": "lib/index.js",
   "scripts": {
