@@ -17,7 +17,7 @@
     "fix": "standard --fix"
   },
   "bin": {
-    "bulbo": "bin/bulbo.js"
+    "bulbo": "./bin/bulbo.js"
   },
   "repository": {
     "type": "git",
