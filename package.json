@@ -14,7 +14,7 @@
     "cov-open": "npm run cov && open coverage/lcov-report/index.html",
     "codecov": "npm run cov && codecov",
     "lint": "standard",
-    "fix": "standard --fix"
+    "precommit": "lint-staged"
   },
   "bin": {
     "bulbo": "./bin/bulbo.js"
@@ -52,8 +52,11 @@
     "chai": "^4.0.2",
     "codecov": "^3.0.0",
     "dirty-chai": "^2.0.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.1.3",
     "mocha": "^5.0.0",
     "nyc": "^12.0.1",
+    "prettier": "^1.13.4",
     "rimraf": "^2.5.2",
     "standard": "^11.0.0",
     "superagent": "^3.1.0",
@@ -67,6 +70,13 @@
   "babel": {
     "presets": [
       "es2015"
+    ]
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "standard --fix",
+      "git add"
     ]
   }
 }

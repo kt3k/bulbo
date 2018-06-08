@@ -1,8 +1,7 @@
-'use strict'
-
 const Asset = require('./domain/asset')
 const AssetService = require('./app/asset-service')
 const AssetFacade = require('./asset-facade')
+const vinylServe = require('vinyl-serve')
 
 const liftoff = require('./util/liftoff')
 
@@ -47,13 +46,15 @@ exports.port = port => service.setPort(port)
  * Sets the debug page title.
  * @param {string} debugPageTitle
  */
-exports.debugPageTitle = debugPageTitle => service.setDebugPageTitle(debugPageTitle)
+exports.debugPageTitle = debugPageTitle =>
+  service.setDebugPageTitle(debugPageTitle)
 
 /**
  * Sets the debug page path.
  * @param {string} debugPagePath
  */
-exports.debugPagePath = debugPagePath => service.setDebugPagePath(debugPagePath)
+exports.debugPagePath = debugPagePath =>
+  service.setDebugPagePath(debugPagePath)
 
 // -- API for CLI -- //
 // These are used in CLIs.
@@ -90,7 +91,8 @@ exports.isEmpty = () => service.isEmpty()
  * Sets the logger title.
  * @param {string} name The logger title
  */
-exports.loggerTitle = title => service.setLogger(require('./util/logger')(title))
+exports.loggerTitle = title =>
+  service.setLogger(require('./util/logger')(title))
 
 // -- Private API -- //
 // These are used in tests.
@@ -107,4 +109,12 @@ exports.setLogger = logger => service.setLogger(logger)
  */
 exports.clear = () => service.clear()
 
-exports.cli = {liftoff}
+/**
+ * Adds the connect middleware.
+ * @param {Function} middleware
+ */
+exports.addMiddleware = middleware => {
+  vinylServe.addMiddleware(middleware)
+}
+
+exports.cli = { liftoff }

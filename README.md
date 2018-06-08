@@ -285,6 +285,20 @@ Then the console looks like the below:
     myapp [21:22:38] Ready: ../test/fixture/**/*.css
     myapp [21:22:44] Ready: ../test/fixture/**/*.js
 
+## bulbo.addMiddleware(middleware)
+
+- @param {Function} middleware
+
+Adds the connect compiliant middleware to the server.
+
+Example:
+
+```js
+const livereload = require('connect-livereload')
+
+bulbo.addMiddleware(() => livereload())
+```
+
 # Commands
 
 `npm install -g bulbo` installs command `bulbo`. Which supports 2 subcommands `build` and `serve`.
@@ -458,6 +472,7 @@ MIT
 
 # Release history
 
+- 2018-06-09   v7.0.0   Add middleware support. Drop Node 4 support.
 - 2017-04-26   v6.13.0  Update debug page design.
 - 2017-04-26   v6.11.0  Add config extension types.
 - 2017-04-26   v6.10.0  Update cli.liftoff util.
