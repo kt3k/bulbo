@@ -11,7 +11,7 @@ const browserify = require('browserify')
 
 const SERVER_LAUNCH_WAIT = 800
 const BUILD_WAIT = 400
-const WATCH_BUILD_WAIT = 100
+const WATCH_BUILD_WAIT = 300
 const WATCH_BUILD_WAIT_CHANGED = 300
 
 describe('bulbo', () => {
@@ -26,32 +26,39 @@ describe('bulbo', () => {
       expect(bulbo.isEmpty()).to.be.false()
     })
 
-    it('returns the asset\'s modifier', () => {
+    it("returns the asset's modifier", () => {
       expect(bulbo.asset('test/fixture/**/*.js')).to.be.an('object')
       expect(bulbo.asset('test/fixture/**/*.js').watch).to.be.a('function')
-      expect(bulbo.asset('test/fixture/**/*.js').watchOptions).to.be.a('function')
+      expect(bulbo.asset('test/fixture/**/*.js').watchOptions).to.be.a(
+        'function'
+      )
       expect(bulbo.asset('test/fixture/**/*.js').base).to.be.a('function')
     })
 
     describe('.pipe', () => {
       it('sets the transform to the asset', done => {
         bulbo
-        .asset('test/fixture/js/{foo,bar}.js')
-        .base('test/fixture')
-        .pipe(through2.obj(function (file, enc, cb) {
-          file.contents = browserify(file.path).bundle()
+          .asset('test/fixture/js/{foo,bar}.js')
+          .base('test/fixture')
+          .pipe(
+            through2.obj(function (file, enc, cb) {
+              file.contents = browserify(file.path).bundle()
 
-          cb(null, file)
-        }))
+              cb(null, file)
+            })
+          )
 
-        bulbo.build().then(() => {
-          const contents = fs.readFileSync('build/js/foo.js').toString()
+        bulbo
+          .build()
+          .then(() => {
+            const contents = fs.readFileSync('build/js/foo.js').toString()
 
-          expect(contents).to.contain('This is foo.js')
-          expect(contents).to.contain('This is bar.js')
+            expect(contents).to.contain('This is foo.js')
+            expect(contents).to.contain('This is bar.js')
 
-          rimraf('build', done)
-        }).catch(done)
+            rimraf('build', done)
+          })
+          .catch(done)
       })
     })
   })
@@ -61,7 +68,9 @@ describe('bulbo', () => {
       bulbo.asset('test/fixture/**/*.js')
 
       bulbo.build().then(() => {
-        expect(fs.readFileSync('build/js/foo.js').toString()).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/foo.js').toString()
+        ).to.have.length.above(1)
 
         rimraf('build', done)
       })
@@ -71,23 +80,57 @@ describe('bulbo', () => {
       bulbo.asset('test/fixture/**/*.js')
 
       bulbo.build().then(() => {
-        expect(fs.readFileSync('build/js/0.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/1.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/2.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/3.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/4.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/5.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/6.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/7.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/8.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/9.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/10.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/11.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/12.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/13.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/14.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/15.js').toString()).to.have.length.above(1)
-        expect(fs.readFileSync('build/js/16.js').toString()).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/0.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/1.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/2.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/3.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/4.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/5.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/6.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/7.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/8.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/9.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/10.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/11.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/12.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/13.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/14.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/15.js').toString()
+        ).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/js/16.js').toString()
+        ).to.have.length.above(1)
 
         rimraf('build', done)
       })
@@ -107,7 +150,9 @@ describe('bulbo', () => {
       bulbo.watchAndBuild()
 
       setTimeout(() => {
-        expect(fs.readFileSync('build/js/0.js').toString()).to.equal("console.log('hello')\n")
+        expect(fs.readFileSync('build/js/0.js').toString()).to.equal(
+          "console.log('hello')\n"
+        )
 
         bulbo.unwatch()
         rimraf('build', done)
@@ -120,12 +165,16 @@ describe('bulbo', () => {
       bulbo.watchAndBuild()
 
       setTimeout(() => {
-        expect(fs.readFileSync('build/js/0.js').toString()).to.equal("console.log('hello')\n")
+        expect(fs.readFileSync('build/js/0.js').toString()).to.equal(
+          "console.log('hello')\n"
+        )
 
         fs.writeFileSync('test/fixture/js/0.js', "console.log('spam')\n")
 
         setTimeout(() => {
-          expect(fs.readFileSync('build/js/0.js').toString()).to.equal("console.log('spam')\n")
+          expect(fs.readFileSync('build/js/0.js').toString()).to.equal(
+            "console.log('spam')\n"
+          )
 
           fs.writeFileSync('test/fixture/js/0.js', "console.log('hello')\n")
 
@@ -142,16 +191,21 @@ describe('bulbo', () => {
 
       bulbo.serve().then(() => {
         setTimeout(() => {
-          request.get('localhost:7100/js/foo.js').buffer().end((err, res) => {
-            if (err) { done(err) }
+          request
+            .get('localhost:7100/js/foo.js')
+            .buffer()
+            .end((err, res) => {
+              if (err) {
+                done(err)
+              }
 
-            expect(res.text).to.contain('This is foo.js')
-            bulbo.unwatch()
+              expect(res.text).to.contain('This is foo.js')
+              bulbo.unwatch()
 
-            vinylServe.stop(7100).then(() => {
-              done()
+              vinylServe.stop(7100).then(() => {
+                done()
+              })
             })
-          })
         }, SERVER_LAUNCH_WAIT)
       })
     })
@@ -175,16 +229,21 @@ describe('bulbo', () => {
 
       bulbo.serve().then(() => {
         setTimeout(() => {
-          request.get('localhost:7101/js/').buffer().end((err, res) => {
-            if (err) { done(err) }
+          request
+            .get('localhost:7101/js/')
+            .buffer()
+            .end((err, res) => {
+              if (err) {
+                done(err)
+              }
 
-            expect(res.text).to.contain('This is js/index.html')
+              expect(res.text).to.contain('This is js/index.html')
 
-            bulbo.unwatch()
-            vinylServe.stop(7101).then(() => {
-              done()
+              bulbo.unwatch()
+              vinylServe.stop(7101).then(() => {
+                done()
+              })
             })
-          })
         }, SERVER_LAUNCH_WAIT)
       })
     })
@@ -212,7 +271,9 @@ describe('bulbo', () => {
       bulbo.asset('test/fixture/**/*.js')
 
       bulbo.build().then(() => {
-        expect(fs.readFileSync('build/dist/js/foo.js').toString()).to.have.length.above(1)
+        expect(
+          fs.readFileSync('build/dist/js/foo.js').toString()
+        ).to.have.length.above(1)
 
         rimraf('build', done)
       })
@@ -220,22 +281,27 @@ describe('bulbo', () => {
   })
 
   describe('debugPageTitle', () => {
-    it('sets the debug page\'s title', done => {
+    it("sets the debug page's title", done => {
       bulbo.asset('test/fixture/**/*.js')
       bulbo.debugPageTitle('FooBarBaz')
       bulbo.port(7111)
 
       bulbo.serve().then(() => {
-        request.get('localhost:7111/__bulbo__').buffer().end((err, res) => {
-          if (err) { done(err) }
+        request
+          .get('localhost:7111/__bulbo__')
+          .buffer()
+          .end((err, res) => {
+            if (err) {
+              done(err)
+            }
 
-          expect(res.text).to.contain('<title>FooBarBaz</title>')
+            expect(res.text).to.contain('<title>FooBarBaz</title>')
 
-          bulbo.unwatch()
-          vinylServe.stop(7111)
+            bulbo.unwatch()
+            vinylServe.stop(7111)
 
-          done()
-        })
+            done()
+          })
       })
     })
   })
@@ -247,16 +313,21 @@ describe('bulbo', () => {
       bulbo.port(8113)
 
       bulbo.serve().then(() => {
-        request.get('localhost:8113/__foobarbaz__').buffer().end((err, res) => {
-          if (err) { done(err) }
+        request
+          .get('localhost:8113/__foobarbaz__')
+          .buffer()
+          .end((err, res) => {
+            if (err) {
+              done(err)
+            }
 
-          expect(res.text).to.contain('<html>')
+            expect(res.text).to.contain('<html>')
 
-          bulbo.unwatch()
-          vinylServe.stop(8113)
+            bulbo.unwatch()
+            vinylServe.stop(8113)
 
-          done()
-        })
+            done()
+          })
       })
     })
   })
@@ -269,18 +340,23 @@ describe('bulbo', () => {
 
       bulbo.serve().then(() => {
         setTimeout(() => {
-          request.get('localhost:8114/fixture/js/foo.js').buffer().end((err, res) => {
-            if (err) { done(err) }
+          request
+            .get('localhost:8114/fixture/js/foo.js')
+            .buffer()
+            .end((err, res) => {
+              if (err) {
+                done(err)
+              }
 
-            expect(res.text).to.contain('This is foo.js')
+              expect(res.text).to.contain('This is foo.js')
 
-            bulbo.unwatch()
-            vinylServe.stop(8114)
+              bulbo.unwatch()
+              vinylServe.stop(8114)
 
-            bulbo.base(null)
+              bulbo.base(null)
 
-            done()
-          })
+              done()
+            })
         }, SERVER_LAUNCH_WAIT)
       })
     })
