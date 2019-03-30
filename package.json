@@ -59,7 +59,7 @@
     "prettier": "^1.13.4",
     "rimraf": "^2.5.2",
     "standard": "^12.0.0",
-    "superagent": "^4.0.0",
+    "superagent": "^5.0.2",
     "through2": "^3.0.0"
   },
   "standard": {
