@@ -7,7 +7,7 @@
 [![CircleCI](https://circleci.com/gh/kt3k/bulbo.svg?style=svg)](https://circleci.com/gh/kt3k/bulbo)
 [![Build status](https://ci.appveyor.com/api/projects/status/51xxba14ksrl1142?svg=true)](https://ci.appveyor.com/project/kt3k/bulbo)
 [![codecov.io](https://codecov.io/github/kt3k/bulbo/coverage.svg?branch=master)](https://codecov.io/github/kt3k/bulbo?branch=master)
-[![Greenkeeper badge](https://badges.greenkeeper.io/kt3k/bulbo.svg)](https://greenkeeper.io/)
+
 
 # Features
 
