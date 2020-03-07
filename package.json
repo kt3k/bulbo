@@ -78,10 +78,5 @@
       "standard --fix",
       "git add"
     ]
-  },
-  "greenkeeper": {
-    "ignore": [
-      "chokidar"
-    ]
   }
 }
