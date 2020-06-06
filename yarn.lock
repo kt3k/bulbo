@@ -3166,10 +3166,10 @@ insert-module-globals@^7.0.0:
     undeclared-identifiers "^1.1.2"
     xtend "^4.0.0"
 
-interpret@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/interpret/-/interpret-2.1.0.tgz#3440c40d660bb66e77a5953cf472f7d160ae45b2"
-  integrity sha512-tNVZ/5HHkv5Bhp4zIF7YMXKx43/u74Nnpu9fmooNpf+4tc0ARZypBvHr6Mg6zvlltWuWPn2NeQJS5zpaNyD3RQ==
+interpret@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/interpret/-/interpret-2.2.0.tgz#1a78a0b5965c40a5416d007ad6f50ad27c417df9"
+  integrity sha512-Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==
 
 invariant@^2.2.2:
   version "2.2.4"

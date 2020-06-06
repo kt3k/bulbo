@@ -36,7 +36,7 @@
     "chalk": "^3.0.0",
     "chokidar": "2.1.2",
     "gulp-plumber": "^1.1.0",
-    "interpret": "^2.1.0",
+    "interpret": "^2.2.0",
     "liftoff": "^3.0.0",
     "minimisted": "^2.0.0",
     "minirocket": "^2.0.0",
