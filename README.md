@@ -1,4 +1,4 @@
-# bulbo v7.0.0
+# bulbo v7.0.1
 
 > Generate your static site with gulp plugins!
 
@@ -472,7 +472,7 @@ MIT
 
 # Release history
 
-- 2018-06-09   v7.0.0   Add middleware support. Drop Node 4 support.
+- 2018-06-09   v7.0.1   Add middleware support. Drop Node 4 support.
 - 2017-04-26   v6.13.0  Update debug page design.
 - 2017-04-26   v6.11.0  Add config extension types.
 - 2017-04-26   v6.10.0  Update cli.liftoff util.
