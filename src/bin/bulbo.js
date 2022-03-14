@@ -1,6 +1,6 @@
 const chalk = require("chalk");
 const minimisted = require("minimisted");
-const minirocket = require("minirocket");
+const subcommand = require("@kt3k/subcommand");
 
 const usage = require("./usage");
 
@@ -14,7 +14,7 @@ const usage = require("./usage");
 minimisted((argv) => {
   const { v, version, h, help, _: [action] } = argv;
 
-  minirocket({
+  subcommand(__dirname, {
     version: v || version,
     help: h || help,
     serve: !action,

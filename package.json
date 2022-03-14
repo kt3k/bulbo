@@ -32,13 +32,13 @@
   },
   "homepage": "https://github.com/kt3k/bulbo#readme",
   "dependencies": {
+    "@kt3k/subcommand": "^1.0.0",
     "chalk": "^3.0.0",
     "chokidar": "^3.5.2",
     "gulp-plumber": "^1.1.0",
     "interpret": "^2.2.0",
     "liftoff": "^3.0.0",
     "minimisted": "^2.0.1",
-    "minirocket": "^2.0.0",
     "stream-splicer": "^2.0.1",
     "vinyl-fs": "^3.0.0",
     "vinyl-serve": "^3.0.0"
