@@ -22,6 +22,7 @@ jobs:
           node-version: '14'
       - run: deno lint
       - run: deno fmt --check
+        if: matrix.os == 'ubuntu-latest'
       - run: npm i
       - run: npm test
       - run: npm run codecov
