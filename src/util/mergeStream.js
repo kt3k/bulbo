@@ -1,4 +1,4 @@
-const {Stream} = require('stream')
+const { Stream } = require("stream");
 
 /**
  * This is taken from event-stream npm module.
@@ -7,37 +7,37 @@ const {Stream} = require('stream')
  *
  * @param {Stream[]) toMerge streams to be merged
  */
-module.exports = function mergeStream (toMerge) {
-  const stream = new Stream()
+module.exports = function mergeStream(toMerge) {
+  const stream = new Stream();
 
-  stream.setMaxListeners(0) // allow adding more than 11 streams
+  stream.setMaxListeners(0); // allow adding more than 11 streams
 
-  let endCount = 0
+  let endCount = 0;
 
-  stream.writable = stream.readable = true
+  stream.writable = stream.readable = true;
 
-  toMerge.forEach(e => {
-    e.pipe(stream, {end: false})
+  toMerge.forEach((e) => {
+    e.pipe(stream, { end: false });
 
-    let ended = false
+    let ended = false;
 
-    e.on('end', () => {
+    e.on("end", () => {
       if (ended) {
-        return
+        return;
       }
 
-      ended = true
-      endCount++
+      ended = true;
+      endCount++;
 
       if (endCount === toMerge.length) {
-        stream.emit('end')
+        stream.emit("end");
       }
-    })
-  })
+    });
+  });
 
   stream.write = function (data) {
-    this.emit('data', data)
-  }
+    this.emit("data", data);
+  };
 
-  return stream
-}
+  return stream;
+};

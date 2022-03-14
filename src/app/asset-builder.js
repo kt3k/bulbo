@@ -1,7 +1,7 @@
-const vfs = require('vinyl-fs')
-const drain = require('../util/drain')
-const AssetWatcher = require('./asset-watcher')
-const chalk = require('chalk')
+const vfs = require("vinyl-fs");
+const drain = require("../util/drain");
+const AssetWatcher = require("./asset-watcher");
+const chalk = require("chalk");
 
 /**
  * The service class which builds the assets to the file system.
@@ -13,39 +13,43 @@ class AssetBuilder extends AssetWatcher {
    * @param {String} dest The destination
    * @param {Logger} logger The logger
    */
-  constructor (assets, dest, logger) {
-    super(assets)
+  constructor(assets, dest, logger) {
+    super(assets);
 
-    this.logger = logger
-    this.dest = dest
+    this.logger = logger;
+    this.dest = dest;
   }
 
   /**
    * Builds the assets.
    * @return {Promise}
    */
-  build (options) {
-    options = options || {}
+  build(options) {
+    options = options || {};
 
-    this.logger.log(chalk.green('building'))
+    this.logger.log(chalk.green("building"));
 
-    const stream = this.assets.getMergedStream().pipe(vfs.dest(this.dest)).pipe(drain.obj())
+    const stream = this.assets.getMergedStream().pipe(vfs.dest(this.dest)).pipe(
+      drain.obj(),
+    );
 
-    this.assets.forEach(asset => asset.reflow({base: options.base}))
+    this.assets.forEach((asset) => asset.reflow({ base: options.base }));
 
-    return new Promise((resolve, reject) => stream.on('end', resolve).on('error', reject))
-      .then(() => this.logger.log(chalk.green('done')))
+    return new Promise((resolve, reject) =>
+      stream.on("end", resolve).on("error", reject)
+    )
+      .then(() => this.logger.log(chalk.green("done")));
   }
 
   /**
    * Watches and builds.
    * @param {Object} options The options
    */
-  watchAndBuild (options) {
-    this.logger.log(chalk.green('watching and building'))
+  watchAndBuild(options) {
+    this.logger.log(chalk.green("watching and building"));
 
-    this.watchAndPipe(vfs.dest(this.dest), options)
+    this.watchAndPipe(vfs.dest(this.dest), options);
   }
 }
 
-module.exports = AssetBuilder
+module.exports = AssetBuilder;

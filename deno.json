@@ -1,0 +1,27 @@
+{
+  "lint": {
+    "files": {
+      "exclude": [
+        ".git",
+        "test/fixture",
+        "node_modules"
+      ]
+    },
+    "rules": {
+      "exclude": [
+        "no-inner-declarations",
+        "no-this-alias",
+        "no-var"
+      ]
+    }
+  },
+  "fmt": {
+    "files": {
+      "exclude": [
+        ".git",
+        "test/fixture",
+        "node_modules"
+      ]
+    }
+  }
+}

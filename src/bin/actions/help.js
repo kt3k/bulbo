@@ -1,6 +1,6 @@
-const usage = require('../usage')
+const usage = require("../usage");
 
 /**
  * Shows the help.
  */
-module.exports = () => usage()
+module.exports = () => usage();
