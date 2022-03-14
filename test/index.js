@@ -150,9 +150,12 @@ describe('bulbo', () => {
       bulbo.watchAndBuild()
 
       setTimeout(() => {
-        expect(fs.readFileSync('build/js/0.js').toString()).to.equal(
-          "console.log('hello')\n"
-        )
+        expect(
+          fs
+            .readFileSync('build/js/0.js')
+            .toString()
+            .trim()
+        ).to.equal("console.log('hello')")
 
         bulbo.unwatch()
         rimraf('build', done)
@@ -165,18 +168,24 @@ describe('bulbo', () => {
       bulbo.watchAndBuild()
 
       setTimeout(() => {
-        expect(fs.readFileSync('build/js/0.js').toString()).to.equal(
-          "console.log('hello')\n"
-        )
+        expect(
+          fs
+            .readFileSync('build/js/0.js')
+            .toString()
+            .trim()
+        ).to.equal("console.log('hello')")
 
-        fs.writeFileSync('test/fixture/js/0.js', "console.log('spam')\n")
+        fs.writeFileSync('test/fixture/js/0.js', "console.log('spam')")
 
         setTimeout(() => {
-          expect(fs.readFileSync('build/js/0.js').toString()).to.equal(
-            "console.log('spam')\n"
-          )
+          expect(
+            fs
+              .readFileSync('build/js/0.js')
+              .toString()
+              .trim()
+          ).to.equal("console.log('spam')")
 
-          fs.writeFileSync('test/fixture/js/0.js', "console.log('hello')\n")
+          fs.writeFileSync('test/fixture/js/0.js', "console.log('hello')")
 
           bulbo.unwatch()
           rimraf('build', done)
