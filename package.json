@@ -2,19 +2,20 @@
   "name": "bulbo",
   "version": "7.0.1",
   "description": "Generate your static site with gulp plugins!",
-  "main": "lib/index.js",
+  "main": "src/index.js",
+  "files": [
+    "src"
+  ],
   "scripts": {
-    "test": "mocha --exit --require babel-register test",
-    "clean": "rimraf lib coverage",
-    "dist": "babel src -d lib",
-    "prepublish": "npm run clean && npm run dist",
+    "test": "mocha --exit test",
+    "clean": "rimraf coverage",
+    "prepublish": "npm run clean",
     "demo-serve": "cd demo && ../bin/bulbo.js serve",
     "demo-build": "cd demo && ../bin/bulbo.js build",
-    "cov": "nyc --reporter=lcov mocha --exit --require babel-register test",
+    "cov": "nyc --reporter=lcov mocha --exit test",
     "cov-open": "npm run cov && open coverage/lcov-report/index.html",
     "codecov": "npm run cov && codecov",
-    "lint": "standard",
-    "precommit": "lint-staged"
+    "lint": "deno lint"
   },
   "bin": {
     "bulbo": "./bin/bulbo.js"
@@ -26,7 +27,7 @@
   "keywords": [
     "static-site-generator"
   ],
-  "author": "Yoshiya Hinosawa <stibium121@gmail.com> (https://twitter.com/kt3k)",
+  "author": "Yoshiya Hinosawa",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kt3k/bulbo/issues"
@@ -45,38 +46,14 @@
     "vinyl-serve": "^3.0.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.8.0",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-register": "^6.7.2",
     "browserify": "^16.0.0",
     "chai": "^4.0.2",
     "codecov": "^3.0.0",
     "dirty-chai": "^2.0.0",
-    "husky": "^4.0.2",
-    "lint-staged": "^10.0.8",
     "mocha": "^7.0.1",
     "nyc": "^15.0.0",
-    "prettier": "^1.13.4",
     "rimraf": "^3.0.0",
-    "standard": "^14.0.0",
     "superagent": "^5.0.2",
     "through2": "^3.0.0"
-  },
-  "standard": {
-    "env": [
-      "mocha"
-    ]
-  },
-  "babel": {
-    "presets": [
-      "es2015"
-    ]
-  },
-  "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "standard --fix",
-      "git add"
-    ]
   }
 }

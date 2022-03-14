@@ -1,6 +1,6 @@
-const chalk = require('chalk')
-const { extensions } = require('interpret')
-const Liftoff = require('liftoff')
+const chalk = require("chalk");
+const { extensions } = require("interpret");
+const Liftoff = require("liftoff");
 
 /**
  * Lifts off the module using js-liftoff.
@@ -12,56 +12,57 @@ const Liftoff = require('liftoff')
  * @return {Promise<T>} The module interface
  */
 module.exports = (name, options) => {
-  options = options || {}
+  options = options || {};
 
-  const logger = console
-  const configName = options.configName || `${name}file`
+  const logger = console;
+  const configName = options.configName || `${name}file`;
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, _reject) => {
     new Liftoff({ name, configName, extensions })
+      .on("require", (moduleName) => {
+        logger.log("Requiring external module", chalk.magenta(moduleName));
+      })
+      .on("requireFail", (moduleName) => {
+        logger.log(chalk.red(`Failed to load external module ${moduleName}`));
+      })
+      .launch({}, (env) => {
+        if (!options.moduleIsOptional && !env.modulePath) {
+          logger.log(chalk.red(`Error: Local ${name} module not found`));
+          logger.log("Try running:", chalk.green(`npm install ${name}`));
 
-    .on('require', moduleName => { logger.log('Requiring external module', chalk.magenta(moduleName)) })
-
-    .on('requireFail', moduleName => { logger.log(chalk.red(`Failed to load external module ${moduleName}`)) })
-
-    .launch({}, env => {
-      if (!options.moduleIsOptional && !env.modulePath) {
-        logger.log(chalk.red(`Error: Local ${name} module not found`))
-        logger.log('Try running:', chalk.green(`npm install ${name}`))
-
-        process.exit(1)
-      }
-
-      let module = null
-      if (env.modulePath) {
-        module = require(env.modulePath)
-
-        if (typeof module.setLogger === 'function') {
-          module.setLogger(require('./logger')(name))
+          process.exit(1);
         }
-      }
 
-      if (options.configIsOptional && !env.configPath) {
-        return resolve({ module })
-      }
+        let module = null;
+        if (env.modulePath) {
+          module = require(env.modulePath);
 
-      if (!env.configPath) {
-        logger.log(chalk.red(`Error: No ${configName} found`))
+          if (typeof module.setLogger === "function") {
+            module.setLogger(require("./logger")(name));
+          }
+        }
 
-        process.exit(1)
-      }
+        if (options.configIsOptional && !env.configPath) {
+          return resolve({ module });
+        }
 
-      logger.log('Using:', chalk.magenta(env.configPath))
+        if (!env.configPath) {
+          logger.log(chalk.red(`Error: No ${configName} found`));
 
-      try {
-        const config = require(env.configPath)
+          process.exit(1);
+        }
 
-        return resolve({ config, module })
-      } catch (e) {
-        logger.log(chalk.red(e.stack))
+        logger.log("Using:", chalk.magenta(env.configPath));
 
-        process.exit(1)
-      }
-    })
-  })
-}
+        try {
+          const config = require(env.configPath);
+
+          return resolve({ config, module });
+        } catch (e) {
+          logger.log(chalk.red(e.stack));
+
+          process.exit(1);
+        }
+      });
+  });
+};

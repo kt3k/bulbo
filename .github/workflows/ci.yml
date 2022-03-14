@@ -14,9 +14,15 @@ jobs:
           - os: windows-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: v1.x
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
+      - run: deno lint
+      - run: deno fmt --check
+        if: matrix.os == 'ubuntu-latest'
       - run: npm i
       - run: npm test
       - run: npm run codecov

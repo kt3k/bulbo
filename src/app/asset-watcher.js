@@ -1,13 +1,13 @@
-const {EventEmitter} = require('events')
+const { EventEmitter } = require("events");
 
 class AssetWatcher extends EventEmitter {
   /**
    * @param {AssetCollection} assets The assets
    */
-  constructor (assets) {
-    super()
+  constructor(assets) {
+    super();
 
-    this.assets = assets
+    this.assets = assets;
   }
 
   /**
@@ -16,30 +16,36 @@ class AssetWatcher extends EventEmitter {
    * @param {Object} options The options
    * @param {string} options.base The default base path of the asset
    */
-  watchAndPipe (writable, options) {
-    options = options || {}
+  watchAndPipe(writable, options) {
+    options = options || {};
 
-    this.assets.forEach(asset => {
-      asset.getStream().pipe(writable)
+    this.assets.forEach((asset) => {
+      asset.getStream().pipe(writable);
 
       asset.watch(() => {
-        this.emit('changed', asset)
+        this.emit("changed", asset);
 
-        asset.reflow({end: false, base: options.base}, () => this.emit('ready', asset))
-      })
+        asset.reflow(
+          { end: false, base: options.base },
+          () => this.emit("ready", asset),
+        );
+      });
 
-      this.emit('reading', asset)
+      this.emit("reading", asset);
 
-      asset.reflow({end: false, base: options.base}, () => this.emit('ready', asset))
-    })
+      asset.reflow(
+        { end: false, base: options.base },
+        () => this.emit("ready", asset),
+      );
+    });
   }
 
   /**
    * Unwatches the assets
    */
-  unwatch () {
-    this.assets.forEach(asset => asset.unwatch())
+  unwatch() {
+    this.assets.forEach((asset) => asset.unwatch());
   }
 }
 
-module.exports = AssetWatcher
+module.exports = AssetWatcher;

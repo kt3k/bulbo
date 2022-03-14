@@ -1,4 +1,4 @@
-const chokidar = require('chokidar')
+const chokidar = require("chokidar");
 
 /**
  * Watches the given patterns with chokidor and kicks the callback if file is created, removed or changed.
@@ -8,12 +8,14 @@ const chokidar = require('chokidar')
  * @param {Function} cb The callback
  */
 module.exports = function (glob, opts, cb) {
-  opts = opts || {}
+  opts = opts || {};
 
-  opts.ignoreInitial = typeof opts.ignoreInitial === 'boolean' ? opts.ignoreInitial : true
+  opts.ignoreInitial = typeof opts.ignoreInitial === "boolean"
+    ? opts.ignoreInitial
+    : true;
 
   return chokidar.watch(glob, opts)
-    .on('unlink', cb)
-    .on('change', cb)
-    .on('add', cb)
-}
+    .on("unlink", cb)
+    .on("change", cb)
+    .on("add", cb);
+};
