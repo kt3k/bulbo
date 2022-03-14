@@ -46,7 +46,7 @@
   "devDependencies": {
     "browserify": "^16.0.0",
     "chai": "^4.0.2",
-    "codecov": "^3.0.0",
+    "codecov": "^3.8.3",
     "dirty-chai": "^2.0.0",
     "mocha": "^7.0.1",
     "nyc": "^15.0.0",
