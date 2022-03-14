@@ -1,4 +1,4 @@
-# bulbo v8.0.1
+# bulbo v8.0.2
 
 > Generate your static site with gulp plugins!
 
