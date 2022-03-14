@@ -514,6 +514,7 @@ MIT
 
 # Release history
 
+- 2022-03-14 v8.0.0 Clean up. Support only Node >=14.
 - 2018-06-09 v7.0.1 Add middleware support. Drop Node 4 support.
 - 2017-04-26 v6.13.0 Update debug page design.
 - 2017-04-26 v6.11.0 Add config extension types.
