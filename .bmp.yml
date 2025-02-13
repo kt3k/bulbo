@@ -1,5 +1,5 @@
 version: 8.0.2
-commit: 'chore: version v%.%.%'
+commit: "chore: version v%.%.%"
 files:
   README.md: bulbo v%.%.%
   package.json: '"version": "%.%.%"'
