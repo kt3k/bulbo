@@ -23,5 +23,8 @@
         "node_modules"
       ]
     }
-  }
+  },
+  "unstable": [
+    "unsafe-proto"
+  ]
 }
