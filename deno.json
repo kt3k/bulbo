@@ -9,6 +9,7 @@
     },
     "rules": {
       "exclude": [
+        "no-process-globals",
         "no-inner-declarations",
         "no-this-alias",
         "no-var"
