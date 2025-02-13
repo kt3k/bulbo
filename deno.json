@@ -1,12 +1,10 @@
 {
   "lint": {
-    "files": {
-      "exclude": [
-        ".git",
-        "test/fixture",
-        "node_modules"
-      ]
-    },
+    "exclude": [
+      ".git",
+      "test/fixture",
+      "node_modules"
+    ],
     "rules": {
       "exclude": [
         "no-process-globals",
@@ -17,13 +15,11 @@
     }
   },
   "fmt": {
-    "files": {
-      "exclude": [
-        ".git",
-        "test/fixture",
-        "node_modules"
-      ]
-    }
+    "exclude": [
+      ".git",
+      "test/fixture",
+      "node_modules"
+    ]
   },
   "unstable": [
     "unsafe-proto"
