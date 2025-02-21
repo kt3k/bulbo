@@ -5,7 +5,6 @@
 <img width="100" src="https://kt3k.github.io/bulbo/media/logo.svg" />
 
 [![ci](https://github.com/kt3k/bulbo/actions/workflows/ci.yml/badge.svg)](https://github.com/kt3k/bulbo/actions/workflows/ci.yml)
-[![codecov.io](https://codecov.io/github/kt3k/bulbo/coverage.svg?branch=master)](https://codecov.io/github/kt3k/bulbo?branch=master)
 
 # Features
 

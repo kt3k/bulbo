@@ -25,4 +25,3 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
       - run: npm i
       - run: npm test
-      - run: npm run codecov
