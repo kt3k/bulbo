@@ -2,7 +2,6 @@ const fs = require("fs");
 const bulbo = require("../src/");
 
 const { expect } = require("chai");
-const rimraf = require("rimraf");
 const request = require("superagent");
 const vinylServe = require("vinyl-serve");
 const through2 = require("through2");
@@ -55,7 +54,7 @@ describe("bulbo", () => {
             expect(contents).to.contain("This is foo.js");
             expect(contents).to.contain("This is bar.js");
 
-            rimraf("build", done);
+            fs.rm("build", { recursive: true }, done);
           })
           .catch(done);
       });
@@ -71,7 +70,7 @@ describe("bulbo", () => {
           fs.readFileSync("build/js/foo.js").toString(),
         ).to.have.length.above(1);
 
-        rimraf("build", done);
+        fs.rm("build", { recursive: true },  done);
       });
     });
 
@@ -131,7 +130,7 @@ describe("bulbo", () => {
           fs.readFileSync("build/js/16.js").toString(),
         ).to.have.length.above(1);
 
-        rimraf("build", done);
+        fs.rm("build", { recursive: true }, done);
       });
     });
 
@@ -157,7 +156,7 @@ describe("bulbo", () => {
         ).to.equal("console.log('hello')");
 
         bulbo.unwatch();
-        rimraf("build", done);
+        fs.rm("build", { recursive: true }, done);
       }, WATCH_BUILD_WAIT);
     });
 
@@ -187,7 +186,7 @@ describe("bulbo", () => {
           fs.writeFileSync("test/fixture/js/0.js", "console.log('hello')");
 
           bulbo.unwatch();
-          rimraf("build", done);
+          fs.rm("build", { recursive: true }, done);
         }, WATCH_BUILD_WAIT_CHANGED);
       }, WATCH_BUILD_WAIT);
     });
@@ -283,7 +282,7 @@ describe("bulbo", () => {
           fs.readFileSync("build/dist/js/foo.js").toString(),
         ).to.have.length.above(1);
 
-        rimraf("build", done);
+        fs.rm("build", { recursive: true }, done);
       });
     });
   });
