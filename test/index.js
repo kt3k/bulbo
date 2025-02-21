@@ -1,7 +1,6 @@
 const fs = require("fs");
 const bulbo = require("../src/");
 
-require("./helper");
 const { expect } = require("chai");
 const rimraf = require("rimraf");
 const request = require("superagent");
@@ -23,7 +22,7 @@ describe("bulbo", () => {
   describe("asset", () => {
     it("registers the asset", () => {
       bulbo.asset("test/fixture/**/*.js");
-      expect(bulbo.isEmpty()).to.be.false();
+      expect(bulbo.isEmpty()).to.be.false;
     });
 
     it("returns the asset's modifier", () => {
