@@ -74,6 +74,7 @@ class Asset extends EventEmitter {
    * @param {Function} cb The callback
    */
   reflow(options, cb) {
+    console.log("hello reflow")
     options = options || {};
 
     this.getSourceStream({ base: options.base }).pipe(this.pipeline, {
@@ -90,6 +91,7 @@ class Asset extends EventEmitter {
    * @return {Readable}
    */
   getSourceStream(options) {
+    console.log(Object.assign(options, this.opts));
     return vfs.src(this.paths, Object.assign(options, this.opts));
   }
 

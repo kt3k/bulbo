@@ -1,6 +1,6 @@
 {
   "name": "bulbo",
-  "version": "8.0.2",
+  "version": "8.0.3",
   "description": "Generate your static site with gulp plugins!",
   "type": "commonjs",
   "main": "src/index.js",
@@ -40,7 +40,7 @@
     "liftoff": "^3.0.0",
     "minimisted": "^2.0.1",
     "stream-splicer": "^2.0.1",
-    "vinyl-fs": "^3.0.0",
+    "vinyl-fs": "^4.0.0",
     "vinyl-serve": "^3.0.1"
   },
   "devDependencies": {

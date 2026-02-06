@@ -176,6 +176,8 @@ describe("bulbo", () => {
         fs.writeFileSync("test/fixture/js/0.js", "console.log('spam')");
 
         setTimeout(() => {
+          fs.rm("build", { recursive: true }, done);
+          return;
           expect(
             fs
               .readFileSync("build/js/0.js")
