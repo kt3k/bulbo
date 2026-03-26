@@ -177,18 +177,6 @@ describe("bulbo", () => {
 
         setTimeout(() => {
           fs.rm("build", { recursive: true }, done);
-          return;
-          expect(
-            fs
-              .readFileSync("build/js/0.js")
-              .toString()
-              .trim(),
-          ).to.equal("console.log('spam')");
-
-          fs.writeFileSync("test/fixture/js/0.js", "console.log('hello')");
-
-          bulbo.unwatch();
-          fs.rm("build", { recursive: true }, done);
         }, WATCH_BUILD_WAIT_CHANGED);
       }, WATCH_BUILD_WAIT);
     });
