@@ -74,7 +74,7 @@ class Asset extends EventEmitter {
    * @param {Function} cb The callback
    */
   reflow(options, cb) {
-    console.log("hello reflow")
+    console.log("hello reflow");
     options = options || {};
 
     this.getSourceStream({ base: options.base }).pipe(this.pipeline, {

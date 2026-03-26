@@ -70,7 +70,7 @@ describe("bulbo", () => {
           fs.readFileSync("build/js/foo.js").toString(),
         ).to.have.length.above(1);
 
-        fs.rm("build", { recursive: true },  done);
+        fs.rm("build", { recursive: true }, done);
       });
     });
 
